@@ -537,8 +537,9 @@ using DocumentFilter = OneOf<lsp::TextDocumentFilter, lsp::NotebookCellTextDocum
 /// equal to the optional language identifier in fenced code blocks in GitHub issues. See
 /// https://help.github.com/articles/creating-and-highlighting-code-blocks/#syntax-highlighting The
 /// pair of a language and a value is an equivalent to markdown: ```${language} ${value} ``` Note
-/// that markdown strings will be sanitized - that means html will be escaped. @deprecated use
-/// MarkupContent instead.
+/// that markdown strings will be sanitized - that means html will be escaped.
+///
+/// Deprecated: use MarkupContent instead.
 using MarkedString = OneOf<String, lsp::MarkedStringWithLanguage>;
 
 /// An event describing a change to a text document. If only a text is provided it is considered to
@@ -4348,12 +4349,15 @@ struct InitializeParamsBase {
     /// @since 3.16.0
     Optional<String> locale;
 
-    /// The rootPath of the workspace. Is null if no folder is open. @deprecated in favour of
-    /// rootUri.
+    /// The rootPath of the workspace. Is null if no folder is open.
+    ///
+    /// Deprecated: in favour of rootUri.
     Optional<OneOf<String, Null>> root_path;
 
     /// The rootUri of the workspace. Is null if no folder is open. If both `rootPath` and `rootUri`
-    /// are set `rootUri` wins. @deprecated in favour of workspaceFolders.
+    /// are set `rootUri` wins.
+    ///
+    /// Deprecated: in favour of workspaceFolders.
     OneOf<DocumentUri, Null> root_uri{};
 
     /// The capabilities provided by the client (editor or tool)
@@ -5075,7 +5079,9 @@ struct CompletionItem {
     /// A human-readable string that represents a doc-comment.
     Optional<OneOf<String, lsp::MarkupContent>> documentation;
 
-    /// Indicates if this item is deprecated. @deprecated Use `tags` instead.
+    /// Indicates if this item is deprecated.
+    ///
+    /// Deprecated: Use `tags` instead.
     Optional<Boolean> deprecated;
 
     /// Select this item when showing. *Note* that only one completion item can be selected and that
@@ -5405,7 +5411,9 @@ struct BaseSymbolInformation {
 
 /// Represents information about programming constructs like variables, classes, interfaces etc.
 struct SymbolInformation : lsp::BaseSymbolInformation {
-    /// Indicates if this symbol is deprecated. @deprecated Use tags instead
+    /// Indicates if this symbol is deprecated.
+    ///
+    /// Deprecated: Use tags instead
     Optional<Boolean> deprecated;
 
     /// The location of this symbol. The location's range is used by a tool to reveal the location
@@ -5436,7 +5444,9 @@ struct DocumentSymbol {
     /// @since 3.16.0
     Optional<std::vector<lsp::SymbolTag>> tags;
 
-    /// Indicates if this symbol is deprecated. @deprecated Use tags instead
+    /// Indicates if this symbol is deprecated.
+    ///
+    /// Deprecated: Use tags instead
     Optional<Boolean> deprecated;
 
     /// The range enclosing this symbol not including leading/trailing whitespace but everything
@@ -6042,7 +6052,9 @@ struct TextDocumentContentChangePartial {
     /// The range of the document that changed.
     lsp::Range range{};
 
-    /// The optional length of the range that got replaced. @deprecated use range instead.
+    /// The optional length of the range that got replaced.
+    ///
+    /// Deprecated: use range instead.
     Optional<Uinteger> range_length;
 
     /// The new text for the provided range.
@@ -6059,7 +6071,9 @@ struct TextDocumentContentChangeWholeDocument {
 
 /// @since 3.18.0
 ///
-/// Proposed in: @deprecated use MarkupContent instead.
+/// Proposed in:
+///
+/// Deprecated: use MarkupContent instead.
 struct MarkedStringWithLanguage {
     /// No documentation available
     String language{};
