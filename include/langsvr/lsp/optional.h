@@ -28,6 +28,7 @@
 #ifndef LANGSVR_LSP_OPTIONAL_H_
 #define LANGSVR_LSP_OPTIONAL_H_
 
+#include <cassert>
 #include <memory>
 #include <utility>
 
@@ -130,17 +131,12 @@ struct Optional {
 
   private:
     T& Get() {
-        if (!ptr) {
-            ptr = new T();
-        }
+        assert(ptr);
         return *ptr;
     }
 
     const T& Get() const {
-        if (!ptr) {
-            static T zero{};
-            return zero;
-        }
+        assert(ptr);
         return *ptr;
     }
 
