@@ -348,6 +348,7 @@ func (r *resolver) documentation(in string) string {
 	s = strings.ReplaceAll(s, "@proposed", "\n\nProposed in:")
 	s = strings.ReplaceAll(s, "@sample", "\n\nExample:")
 	s = strings.ReplaceAll(s, "@since", "\n\n@since")
+	s = strings.ReplaceAll(s, "@deprecated", "\n\nDeprecated:")
 	return strings.TrimSpace(s)
 }
 
