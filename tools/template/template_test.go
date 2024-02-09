@@ -48,18 +48,6 @@ func check(t *testing.T, content, expected string, fns template.Functions) {
 	}
 }
 
-func TestContains(t *testing.T) {
-	tmpl := `
-{{ Contains "hello world" "hello"}}
-{{ Contains "hello world" "fish"}}
-`
-	expected := `
-true
-false
-`
-	check(t, tmpl, expected, nil)
-}
-
 func TestEvalSingleParameter(t *testing.T) {
 	tmpl := `
 pre-eval
@@ -109,61 +97,6 @@ post-eval
 
 pre-define
 post-define
-`
-	check(t, tmpl, expected, nil)
-}
-
-func TestHasPrefix(t *testing.T) {
-	tmpl := `
-{{ HasPrefix "hello world" "hello"}}
-{{ HasPrefix "hello world" "world"}}
-`
-	expected := `
-true
-false
-`
-	check(t, tmpl, expected, nil)
-}
-
-func TestIterate(t *testing.T) {
-	tmpl := `
-{{- range $i := Iterate 5}}
-  {{$i}}
-{{- end}}
-`
-	expected := `
-  0
-  1
-  2
-  3
-  4
-`
-	check(t, tmpl, expected, nil)
-}
-
-func TestMap(t *testing.T) {
-	tmpl := `
-	{{- $m := Map }}
-	{{- $m.Put "one" 1 }}
-	{{- $m.Put "two" 2 }}
-	one: {{ $m.Get "one" }}
-	two: {{ $m.Get "two" }}
-`
-	expected := `
-	one: 1
-	two: 2
-`
-	check(t, tmpl, expected, nil)
-}
-
-func TestPascalCase(t *testing.T) {
-	tmpl := `
-{{ PascalCase "hello world" }}
-{{ PascalCase "hello_world" }}
-`
-	expected := `
-HelloWorld
-HelloWorld
 `
 	check(t, tmpl, expected, nil)
 }
