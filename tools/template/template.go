@@ -38,6 +38,9 @@ import (
 	"strings"
 	"text/template"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/google/langsvr/tools/fileutils"
 )
 
@@ -82,7 +85,7 @@ func (t *Template) Run(w io.Writer, data any, funcs Functions) error {
 		"Is":     is,
 		"Split":  strings.Split,
 		"Join":   strings.Join,
-		"Title":  strings.Title,
+		"Title":  cases.Title(language.Und, cases.NoLower).String,
 		"Sum":    sum,
 		"Error":  func(err string, args ...any) string { panic(fmt.Errorf(err, args...)) },
 	}
