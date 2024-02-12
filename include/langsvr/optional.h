@@ -25,14 +25,14 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef LANGSVR_LSP_OPTIONAL_H_
-#define LANGSVR_LSP_OPTIONAL_H_
+#ifndef LANGSVR_OPTIONAL_H_
+#define LANGSVR_OPTIONAL_H_
 
 #include <cassert>
 #include <memory>
 #include <utility>
 
-namespace langsvr::lsp {
+namespace langsvr {
 
 /// Optional is similar to std::optional, but internally uses a pointer for the value. This allows
 /// Optional to use forward-declared type lists, which is required as the LSP has cyclic
@@ -143,6 +143,6 @@ struct Optional {
     T* ptr = nullptr;
 };
 
-}  // namespace langsvr::lsp
+}  // namespace langsvr
 
-#endif  // LANGSVR_LSP_OPTIONAL_H_
+#endif  // LANGSVR_OPTIONAL_H_

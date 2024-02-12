@@ -29,10 +29,10 @@
 #define LANGSVR_JSON_BUILDER_
 
 #include <memory>
-#include <span>
 #include <type_traits>
 
 #include "langsvr/json/value.h"
+#include "langsvr/span.h"
 #include "langsvr/traits.h"
 
 // Forward declarations
@@ -90,7 +90,7 @@ class Builder {
 
     /// Creates an array JSON value
     /// @param elements the elements of the array
-    virtual const Value* Array(std::span<const Value*> elements) = 0;
+    virtual const Value* Array(Span<const Value*> elements) = 0;
 
     /// Member represents a single member of a JSON object
     struct Member {
@@ -102,7 +102,7 @@ class Builder {
 
     /// Creates an object JSON value
     /// @param members the members of the array
-    virtual const Value* Object(std::span<Member> members) = 0;
+    virtual const Value* Object(Span<Member> members) = 0;
 
     template <typename T>
     auto Create(T&& value) {

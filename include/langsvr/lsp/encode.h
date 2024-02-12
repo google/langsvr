@@ -35,9 +35,9 @@
 #include <vector>
 
 #include "langsvr/json/builder.h"
-#include "langsvr/lsp/one_of.h"
-#include "langsvr/lsp/optional.h"
 #include "langsvr/lsp/primitives.h"
+#include "langsvr/one_of.h"
+#include "langsvr/optional.h"
 #include "langsvr/traits.h"
 
 // Forward declarations

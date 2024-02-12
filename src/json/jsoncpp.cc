@@ -27,6 +27,7 @@
 
 #include "langsvr/json/builder.h"
 #include "langsvr/json/value.h"
+#include "langsvr/span.h"
 #include "src/utils/block_allocator.h"
 
 #include "json/reader.h"
@@ -71,8 +72,8 @@ class BuilderImpl : public Builder {
     const Value* U64(json::U64 value) override;
     const Value* F64(json::F64 value) override;
     const Value* String(json::String value) override;
-    const Value* Array(std::span<const Value*> elements) override;
-    const Value* Object(std::span<Member> members) override;
+    const Value* Array(Span<const Value*> elements) override;
+    const Value* Object(Span<Member> members) override;
 
     BlockAllocator<ValueImpl> allocator;
 };
@@ -113,50 +114,50 @@ json::Kind ValueImpl::Kind() const {
 // json::Reader compliance
 
 Result<SuccessType> ValueImpl::Null() const {
-    if (v.isNull()) [[likely]] {
+    if (v.isNull()) {
         return Success;
     }
     return ErrIncorrectType("Bool");
 }
 
 Result<json::Bool> ValueImpl::Bool() const {
-    if (v.isBool()) [[likely]] {
+    if (v.isBool()) {
         return v.asBool();
     }
     return ErrIncorrectType("Bool");
 }
 
 Result<json::I64> ValueImpl::I64() const {
-    if (v.isInt64()) [[likely]] {
+    if (v.isInt64()) {
         return v.asInt64();
     }
     return ErrIncorrectType("I64");
 }
 
 Result<json::U64> ValueImpl::U64() const {
-    if (v.isUInt64()) [[likely]] {
+    if (v.isUInt64()) {
         return v.asUInt64();
     }
     return ErrIncorrectType("U64");
 }
 
 Result<json::F64> ValueImpl::F64() const {
-    if (v.isDouble()) [[likely]] {
+    if (v.isDouble()) {
         return v.asDouble();
     }
     return ErrIncorrectType("F64");
 }
 
 Result<json::String> ValueImpl::String() const {
-    if (v.isString()) [[likely]] {
+    if (v.isString()) {
         return v.asString();
     }
     return ErrIncorrectType("String");
 }
 
 Result<const Value*> ValueImpl::Get(size_t index) const {
-    if (v.isArray()) [[likely]] {
-        if (index < v.size()) [[likely]] {
+    if (v.isArray()) {
+        if (index < v.size()) {
             return b.allocator.Create(
                 v.get(static_cast<Json::ArrayIndex>(index), Json::Value::null), b);
         }
@@ -168,8 +169,8 @@ Result<const Value*> ValueImpl::Get(size_t index) const {
 }
 
 Result<const Value*> ValueImpl::Get(std::string_view name) const {
-    if (v.isObject()) [[likely]] {
-        if (v.isMember(name.data(), name.data() + name.length())) [[likely]] {
+    if (v.isObject()) {
+        if (v.isMember(name.data(), name.data() + name.length())) {
             return b.allocator.Create(
                 v.get(name.data(), name.data() + name.length(), Json::Value::null), b);
         }
@@ -185,7 +186,7 @@ size_t ValueImpl::Count() const {
 }
 
 Result<std::vector<std::string>> ValueImpl::MemberNames() const {
-    if (v.isObject()) [[likely]] {
+    if (v.isObject()) {
         return v.getMemberNames();
     }
     return ErrIncorrectType("Object");
@@ -240,7 +241,7 @@ const Value* BuilderImpl::String(json::String value) {
     return allocator.Create(Json::Value(value), *this);
 }
 
-const Value* BuilderImpl::Array(std::span<const Value*> elements) {
+const Value* BuilderImpl::Array(Span<const Value*> elements) {
     Json::Value array(Json::arrayValue);
     for (auto* el : elements) {
         array.append(static_cast<const ValueImpl*>(el)->v);
@@ -248,7 +249,7 @@ const Value* BuilderImpl::Array(std::span<const Value*> elements) {
     return allocator.Create(std::move(array), *this);
 }
 
-const Value* BuilderImpl::Object(std::span<Member> members) {
+const Value* BuilderImpl::Object(Span<Member> members) {
     Json::Value object(Json::objectValue);
     for (auto& member : members) {
         object[member.name] = static_cast<const ValueImpl*>(member.value)->v;
