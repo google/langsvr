@@ -25,15 +25,15 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef LANGSVR_LSP_ONE_OF_H_
-#define LANGSVR_LSP_ONE_OF_H_
+#ifndef LANGSVR_ONE_OF_H_
+#define LANGSVR_ONE_OF_H_
 
 #include <memory>
 #include <utility>
 
 #include "langsvr/traits.h"
 
-namespace langsvr::lsp {
+namespace langsvr {
 
 /// OneOf is similar to std::variant with an implicit std::monostate, but internally uses a pointer
 /// for the value. This allows OneOf to use forward-declared type lists, which is required as the
@@ -155,6 +155,6 @@ struct OneOf {
     uint8_t kind = 0xff;
 };
 
-}  // namespace langsvr::lsp
+}  // namespace langsvr
 
-#endif  // LANGSVR_LSP_ONE_OF_H_
+#endif  // LANGSVR_ONE_OF_H_

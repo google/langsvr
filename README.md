@@ -1,6 +1,6 @@
-# `langsvr`, a C++ 20 implementation of the Language Server Protocol
+# `langsvr`, a C++ 17 implementation of the Language Server Protocol
 
-`langsvr` is an open-source C++ 20 implementation of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)
+`langsvr` is an open-source C++ 17 implementation of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)
 
 This project is in-development.
 

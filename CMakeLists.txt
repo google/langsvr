@@ -33,7 +33,7 @@ project(
     LANGUAGES CXX
 )
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 enable_testing()
@@ -126,16 +126,17 @@ if(LANGSVR_BUILD_TESTS)
     endif()
 
     add_executable(langsvr_tests
-        src/buffer_writer_test.cc
-        src/json/builder_test.cc
-        src/utils/block_allocator_test.cc
-        src/result_test.cc
         src/buffer_reader_test.cc
+        src/buffer_writer_test.cc
         src/content_stream_test.cc
-        src/lsp/one_of_test.cc
-        src/lsp/optional_test.cc
-        src/lsp/session_test.cc
+        src/one_of_test.cc
+        src/optional_test.cc
+        src/result_test.cc
+        src/span_test.cc
         src/traits_test.cc
+        src/json/builder_test.cc
+        src/lsp/session_test.cc
+        src/utils/block_allocator_test.cc
     )
 
     target_include_directories(langsvr_tests PRIVATE
