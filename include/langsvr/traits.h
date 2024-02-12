@@ -29,6 +29,7 @@
 #define LANGSVR_TRAITS_H_
 
 #include <string>
+#include <tuple>
 
 namespace langsvr::detail {
 
