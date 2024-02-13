@@ -57,7 +57,7 @@ class Span {
     /// @returns a pointer to one beyond the last element in the span
     const T* end() const { return &elements_[count_]; }
     /// @returns the number of elements in the span
-    const size_t size() const { return count_; }
+    size_t size() const { return count_; }
 
   private:
     const T* const elements_;
