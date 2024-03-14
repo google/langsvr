@@ -1913,9 +1913,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentI
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentIdentifier& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentIdentifier& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.uri, b);
@@ -1924,7 +1925,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentIdentifier&
         }
         members.push_back(json::Builder::Member{"uri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentIdentifier& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -1965,9 +1974,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Position& out
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Position& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Position& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.line, b);
@@ -1983,7 +1993,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Position& in,
         }
         members.push_back(json::Builder::Member{"character", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Position& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2025,9 +2043,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentPositionParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentPositionParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -2043,7 +2062,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentPositionPar
         }
         members.push_back(json::Builder::Member{"position", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentPositionParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2067,14 +2094,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Implementatio
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ImplementationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const ImplementationParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -2115,9 +2152,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Range& out) {
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Range& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Range& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.start, b);
@@ -2133,7 +2171,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Range& in,
         }
         members.push_back(json::Builder::Member{"end", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Range& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2174,9 +2220,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Location& out
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Location& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Location& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.uri, b);
@@ -2192,7 +2239,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Location& in,
         }
         members.push_back(json::Builder::Member{"range", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Location& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2224,9 +2279,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.document_selector, b);
@@ -2235,7 +2291,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentRegistratio
         }
         members.push_back(json::Builder::Member{"documentSelector", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2251,11 +2315,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Implementatio
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ImplementationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const ImplementationOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2289,18 +2362,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ImplementationRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ImplementationRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const ImplementationOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const ImplementationOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ImplementationRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2324,14 +2408,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeDefinitio
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeDefinitionParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -2347,11 +2441,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeDefinitio
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeDefinitionOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2385,18 +2488,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeDefinitionRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const TypeDefinitionOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TypeDefinitionOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2437,9 +2551,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceFold
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFolder& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceFolder& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.uri, b);
@@ -2455,7 +2570,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFolder& in,
         }
         members.push_back(json::Builder::Member{"name", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFolder& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2497,9 +2620,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersChangeEvent& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceFoldersChangeEvent& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.added, b);
@@ -2515,7 +2639,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersChangeE
         }
         members.push_back(json::Builder::Member{"removed", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersChangeEvent& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2547,9 +2679,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWorkspaceFoldersParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidChangeWorkspaceFoldersParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.event, b);
@@ -2558,7 +2691,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWorkspaceFolde
         }
         members.push_back(json::Builder::Member{"event", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWorkspaceFoldersParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2603,9 +2744,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Configuration
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ConfigurationItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.scope_uri) {
         auto res = Encode(*in.scope_uri, b);
@@ -2621,7 +2763,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationItem& in,
         }
         members.push_back(json::Builder::Member{"section", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2650,9 +2800,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Configuration
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ConfigurationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.items, b);
@@ -2661,7 +2812,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationParams& in
         }
         members.push_back(json::Builder::Member{"items", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2690,9 +2849,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentColor
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentColorParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -2701,7 +2861,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorParams& in
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2766,9 +2934,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Color& out) {
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Color& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Color& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.red, b);
@@ -2798,7 +2967,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Color& in,
         }
         members.push_back(json::Builder::Member{"alpha", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Color& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2839,9 +3016,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorInformat
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ColorInformation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ColorInformation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -2857,7 +3035,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ColorInformation& in,
         }
         members.push_back(json::Builder::Member{"color", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ColorInformation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2873,11 +3059,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentColor
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentColorOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2911,18 +3106,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentColorRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentColorOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DocumentColorOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -2975,9 +3181,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorPresenta
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentationParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ColorPresentationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -3000,7 +3207,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentationParams
         }
         members.push_back(json::Builder::Member{"range", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentationParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3041,9 +3256,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextEdit& out
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextEdit& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextEdit& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -3059,7 +3275,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextEdit& in,
         }
         members.push_back(json::Builder::Member{"newText", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextEdit& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3116,9 +3340,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorPresenta
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ColorPresentation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.label, b);
@@ -3141,7 +3366,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentation& in,
         }
         members.push_back(json::Builder::Member{"additionalTextEdits", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3172,9 +3405,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.work_done_progress) {
         auto res = Encode(*in.work_done_progress, b);
@@ -3183,7 +3417,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressOptions
         }
         members.push_back(json::Builder::Member{"workDoneProgress", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3212,9 +3454,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRangeP
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FoldingRangeParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -3223,7 +3466,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeParams& in,
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3320,9 +3571,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRange&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FoldingRange& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FoldingRange& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(6);
     {
         auto res = Encode(in.start_line, b);
@@ -3366,7 +3618,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRange& in,
         }
         members.push_back(json::Builder::Member{"collapsedText", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FoldingRange& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3382,11 +3642,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRangeO
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FoldingRangeOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3420,18 +3689,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FoldingRangeRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const FoldingRangeOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const FoldingRangeOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3455,14 +3735,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeclarationPa
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeclarationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DeclarationParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -3478,11 +3768,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeclarationOp
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeclarationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DeclarationOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3516,18 +3815,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DeclarationRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeclarationRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const DeclarationOptions&>(in), b); res != Success) {
-        return res.Failure();
-    }
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const DeclarationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DeclarationRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3568,9 +3878,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRang
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SelectionRangeParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -3586,7 +3897,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeParams& i
         }
         members.push_back(json::Builder::Member{"positions", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3629,9 +3948,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRang
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SelectionRange& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SelectionRange& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -3647,7 +3967,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRange& in,
         }
         members.push_back(json::Builder::Member{"parent", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SelectionRange& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3663,11 +3991,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRang
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SelectionRangeOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3701,18 +4038,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SelectionRangeRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const SelectionRangeOptions&>(in), b); res != Success) {
-        return res.Failure();
-    }
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const SelectionRangeOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3742,9 +4090,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCreateParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressCreateParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.token, b);
@@ -3753,7 +4102,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCreateP
         }
         members.push_back(json::Builder::Member{"token", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCreateParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3783,9 +4140,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCancelParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressCancelParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.token, b);
@@ -3794,7 +4152,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCancelP
         }
         members.push_back(json::Builder::Member{"token", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCancelParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -3819,14 +4185,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyPrepareParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyPrepareParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -3945,9 +4321,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchy
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(8);
     {
         auto res = Encode(in.name, b);
@@ -4005,7 +4382,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyItem& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4021,11 +4406,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchy
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4059,18 +4453,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const CallHierarchyOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const CallHierarchyOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4102,9 +4507,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCallsParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyIncomingCallsParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.item, b);
@@ -4113,7 +4519,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCa
         }
         members.push_back(json::Builder::Member{"item", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCallsParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4154,9 +4568,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchy
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCall& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyIncomingCall& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.from, b);
@@ -4172,7 +4587,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCa
         }
         members.push_back(json::Builder::Member{"fromRanges", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCall& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4204,9 +4627,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCallsParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyOutgoingCallsParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.item, b);
@@ -4215,7 +4639,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCa
         }
         members.push_back(json::Builder::Member{"item", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCallsParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4256,9 +4688,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchy
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCall& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyOutgoingCall& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.to, b);
@@ -4274,7 +4707,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCa
         }
         members.push_back(json::Builder::Member{"fromRanges", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCall& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4303,9 +4744,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -4314,7 +4756,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensParams& i
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4357,9 +4807,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokens& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokens& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.result_id) {
         auto res = Encode(*in.result_id, b);
@@ -4375,7 +4826,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokens& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokens& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4405,9 +4864,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensPartialResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensPartialResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.data, b);
@@ -4416,7 +4876,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensPartialRe
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensPartialResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4457,9 +4925,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensLegend& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensLegend& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.token_types, b);
@@ -4475,7 +4944,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensLegend& i
         }
         members.push_back(json::Builder::Member{"tokenModifiers", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensLegend& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4506,9 +4983,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensFullDelta& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensFullDelta& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.delta) {
         auto res = Encode(*in.delta, b);
@@ -4517,7 +4995,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensFullDelta
         }
         members.push_back(json::Builder::Member{"delta", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensFullDelta& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4574,9 +5060,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.legend, b);
@@ -4599,7 +5086,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensOptions& 
         }
         members.push_back(json::Builder::Member{"full", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 bool operator==(const SemanticTokensOptions::Range& lhs, const SemanticTokensOptions::Range& rhs) {
@@ -4615,11 +5110,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensOptions::Range& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensOptions::Range& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4653,18 +5157,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const SemanticTokensOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const SemanticTokensOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4705,9 +5220,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensDeltaParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -4723,7 +5239,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaPara
         }
         members.push_back(json::Builder::Member{"previousResultId", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4778,9 +5302,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensEdit& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensEdit& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.start, b);
@@ -4803,7 +5328,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensEdit& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensEdit& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4846,9 +5379,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDelta& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensDelta& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.result_id) {
         auto res = Encode(*in.result_id, b);
@@ -4864,7 +5398,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDelta& in
         }
         members.push_back(json::Builder::Member{"edits", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDelta& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4896,9 +5438,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaPartialResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensDeltaPartialResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.edits, b);
@@ -4907,7 +5450,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaPart
         }
         members.push_back(json::Builder::Member{"edits", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaPartialResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -4948,9 +5499,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticToken
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRangeParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensRangeParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -4966,7 +5518,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRangePara
         }
         members.push_back(json::Builder::Member{"range", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRangeParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5037,9 +5597,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowDocumentP
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ShowDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.uri, b);
@@ -5069,7 +5630,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentParams& in,
         }
         members.push_back(json::Builder::Member{"selection", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5098,9 +5667,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowDocumentR
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ShowDocumentResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.success, b);
@@ -5109,7 +5679,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentResult& in,
         }
         members.push_back(json::Builder::Member{"success", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5133,14 +5711,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditing
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LinkedEditingRangeParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -5183,9 +5771,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditing
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRanges& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LinkedEditingRanges& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.ranges, b);
@@ -5201,7 +5790,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRanges& in
         }
         members.push_back(json::Builder::Member{"wordPattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRanges& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5217,11 +5814,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditing
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LinkedEditingRangeOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5255,18 +5861,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LinkedEditingRangeRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const LinkedEditingRangeOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const LinkedEditingRangeOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5295,9 +5912,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileCreate& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileCreate& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileCreate& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.uri, b);
@@ -5306,7 +5924,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileCreate& in,
         }
         members.push_back(json::Builder::Member{"uri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileCreate& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5335,9 +5961,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFilesPa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CreateFilesParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CreateFilesParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.files, b);
@@ -5346,7 +5973,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CreateFilesParams& in,
         }
         members.push_back(json::Builder::Member{"files", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CreateFilesParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5389,9 +6024,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ResourceOpera
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ResourceOperation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ResourceOperation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.kind, b);
@@ -5407,7 +6043,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ResourceOperation& in,
         }
         members.push_back(json::Builder::Member{"annotationId", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ResourceOperation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5452,9 +6096,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFileOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DeleteFileOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeleteFileOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.recursive) {
         auto res = Encode(*in.recursive, b);
@@ -5470,7 +6115,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeleteFileOptions& in,
         }
         members.push_back(json::Builder::Member{"ignoreIfNotExists", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DeleteFileOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5522,9 +6175,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFile& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DeleteFile& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeleteFile& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     members.push_back(json::Builder::Member{"kind", b.String("delete")});
     {
@@ -5541,10 +6195,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeleteFile& in,
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
-    if (auto res = Encode(static_cast<const ResourceOperation&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const ResourceOperation&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DeleteFile& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5589,9 +6252,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFileOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameFileOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameFileOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.overwrite) {
         auto res = Encode(*in.overwrite, b);
@@ -5607,7 +6271,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameFileOptions& in,
         }
         members.push_back(json::Builder::Member{"ignoreIfExists", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameFileOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5671,9 +6343,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFile& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameFile& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameFile& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     members.push_back(json::Builder::Member{"kind", b.String("rename")});
     {
@@ -5697,10 +6370,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameFile& in,
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
-    if (auto res = Encode(static_cast<const ResourceOperation&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const ResourceOperation&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameFile& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5745,9 +6427,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFileOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CreateFileOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CreateFileOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.overwrite) {
         auto res = Encode(*in.overwrite, b);
@@ -5763,7 +6446,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CreateFileOptions& in,
         }
         members.push_back(json::Builder::Member{"ignoreIfExists", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CreateFileOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5815,9 +6506,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFile& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CreateFile& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CreateFile& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     members.push_back(json::Builder::Member{"kind", b.String("create")});
     {
@@ -5834,10 +6526,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const CreateFile& in,
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
-    if (auto res = Encode(static_cast<const ResourceOperation&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const ResourceOperation&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CreateFile& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5876,10 +6577,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const OptionalVersionedTextDocumentIdentifier& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.version, b);
@@ -5888,10 +6589,20 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentIdentifier&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextDocumentIdentifier&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const OptionalVersionedTextDocumentIdentifier& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5926,9 +6637,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] AnnotatedText
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const AnnotatedTextEdit& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const AnnotatedTextEdit& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.annotation_id, b);
@@ -5937,10 +6649,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const AnnotatedTextEdit& in,
         }
         members.push_back(json::Builder::Member{"annotationId", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextEdit&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextEdit&>(in), b, members); res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const AnnotatedTextEdit& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -5981,9 +6701,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentE
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentEdit& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentEdit& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -5999,7 +6720,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentEdit& in,
         }
         members.push_back(json::Builder::Member{"edits", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentEdit& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6056,9 +6785,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ChangeAnnotat
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ChangeAnnotation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.label, b);
@@ -6081,7 +6811,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotation& in,
         }
         members.push_back(json::Builder::Member{"description", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6141,9 +6879,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceEdit
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEdit& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceEdit& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.changes) {
         auto res = Encode(*in.changes, b);
@@ -6166,7 +6905,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEdit& in,
         }
         members.push_back(json::Builder::Member{"changeAnnotations", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEdit& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6198,9 +6945,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPatternOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileOperationPatternOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.ignore_case) {
         auto res = Encode(*in.ignore_case, b);
@@ -6209,7 +6957,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPatternOpt
         }
         members.push_back(json::Builder::Member{"ignoreCase", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPatternOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6266,9 +7022,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperation
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPattern& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileOperationPattern& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.glob, b);
@@ -6291,7 +7048,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPattern& i
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPattern& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6334,9 +7099,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperation
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileOperationFilter& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileOperationFilter& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.scheme) {
         auto res = Encode(*in.scheme, b);
@@ -6352,7 +7118,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationFilter& in
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileOperationFilter& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6384,9 +7158,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileOperationRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileOperationRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.filters, b);
@@ -6395,7 +7170,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationRegistrati
         }
         members.push_back(json::Builder::Member{"filters", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileOperationRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6436,9 +7219,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileRename& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileRename& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileRename& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.old_uri, b);
@@ -6454,7 +7238,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileRename& in,
         }
         members.push_back(json::Builder::Member{"newUri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileRename& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6483,9 +7275,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFilesPa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameFilesParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameFilesParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.files, b);
@@ -6494,7 +7287,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameFilesParams& in,
         }
         members.push_back(json::Builder::Member{"files", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameFilesParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6523,9 +7324,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileDelete& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileDelete& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileDelete& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.uri, b);
@@ -6534,7 +7336,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileDelete& in,
         }
         members.push_back(json::Builder::Member{"uri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileDelete& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6563,9 +7373,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFilesPa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DeleteFilesParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeleteFilesParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.files, b);
@@ -6574,7 +7385,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeleteFilesParams& in,
         }
         members.push_back(json::Builder::Member{"files", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DeleteFilesParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6598,14 +7417,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerParams
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MonikerParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const MonikerParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -6672,9 +7501,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Moniker& out)
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Moniker& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Moniker& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.scheme, b);
@@ -6704,7 +7534,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Moniker& in,
         }
         members.push_back(json::Builder::Member{"kind", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Moniker& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6720,11 +7558,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerOption
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MonikerOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const MonikerOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6755,18 +7602,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const MonikerRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MonikerRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const MonikerOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const MonikerOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const MonikerRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6791,14 +7649,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchyPrepareParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyPrepareParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -6917,9 +7785,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeHierarchy
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchyItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(8);
     {
         auto res = Encode(in.name, b);
@@ -6977,7 +7846,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyItem& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -6993,11 +7870,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeHierarchy
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchyOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7031,18 +7917,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchyRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const TypeHierarchyOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TypeHierarchyOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7074,9 +7971,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySupertypesParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchySupertypesParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.item, b);
@@ -7085,7 +7983,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySupertypes
         }
         members.push_back(json::Builder::Member{"item", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySupertypesParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7115,9 +8021,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySubtypesParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchySubtypesParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.item, b);
@@ -7126,7 +8033,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySubtypesPa
         }
         members.push_back(json::Builder::Member{"item", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySubtypesParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7167,9 +8082,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueCo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueContext& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueContext& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.frame_id, b);
@@ -7185,7 +8101,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueContext& in,
         }
         members.push_back(json::Builder::Member{"stoppedLocation", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueContext& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7238,9 +8162,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValuePa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -7263,7 +8188,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueParams& in,
         }
         members.push_back(json::Builder::Member{"context", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7279,11 +8212,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueOp
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const InlineValueOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7317,18 +8259,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const InlineValueOptions&>(in), b); res != Success) {
-        return res.Failure();
-    }
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const InlineValueOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7369,9 +8322,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintPara
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHintParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHintParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -7387,7 +8341,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintParams& in,
         }
         members.push_back(json::Builder::Member{"range", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHintParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7428,9 +8390,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MarkupContent
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const MarkupContent& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MarkupContent& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.kind, b);
@@ -7446,7 +8409,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const MarkupContent& in,
         }
         members.push_back(json::Builder::Member{"value", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const MarkupContent& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7501,9 +8472,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Command& out)
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Command& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Command& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.title, b);
@@ -7526,7 +8498,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Command& in,
         }
         members.push_back(json::Builder::Member{"arguments", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Command& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7597,9 +8577,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintLabe
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHintLabelPart& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHintLabelPart& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.value, b);
@@ -7629,7 +8610,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintLabelPart& in,
         }
         members.push_back(json::Builder::Member{"command", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHintLabelPart& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7754,9 +8743,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHint& ou
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHint& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHint& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(8);
     {
         auto res = Encode(in.position, b);
@@ -7814,7 +8804,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHint& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHint& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7845,9 +8843,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintOpti
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHintOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHintOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.resolve_provider) {
         auto res = Encode(*in.resolve_provider, b);
@@ -7856,7 +8855,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintOptions& in,
         }
         members.push_back(json::Builder::Member{"resolveProvider", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHintOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7887,18 +8894,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHintRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHintRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const InlayHintOptions&>(in), b); res != Success) {
-        return res.Failure();
-    }
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const InlayHintOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHintRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -7955,9 +8973,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentDiagn
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentDiagnosticParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -7980,7 +8999,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticParam
         }
         members.push_back(json::Builder::Member{"previousResultId", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8015,9 +9042,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const UnchangedDocumentDiagnosticReport& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const UnchangedDocumentDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     members.push_back(json::Builder::Member{"kind", b.String("unchanged")});
     {
@@ -8027,7 +9055,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const UnchangedDocumentDiagno
         }
         members.push_back(json::Builder::Member{"resultId", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const UnchangedDocumentDiagnosticReport& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8056,9 +9092,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeDescripti
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeDescription& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeDescription& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.href, b);
@@ -8067,7 +9104,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeDescription& in,
         }
         members.push_back(json::Builder::Member{"href", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeDescription& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8109,9 +9154,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRelatedInformation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DiagnosticRelatedInformation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.location, b);
@@ -8127,7 +9173,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRelatedInform
         }
         members.push_back(json::Builder::Member{"message", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRelatedInformation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8266,9 +9320,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Diagnostic& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Diagnostic& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Diagnostic& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(9);
     {
         auto res = Encode(in.range, b);
@@ -8333,7 +9388,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Diagnostic& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Diagnostic& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8380,9 +9443,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FullDocumentDiagnosticReport& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FullDocumentDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     members.push_back(json::Builder::Member{"kind", b.String("full")});
     if (in.result_id) {
@@ -8399,7 +9463,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FullDocumentDiagnosticR
         }
         members.push_back(json::Builder::Member{"items", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FullDocumentDiagnosticReport& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8431,9 +9503,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticReportPartialResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentDiagnosticReportPartialResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.related_documents, b);
@@ -8442,7 +9515,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticRepor
         }
         members.push_back(json::Builder::Member{"relatedDocuments", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticReportPartialResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8474,9 +9555,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticServerCancellationData& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DiagnosticServerCancellationData& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.retrigger_request, b);
@@ -8485,7 +9567,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticServerCancell
         }
         members.push_back(json::Builder::Member{"retriggerRequest", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticServerCancellationData& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8540,9 +9630,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DiagnosticOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DiagnosticOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.identifier) {
         auto res = Encode(*in.identifier, b);
@@ -8565,7 +9656,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticOptions& in,
         }
         members.push_back(json::Builder::Member{"workspaceDiagnostics", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8598,18 +9697,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DiagnosticRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DiagnosticOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DiagnosticOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8650,9 +9760,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PreviousResul
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const PreviousResultId& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PreviousResultId& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.uri, b);
@@ -8668,7 +9779,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const PreviousResultId& in,
         }
         members.push_back(json::Builder::Member{"value", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const PreviousResultId& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8711,9 +9830,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceDiag
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceDiagnosticParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.identifier) {
         auto res = Encode(*in.identifier, b);
@@ -8729,7 +9849,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticPara
         }
         members.push_back(json::Builder::Member{"previousResultIds", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8758,9 +9886,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceDiag
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticReport& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.items, b);
@@ -8769,7 +9898,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticRepo
         }
         members.push_back(json::Builder::Member{"items", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticReport& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8801,9 +9938,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticReportPartialResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceDiagnosticReportPartialResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.items, b);
@@ -8812,7 +9950,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticRepo
         }
         members.push_back(json::Builder::Member{"items", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticReportPartialResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8855,9 +10001,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecutionSumm
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ExecutionSummary& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ExecutionSummary& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.execution_order, b);
@@ -8873,7 +10020,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecutionSummary& in,
         }
         members.push_back(json::Builder::Member{"success", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ExecutionSummary& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -8942,9 +10097,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCell&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookCell& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookCell& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.kind, b);
@@ -8974,7 +10130,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCell& in,
         }
         members.push_back(json::Builder::Member{"executionSummary", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookCell& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9053,9 +10217,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookDocum
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocument& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocument& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     {
         auto res = Encode(in.uri, b);
@@ -9092,7 +10257,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocument& in,
         }
         members.push_back(json::Builder::Member{"cells", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocument& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9157,9 +10330,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentI
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.uri, b);
@@ -9189,7 +10363,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentItem& in,
         }
         members.push_back(json::Builder::Member{"text", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9233,9 +10415,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidOpenNotebookDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidOpenNotebookDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.notebook_document, b);
@@ -9251,7 +10434,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidOpenNotebookDocument
         }
         members.push_back(json::Builder::Member{"cellTextDocuments", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidOpenNotebookDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9295,9 +10486,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const VersionedNotebookDocumentIdentifier& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const VersionedNotebookDocumentIdentifier& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.version, b);
@@ -9313,7 +10505,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const VersionedNotebookDocume
         }
         members.push_back(json::Builder::Member{"uri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const VersionedNotebookDocumentIdentifier& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9368,9 +10568,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCellA
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellArrayChange& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookCellArrayChange& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.start, b);
@@ -9393,7 +10594,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellArrayChange
         }
         members.push_back(json::Builder::Member{"cells", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellArrayChange& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9453,9 +10662,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellChangeStructure& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentCellChangeStructure& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.array, b);
@@ -9478,7 +10688,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellCha
         }
         members.push_back(json::Builder::Member{"didClose", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellChangeStructure& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9517,9 +10735,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const VersionedTextDocumentIdentifier& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const VersionedTextDocumentIdentifier& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.version, b);
@@ -9528,10 +10747,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const VersionedTextDocumentId
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentIdentifier&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextDocumentIdentifier&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const VersionedTextDocumentIdentifier& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9575,9 +10803,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellContentChanges& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentCellContentChanges& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.document, b);
@@ -9593,7 +10822,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellCon
         }
         members.push_back(json::Builder::Member{"changes", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellContentChanges& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9653,9 +10890,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellChanges& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentCellChanges& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.structure) {
         auto res = Encode(*in.structure, b);
@@ -9678,7 +10916,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellCha
         }
         members.push_back(json::Builder::Member{"textContent", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellChanges& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9724,9 +10970,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentChangeEvent& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentChangeEvent& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.metadata) {
         auto res = Encode(*in.metadata, b);
@@ -9742,7 +10989,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentChangeE
         }
         members.push_back(json::Builder::Member{"cells", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentChangeEvent& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9786,9 +11041,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidChangeNotebookDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidChangeNotebookDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.notebook_document, b);
@@ -9804,7 +11060,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeNotebookDocume
         }
         members.push_back(json::Builder::Member{"change", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidChangeNotebookDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9834,9 +11098,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentIdentifier& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentIdentifier& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.uri, b);
@@ -9845,7 +11110,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentIdentif
         }
         members.push_back(json::Builder::Member{"uri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentIdentifier& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9877,9 +11150,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidSaveNotebookDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidSaveNotebookDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.notebook_document, b);
@@ -9888,7 +11162,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidSaveNotebookDocument
         }
         members.push_back(json::Builder::Member{"notebookDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidSaveNotebookDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9932,9 +11214,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidCloseNotebookDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidCloseNotebookDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.notebook_document, b);
@@ -9950,7 +11233,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidCloseNotebookDocumen
         }
         members.push_back(json::Builder::Member{"cellTextDocuments", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidCloseNotebookDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -9991,9 +11282,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectedCompl
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SelectedCompletionInfo& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SelectedCompletionInfo& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -10009,7 +11301,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectedCompletionInfo&
         }
         members.push_back(json::Builder::Member{"text", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SelectedCompletionInfo& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10052,9 +11352,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineComplet
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionContext& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionContext& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.trigger_kind, b);
@@ -10070,7 +11371,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionContext
         }
         members.push_back(json::Builder::Member{"selectedCompletionInfo", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionContext& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10106,9 +11415,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineComplet
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.context, b);
@@ -10117,10 +11427,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionParams&
         }
         members.push_back(json::Builder::Member{"context", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10152,9 +11471,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] StringValue& 
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const StringValue& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const StringValue& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     members.push_back(json::Builder::Member{"kind", b.String("snippet")});
     {
@@ -10164,7 +11484,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const StringValue& in,
         }
         members.push_back(json::Builder::Member{"value", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const StringValue& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10235,9 +11563,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineComplet
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.insert_text, b);
@@ -10267,7 +11596,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionItem& i
         }
         members.push_back(json::Builder::Member{"command", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10296,9 +11633,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineComplet
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionList& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionList& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.items, b);
@@ -10307,7 +11645,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionList& i
         }
         members.push_back(json::Builder::Member{"items", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionList& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10323,11 +11669,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineComplet
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10361,18 +11716,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const InlineCompletionOptions&>(in), b); res != Success) {
-        return res.Failure();
-    }
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const InlineCompletionOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10427,9 +11793,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Registration&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Registration& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Registration& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.id, b);
@@ -10452,7 +11819,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Registration& in,
         }
         members.push_back(json::Builder::Member{"registerOptions", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Registration& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10481,9 +11856,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RegistrationP
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RegistrationParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RegistrationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.registrations, b);
@@ -10492,7 +11868,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RegistrationParams& in,
         }
         members.push_back(json::Builder::Member{"registrations", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RegistrationParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10533,9 +11917,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Unregistratio
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Unregistration& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Unregistration& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.id, b);
@@ -10551,7 +11936,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Unregistration& in,
         }
         members.push_back(json::Builder::Member{"method", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Unregistration& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10580,9 +11973,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Unregistratio
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const UnregistrationParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const UnregistrationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.unregisterations, b);
@@ -10591,7 +11985,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const UnregistrationParams& i
         }
         members.push_back(json::Builder::Member{"unregisterations", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const UnregistrationParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10634,9 +12036,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientInfo& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientInfo& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientInfo& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.name, b);
@@ -10652,7 +12055,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientInfo& in,
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientInfo& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10686,9 +12097,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotationsSupportOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ChangeAnnotationsSupportOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.groups_on_label) {
         auto res = Encode(*in.groups_on_label, b);
@@ -10697,7 +12109,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotationsSuppor
         }
         members.push_back(json::Builder::Member{"groupsOnLabel", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotationsSupportOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10787,9 +12207,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEditClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceEditClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     if (in.document_changes) {
         auto res = Encode(*in.document_changes, b);
@@ -10826,7 +12247,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEditClientCapa
         }
         members.push_back(json::Builder::Member{"changeAnnotationSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEditClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10860,10 +12289,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const DidChangeConfigurationClientCapabilities& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -10872,7 +12301,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const DidChangeConfigurationClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10920,10 +12358,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const DidChangeWatchedFilesClientCapabilities& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -10939,7 +12377,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"relativePatternSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const DidChangeWatchedFilesClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -10970,9 +12417,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientSymbolK
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolKindOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSymbolKindOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.value_set) {
         auto res = Encode(*in.value_set, b);
@@ -10981,7 +12429,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolKindOptions
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolKindOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11010,9 +12466,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientSymbolT
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolTagOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSymbolTagOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.value_set, b);
@@ -11021,7 +12478,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolTagOptions&
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolTagOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11051,9 +12516,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolResolveOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSymbolResolveOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.properties, b);
@@ -11062,7 +12528,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolResolveOpti
         }
         members.push_back(json::Builder::Member{"properties", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolResolveOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11138,9 +12612,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceSymbolClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -11170,7 +12645,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolClientCa
         }
         members.push_back(json::Builder::Member{"resolveSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11204,9 +12687,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ExecuteCommandClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -11215,7 +12699,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandClientCap
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11249,10 +12741,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const SemanticTokensWorkspaceClientCapabilities& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.refresh_support) {
         auto res = Encode(*in.refresh_support, b);
@@ -11261,7 +12753,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"refreshSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const SemanticTokensWorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11295,9 +12796,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeLensWorkspaceClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeLensWorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.refresh_support) {
         auto res = Encode(*in.refresh_support, b);
@@ -11306,7 +12808,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensWorkspaceClient
         }
         members.push_back(json::Builder::Member{"refreshSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeLensWorkspaceClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11424,9 +12934,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileOperationClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileOperationClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(7);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -11477,7 +12988,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationClientCapa
         }
         members.push_back(json::Builder::Member{"willDelete", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileOperationClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11511,9 +13030,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueWorkspaceClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueWorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.refresh_support) {
         auto res = Encode(*in.refresh_support, b);
@@ -11522,7 +13042,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueWorkspaceCli
         }
         members.push_back(json::Builder::Member{"refreshSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueWorkspaceClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11556,9 +13084,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHintWorkspaceClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHintWorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.refresh_support) {
         auto res = Encode(*in.refresh_support, b);
@@ -11567,7 +13096,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintWorkspaceClien
         }
         members.push_back(json::Builder::Member{"refreshSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHintWorkspaceClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11601,9 +13138,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticWorkspaceClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DiagnosticWorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.refresh_support) {
         auto res = Encode(*in.refresh_support, b);
@@ -11612,7 +13150,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticWorkspaceClie
         }
         members.push_back(json::Builder::Member{"refreshSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticWorkspaceClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11646,10 +13192,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const FoldingRangeWorkspaceClientCapabilities& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.refresh_support) {
         auto res = Encode(*in.refresh_support, b);
@@ -11658,7 +13204,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"refreshSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const FoldingRangeWorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -11886,9 +13441,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(15);
     if (in.apply_edit) {
         auto res = Encode(*in.apply_edit, b);
@@ -11995,7 +13551,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceClientCapabili
         }
         members.push_back(json::Builder::Member{"foldingRange", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12071,9 +13635,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentSyncClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -12103,7 +13668,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncClientC
         }
         members.push_back(json::Builder::Member{"didSave", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12132,9 +13705,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionIte
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemTagOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionItemTagOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.value_set, b);
@@ -12143,7 +13717,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemTagOption
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemTagOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12175,9 +13757,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemResolveOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCompletionItemResolveOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.properties, b);
@@ -12186,7 +13769,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemRes
         }
         members.push_back(json::Builder::Member{"properties", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemResolveOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12218,10 +13809,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const ClientCompletionItemInsertTextModeOptions& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.value_set, b);
@@ -12230,7 +13821,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const ClientCompletionItemInsertTextModeOptions& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12388,9 +13988,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCompletionItemOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(10);
     if (in.snippet_support) {
         auto res = Encode(*in.snippet_support, b);
@@ -12462,7 +14063,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOpt
         }
         members.push_back(json::Builder::Member{"labelDetailsSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12496,9 +14105,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOptionsKind& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCompletionItemOptionsKind& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.value_set) {
         auto res = Encode(*in.value_set, b);
@@ -12507,7 +14117,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOpt
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOptionsKind& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12539,9 +14157,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionListCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionListCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.item_defaults) {
         auto res = Encode(*in.item_defaults, b);
@@ -12550,7 +14169,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionListCapabilit
         }
         members.push_back(json::Builder::Member{"itemDefaults", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionListCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12652,9 +14279,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(6);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -12698,7 +14326,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionClientCapabil
         }
         members.push_back(json::Builder::Member{"completionList", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12743,9 +14379,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverClientCa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const HoverClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const HoverClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -12761,7 +14398,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const HoverClientCapabilities
         }
         members.push_back(json::Builder::Member{"contentFormat", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const HoverClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12795,10 +14440,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const ClientSignatureParameterInformationOptions& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.label_offset_support) {
         auto res = Encode(*in.label_offset_support, b);
@@ -12807,7 +14452,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"labelOffsetSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const ClientSignatureParameterInformationOptions& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12869,9 +14523,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientSignatureInformationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSignatureInformationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.documentation_format) {
         auto res = Encode(*in.documentation_format, b);
@@ -12894,7 +14549,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSignatureInformat
         }
         members.push_back(json::Builder::Member{"activeParameterSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientSignatureInformationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -12956,9 +14619,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureHelpClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -12981,7 +14645,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpClientCapa
         }
         members.push_back(json::Builder::Member{"contextSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13029,9 +14701,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DeclarationClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DeclarationClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13047,7 +14720,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeclarationClientCapabi
         }
         members.push_back(json::Builder::Member{"linkSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DeclarationClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13093,9 +14774,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DefinitionClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DefinitionClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13111,7 +14793,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DefinitionClientCapabil
         }
         members.push_back(json::Builder::Member{"linkSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DefinitionClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13159,9 +14849,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeDefinitionClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13177,7 +14868,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionClientCap
         }
         members.push_back(json::Builder::Member{"linkSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13225,9 +14924,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ImplementationClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ImplementationClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13243,7 +14943,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ImplementationClientCap
         }
         members.push_back(json::Builder::Member{"linkSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ImplementationClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13275,9 +14983,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ReferenceClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ReferenceClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13286,7 +14995,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceClientCapabili
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ReferenceClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13320,9 +15037,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentHighlightClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13331,7 +15049,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightClient
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13421,9 +15147,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentSymbolClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13460,7 +15187,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolClientCap
         }
         members.push_back(json::Builder::Member{"labelSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13490,9 +15225,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionKindOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCodeActionKindOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.value_set, b);
@@ -13501,7 +15237,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionKindOpt
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionKindOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13533,9 +15277,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionLiteralOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCodeActionLiteralOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.code_action_kind, b);
@@ -13544,7 +15289,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionLiteral
         }
         members.push_back(json::Builder::Member{"codeActionKind", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionLiteralOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13576,9 +15329,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionResolveOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCodeActionResolveOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.properties, b);
@@ -13587,7 +15341,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionResolve
         }
         members.push_back(json::Builder::Member{"properties", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionResolveOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13703,9 +15465,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeActionClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeActionClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(7);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13756,7 +15519,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionClientCapabil
         }
         members.push_back(json::Builder::Member{"honorsChangeAnnotations", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeActionClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13788,9 +15559,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeLensClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeLensClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13799,7 +15571,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensClientCapabilit
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeLensClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13847,9 +15627,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentLinkClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13865,7 +15646,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkClientCapab
         }
         members.push_back(json::Builder::Member{"tooltipSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13899,9 +15688,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentColorClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13910,7 +15700,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorClientCapa
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -13944,9 +15742,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentFormattingClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -13955,7 +15754,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingClien
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14003,10 +15810,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const DocumentRangeFormattingClientCapabilities& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14022,7 +15829,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"rangesSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const DocumentRangeFormattingClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14056,10 +15872,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const DocumentOnTypeFormattingClientCapabilities& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14068,7 +15884,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const DocumentOnTypeFormattingClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14141,9 +15966,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameClientC
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14173,7 +15999,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameClientCapabilitie
         }
         members.push_back(json::Builder::Member{"honorsChangeAnnotations", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14207,9 +16041,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeKindOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientFoldingRangeKindOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.value_set) {
         auto res = Encode(*in.value_set, b);
@@ -14218,7 +16053,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeKindO
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeKindOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14249,9 +16092,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientFolding
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientFoldingRangeOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.collapsed_text) {
         auto res = Encode(*in.collapsed_text, b);
@@ -14260,7 +16104,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeOptio
         }
         members.push_back(json::Builder::Member{"collapsedText", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14350,9 +16202,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FoldingRangeClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14389,7 +16242,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeClientCapab
         }
         members.push_back(json::Builder::Member{"foldingRange", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14423,9 +16284,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SelectionRangeClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14434,7 +16296,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeClientCap
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14464,9 +16334,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientDiagnosticsTagOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientDiagnosticsTagOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.value_set, b);
@@ -14475,7 +16346,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientDiagnosticsTagOpt
         }
         members.push_back(json::Builder::Member{"valueSet", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientDiagnosticsTagOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14565,9 +16444,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PublishDiagnosticsClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     if (in.related_information) {
         auto res = Encode(*in.related_information, b);
@@ -14604,7 +16484,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsClien
         }
         members.push_back(json::Builder::Member{"dataSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14638,9 +16526,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CallHierarchyClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14649,7 +16538,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyClientCapa
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14683,9 +16580,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensRequestFullDelta& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSemanticTokensRequestFullDelta& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.delta) {
         auto res = Encode(*in.delta, b);
@@ -14694,7 +16592,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensReq
         }
         members.push_back(json::Builder::Member{"delta", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensRequestFullDelta& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14742,9 +16648,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensRequestOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSemanticTokensRequestOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.range) {
         auto res = Encode(*in.range, b);
@@ -14760,7 +16667,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensReq
         }
         members.push_back(json::Builder::Member{"full", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensRequestOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 bool operator==(const ClientSemanticTokensRequestOptions::Range& lhs,
@@ -14778,12 +16693,21 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientSemanticTokensRequestOptions::Range& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode(
     [[maybe_unused]] const ClientSemanticTokensRequestOptions::Range& in,
     [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -14921,9 +16845,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SemanticTokensClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(9);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -14988,7 +16913,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensClientCap
         }
         members.push_back(json::Builder::Member{"augmentsSyntaxTokens", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15022,9 +16955,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LinkedEditingRangeClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15033,7 +16967,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeClien
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15064,9 +17006,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerClient
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const MonikerClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MonikerClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15075,7 +17018,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const MonikerClientCapabiliti
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const MonikerClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15109,9 +17060,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TypeHierarchyClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15120,7 +17072,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyClientCapa
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15154,9 +17114,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15165,7 +17126,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueClientCapabi
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15197,9 +17166,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientInlayHintResolveOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientInlayHintResolveOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.properties, b);
@@ -15208,7 +17178,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientInlayHintResolveO
         }
         members.push_back(json::Builder::Member{"properties", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientInlayHintResolveOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15254,9 +17232,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlayHintClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlayHintClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15272,7 +17251,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintClientCapabili
         }
         members.push_back(json::Builder::Member{"resolveSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlayHintClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15318,9 +17305,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DiagnosticClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15336,7 +17324,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticClientCapabil
         }
         members.push_back(json::Builder::Member{"relatedDocumentSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15370,9 +17366,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineCompletionClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -15381,7 +17378,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionClientC
         }
         members.push_back(json::Builder::Member{"dynamicRegistration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -15835,9 +17840,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(31);
     if (in.synchronization) {
         auto res = Encode(*in.synchronization, b);
@@ -16056,7 +18062,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentClientCapab
         }
         members.push_back(json::Builder::Member{"inlineCompletion", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16104,9 +18118,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentSyncClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.dynamic_registration) {
         auto res = Encode(*in.dynamic_registration, b);
@@ -16122,7 +18137,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncCli
         }
         members.push_back(json::Builder::Member{"executionSummarySupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16154,9 +18177,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.synchronization, b);
@@ -16165,7 +18189,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentClientC
         }
         members.push_back(json::Builder::Member{"synchronization", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16199,9 +18231,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientShowMessageActionItemOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientShowMessageActionItemOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.additional_properties_support) {
         auto res = Encode(*in.additional_properties_support, b);
@@ -16210,7 +18243,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientShowMessageAction
         }
         members.push_back(json::Builder::Member{"additionalPropertiesSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientShowMessageActionItemOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16244,9 +18285,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ShowMessageRequestClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.message_action_item) {
         auto res = Encode(*in.message_action_item, b);
@@ -16255,7 +18297,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestClien
         }
         members.push_back(json::Builder::Member{"messageActionItem", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16287,9 +18337,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ShowDocumentClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.support, b);
@@ -16298,7 +18349,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentClientCapab
         }
         members.push_back(json::Builder::Member{"support", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16357,9 +18416,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WindowClientC
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WindowClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WindowClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.work_done_progress) {
         auto res = Encode(*in.work_done_progress, b);
@@ -16382,7 +18442,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WindowClientCapabilitie
         }
         members.push_back(json::Builder::Member{"showDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WindowClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16424,9 +18492,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const StaleRequestSupportOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const StaleRequestSupportOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.cancel, b);
@@ -16442,7 +18511,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const StaleRequestSupportOpti
         }
         members.push_back(json::Builder::Member{"retryOnContentModified", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const StaleRequestSupportOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16488,9 +18565,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RegularExpressionsClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RegularExpressionsClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.engine, b);
@@ -16506,7 +18584,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RegularExpressionsClien
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RegularExpressionsClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16564,9 +18650,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const MarkdownClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MarkdownClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.parser, b);
@@ -16589,7 +18676,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const MarkdownClientCapabilit
         }
         members.push_back(json::Builder::Member{"allowedTags", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const MarkdownClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16662,9 +18757,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] GeneralClient
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const GeneralClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const GeneralClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     if (in.stale_request_support) {
         auto res = Encode(*in.stale_request_support, b);
@@ -16694,7 +18790,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const GeneralClientCapabiliti
         }
         members.push_back(json::Builder::Member{"positionEncodings", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const GeneralClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16795,9 +18899,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientCapabil
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ClientCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ClientCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(6);
     if (in.workspace) {
         auto res = Encode(*in.workspace, b);
@@ -16841,7 +18946,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCapabilities& in,
         }
         members.push_back(json::Builder::Member{"experimental", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ClientCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -16964,9 +19077,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializePar
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InitializeParamsBase& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InitializeParamsBase& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(8);
     {
         auto res = Encode(in.process_id, b);
@@ -17024,7 +19138,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeParamsBase& i
         }
         members.push_back(json::Builder::Member{"trace", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InitializeParamsBase& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17058,9 +19180,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersInitializeParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceFoldersInitializeParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.workspace_folders) {
         auto res = Encode(*in.workspace_folders, b);
@@ -17069,7 +19192,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersInitial
         }
         members.push_back(json::Builder::Member{"workspaceFolders", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersInitializeParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17100,18 +19231,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializePar
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InitializeParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InitializeParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const InitializeParamsBase&>(in), b); res != Success) {
-        return res.Failure();
-    }
-    if (auto res = Encode(static_cast<const WorkspaceFoldersInitializeParams&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const InitializeParamsBase&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    if (auto res =
+            EncodeMembers(static_cast<const WorkspaceFoldersInitializeParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InitializeParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17142,9 +19284,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SaveOptions& 
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SaveOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SaveOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.include_text) {
         auto res = Encode(*in.include_text, b);
@@ -17153,7 +19296,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SaveOptions& in,
         }
         members.push_back(json::Builder::Member{"includeText", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SaveOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17240,9 +19391,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentS
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentSyncOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     if (in.open_close) {
         auto res = Encode(*in.open_close, b);
@@ -17279,7 +19431,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncOptions
         }
         members.push_back(json::Builder::Member{"save", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17308,9 +19468,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCellL
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellLanguage& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookCellLanguage& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.language, b);
@@ -17319,7 +19480,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellLanguage& i
         }
         members.push_back(json::Builder::Member{"language", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellLanguage& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17365,9 +19534,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterWithCells& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentFilterWithCells& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.notebook) {
         auto res = Encode(*in.notebook, b);
@@ -17383,7 +19553,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterW
         }
         members.push_back(json::Builder::Member{"cells", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterWithCells& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17429,9 +19607,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterWithNotebook& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentFilterWithNotebook& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.notebook, b);
@@ -17447,7 +19626,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterW
         }
         members.push_back(json::Builder::Member{"cells", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterWithNotebook& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17491,9 +19678,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentSyncOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.notebook_selector, b);
@@ -17509,7 +19697,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncOpt
         }
         members.push_back(json::Builder::Member{"save", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17536,15 +19732,25 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentSyncRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const NotebookDocumentSyncOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode(
     [[maybe_unused]] const NotebookDocumentSyncRegistrationOptions& in,
     [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const NotebookDocumentSyncOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -17576,9 +19782,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ServerCompletionItemOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ServerCompletionItemOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.label_details_support) {
         auto res = Encode(*in.label_details_support, b);
@@ -17587,7 +19794,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ServerCompletionItemOpt
         }
         members.push_back(json::Builder::Member{"labelDetailsSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ServerCompletionItemOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17660,9 +19875,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     if (in.trigger_characters) {
         auto res = Encode(*in.trigger_characters, b);
@@ -17692,7 +19908,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionOptions& in,
         }
         members.push_back(json::Builder::Member{"completionItem", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17708,11 +19932,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverOptions&
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const HoverOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const HoverOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17757,9 +19990,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelp
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureHelpOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.trigger_characters) {
         auto res = Encode(*in.trigger_characters, b);
@@ -17775,7 +20009,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpOptions& i
         }
         members.push_back(json::Builder::Member{"retriggerCharacters", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17791,11 +20033,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DefinitionOpt
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DefinitionOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DefinitionOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17811,11 +20062,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceOpti
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ReferenceOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const ReferenceOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17831,11 +20091,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighl
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentHighlightOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17866,9 +20135,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentSymbolOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.label) {
         auto res = Encode(*in.label, b);
@@ -17877,7 +20147,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolOptions& 
         }
         members.push_back(json::Builder::Member{"label", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17922,9 +20200,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeActionOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeActionOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.code_action_kinds) {
         auto res = Encode(*in.code_action_kinds, b);
@@ -17940,7 +20219,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionOptions& in,
         }
         members.push_back(json::Builder::Member{"resolveProvider", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeActionOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -17971,9 +20258,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLensOptio
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeLensOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeLensOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.resolve_provider) {
         auto res = Encode(*in.resolve_provider, b);
@@ -17982,7 +20270,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensOptions& in,
         }
         members.push_back(json::Builder::Member{"resolveProvider", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeLensOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18013,9 +20309,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLinkO
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentLinkOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.resolve_provider) {
         auto res = Encode(*in.resolve_provider, b);
@@ -18024,7 +20321,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkOptions& in
         }
         members.push_back(json::Builder::Member{"resolveProvider", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18055,9 +20360,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymb
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceSymbolOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.resolve_provider) {
         auto res = Encode(*in.resolve_provider, b);
@@ -18066,7 +20372,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolOptions&
         }
         members.push_back(json::Builder::Member{"resolveProvider", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18082,11 +20396,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentForma
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentFormattingOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18120,9 +20443,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormattingOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentRangeFormattingOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.ranges_support) {
         auto res = Encode(*in.ranges_support, b);
@@ -18131,7 +20455,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormatting
         }
         members.push_back(json::Builder::Member{"rangesSupport", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormattingOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18177,9 +20509,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattingOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentOnTypeFormattingOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.first_trigger_character, b);
@@ -18195,7 +20528,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattin
         }
         members.push_back(json::Builder::Member{"moreTriggerCharacter", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattingOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18226,9 +20567,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameOptions
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.prepare_provider) {
         auto res = Encode(*in.prepare_provider, b);
@@ -18237,7 +20579,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameOptions& in,
         }
         members.push_back(json::Builder::Member{"prepareProvider", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18266,9 +20616,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecuteComman
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ExecuteCommandOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.commands, b);
@@ -18277,7 +20628,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandOptions& 
         }
         members.push_back(json::Builder::Member{"commands", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18325,9 +20684,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersServerCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceFoldersServerCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.supported) {
         auto res = Encode(*in.supported, b);
@@ -18343,7 +20703,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersServerC
         }
         members.push_back(json::Builder::Member{"changeNotifications", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersServerCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18444,9 +20812,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperation
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileOperationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileOperationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(6);
     if (in.did_create) {
         auto res = Encode(*in.did_create, b);
@@ -18490,7 +20859,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationOptions& i
         }
         members.push_back(json::Builder::Member{"willDelete", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileOperationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -18535,9 +20912,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceOpti
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.workspace_folders) {
         auto res = Encode(*in.workspace_folders, b);
@@ -18553,7 +20931,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceOptions& in,
         }
         members.push_back(json::Builder::Member{"fileOperations", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19075,9 +21461,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ServerCapabil
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ServerCapabilities& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ServerCapabilities& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(36);
     if (in.position_encoding) {
         auto res = Encode(*in.position_encoding, b);
@@ -19331,7 +21718,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ServerCapabilities& in,
         }
         members.push_back(json::Builder::Member{"experimental", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ServerCapabilities& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19374,9 +21769,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ServerInfo& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ServerInfo& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ServerInfo& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.name, b);
@@ -19392,7 +21788,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ServerInfo& in,
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ServerInfo& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19435,9 +21839,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeRes
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InitializeResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InitializeResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.capabilities, b);
@@ -19453,7 +21858,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeResult& in,
         }
         members.push_back(json::Builder::Member{"serverInfo", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InitializeResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19482,9 +21895,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeErr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InitializeError& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InitializeError& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.retry, b);
@@ -19493,7 +21907,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeError& in,
         }
         members.push_back(json::Builder::Member{"retry", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InitializeError& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19509,11 +21931,20 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializedPa
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InitializedParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const InitializedParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19543,9 +21974,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidChangeConfigurationParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidChangeConfigurationParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.settings, b);
@@ -19554,7 +21986,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeConfigurationP
         }
         members.push_back(json::Builder::Member{"settings", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidChangeConfigurationParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19588,10 +22028,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const DidChangeConfigurationRegistrationOptions& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.section) {
         auto res = Encode(*in.section, b);
@@ -19600,7 +22040,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"section", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const DidChangeConfigurationRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19641,9 +22090,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowMessagePa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ShowMessageParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.type, b);
@@ -19659,7 +22109,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageParams& in,
         }
         members.push_back(json::Builder::Member{"message", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19688,9 +22146,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MessageAction
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const MessageActionItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MessageActionItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.title, b);
@@ -19699,7 +22158,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const MessageActionItem& in,
         }
         members.push_back(json::Builder::Member{"title", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const MessageActionItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19754,9 +22221,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowMessageRe
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ShowMessageRequestParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.type, b);
@@ -19779,7 +22247,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestParam
         }
         members.push_back(json::Builder::Member{"actions", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19820,9 +22296,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LogMessagePar
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LogMessageParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LogMessageParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.type, b);
@@ -19838,7 +22315,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const LogMessageParams& in,
         }
         members.push_back(json::Builder::Member{"message", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LogMessageParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19867,9 +22352,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DidOpenTextDo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidOpenTextDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidOpenTextDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -19878,7 +22364,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidOpenTextDocumentPara
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidOpenTextDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19920,9 +22414,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidChangeTextDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidChangeTextDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -19938,7 +22433,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeTextDocumentPa
         }
         members.push_back(json::Builder::Member{"contentChanges", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidChangeTextDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -19977,9 +22480,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentChangeRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentChangeRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.sync_kind, b);
@@ -19988,11 +22492,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentChangeRegis
         }
         members.push_back(json::Builder::Member{"syncKind", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentChangeRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20022,9 +22535,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidCloseTextDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidCloseTextDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -20033,7 +22547,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidCloseTextDocumentPar
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidCloseTextDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20076,9 +22598,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DidSaveTextDo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidSaveTextDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidSaveTextDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -20094,7 +22617,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidSaveTextDocumentPara
         }
         members.push_back(json::Builder::Member{"text", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidSaveTextDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20127,18 +22658,28 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSaveRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentSaveRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const SaveOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const SaveOptions&>(in), b, members); res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSaveRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20180,9 +22721,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WillSaveTextDocumentParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WillSaveTextDocumentParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -20198,7 +22740,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WillSaveTextDocumentPar
         }
         members.push_back(json::Builder::Member{"reason", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WillSaveTextDocumentParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20239,9 +22789,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileEvent& ou
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileEvent& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileEvent& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.uri, b);
@@ -20257,7 +22808,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileEvent& in,
         }
         members.push_back(json::Builder::Member{"type", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileEvent& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20287,9 +22846,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWatchedFilesParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DidChangeWatchedFilesParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.changes, b);
@@ -20298,7 +22858,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWatchedFilesPa
         }
         members.push_back(json::Builder::Member{"changes", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWatchedFilesParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20341,9 +22909,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileSystemWat
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FileSystemWatcher& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FileSystemWatcher& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.glob_pattern, b);
@@ -20359,7 +22928,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileSystemWatcher& in,
         }
         members.push_back(json::Builder::Member{"kind", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FileSystemWatcher& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20391,10 +22968,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const DidChangeWatchedFilesRegistrationOptions& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.watchers, b);
@@ -20403,7 +22980,16 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"watchers", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const DidChangeWatchedFilesRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20458,9 +23044,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PublishDiagno
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PublishDiagnosticsParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.uri, b);
@@ -20483,7 +23070,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsParam
         }
         members.push_back(json::Builder::Member{"diagnostics", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20526,9 +23121,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionCon
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionContext& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionContext& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.trigger_kind, b);
@@ -20544,7 +23140,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionContext& in,
         }
         members.push_back(json::Builder::Member{"triggerCharacter", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionContext& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20582,9 +23186,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionPar
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.context) {
         auto res = Encode(*in.context, b);
@@ -20593,10 +23198,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionParams& in,
         }
         members.push_back(json::Builder::Member{"context", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20642,9 +23256,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemLabelDetails& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionItemLabelDetails& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.detail) {
         auto res = Encode(*in.detail, b);
@@ -20660,7 +23275,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemLabelDeta
         }
         members.push_back(json::Builder::Member{"description", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemLabelDetails& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -20713,9 +23336,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InsertReplace
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InsertReplaceEdit& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InsertReplaceEdit& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.new_text, b);
@@ -20738,7 +23362,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InsertReplaceEdit& in,
         }
         members.push_back(json::Builder::Member{"replace", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InsertReplaceEdit& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21019,9 +23651,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionIte
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionItem& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionItem& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(19);
     {
         auto res = Encode(in.label, b);
@@ -21156,7 +23789,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItem& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionItem& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21198,9 +23839,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const EditRangeWithInsertReplace& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const EditRangeWithInsertReplace& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.insert, b);
@@ -21216,7 +23858,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const EditRangeWithInsertRepl
         }
         members.push_back(json::Builder::Member{"replace", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const EditRangeWithInsertReplace& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21303,9 +23953,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionIte
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemDefaults& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionItemDefaults& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     if (in.commit_characters) {
         auto res = Encode(*in.commit_characters, b);
@@ -21342,7 +23993,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemDefaults&
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemDefaults& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21397,9 +24056,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionLis
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionList& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionList& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.is_incomplete, b);
@@ -21422,7 +24082,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionList& in,
         }
         members.push_back(json::Builder::Member{"items", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionList& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21455,18 +24123,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CompletionRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CompletionRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const CompletionOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const CompletionOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CompletionRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21490,14 +24169,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverParams& 
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const HoverParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const HoverParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -21540,9 +24229,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Hover& out) {
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const Hover& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const Hover& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.contents, b);
@@ -21558,7 +24248,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const Hover& in,
         }
         members.push_back(json::Builder::Member{"range", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const Hover& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21588,18 +24286,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverRegistra
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const HoverRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const HoverRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const HoverOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const HoverOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const HoverRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21642,9 +24351,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ParameterInfo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ParameterInformation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ParameterInformation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.label, b);
@@ -21660,7 +24370,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ParameterInformation& i
         }
         members.push_back(json::Builder::Member{"documentation", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ParameterInformation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21731,9 +24449,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureInfo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureInformation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureInformation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.label, b);
@@ -21763,7 +24482,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureInformation& i
         }
         members.push_back(json::Builder::Member{"activeParameter", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureInformation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21820,9 +24547,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelp
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelp& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureHelp& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.signatures, b);
@@ -21845,7 +24573,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelp& in,
         }
         members.push_back(json::Builder::Member{"activeParameter", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelp& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21914,9 +24650,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelp
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpContext& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureHelpContext& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.trigger_kind, b);
@@ -21946,7 +24683,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpContext& i
         }
         members.push_back(json::Builder::Member{"activeSignatureHelp", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpContext& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -21984,9 +24729,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelp
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureHelpParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.context) {
         auto res = Encode(*in.context, b);
@@ -21995,10 +24741,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpParams& in
         }
         members.push_back(json::Builder::Member{"context", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22032,18 +24787,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SignatureHelpRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const SignatureHelpOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const SignatureHelpOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22067,14 +24833,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DefinitionPar
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DefinitionParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DefinitionParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -22107,18 +24883,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DefinitionRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DefinitionRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DefinitionOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DefinitionOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DefinitionRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22147,9 +24934,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceCont
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ReferenceContext& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ReferenceContext& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.include_declaration, b);
@@ -22158,7 +24946,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceContext& in,
         }
         members.push_back(json::Builder::Member{"includeDeclaration", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ReferenceContext& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22194,9 +24990,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferencePara
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ReferenceParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ReferenceParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.context, b);
@@ -22205,10 +25002,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceParams& in,
         }
         members.push_back(json::Builder::Member{"context", res.Get()});
     }
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ReferenceParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22239,18 +25045,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ReferenceRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ReferenceRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const ReferenceOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const ReferenceOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ReferenceRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22274,14 +25091,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighl
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentHighlightParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -22324,9 +25151,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighl
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlight& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentHighlight& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -22342,7 +25170,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlight& in,
         }
         members.push_back(json::Builder::Member{"kind", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlight& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22376,18 +25212,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentHighlightRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentHighlightOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DocumentHighlightOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22416,9 +25263,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentSymbolParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -22427,7 +25275,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolParams& i
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22496,9 +25352,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] BaseSymbolInf
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const BaseSymbolInformation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const BaseSymbolInformation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.name, b);
@@ -22528,7 +25385,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const BaseSymbolInformation& 
         }
         members.push_back(json::Builder::Member{"containerName", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const BaseSymbolInformation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22578,9 +25443,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SymbolInforma
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SymbolInformation& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SymbolInformation& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.deprecated) {
         auto res = Encode(*in.deprecated, b);
@@ -22596,10 +25462,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const SymbolInformation& in,
         }
         members.push_back(json::Builder::Member{"location", res.Get()});
     }
-    if (auto res = Encode(static_cast<const BaseSymbolInformation&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const BaseSymbolInformation&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SymbolInformation& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22720,9 +25595,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbo
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbol& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentSymbol& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(8);
     {
         auto res = Encode(in.name, b);
@@ -22780,7 +25656,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbol& in,
         }
         members.push_back(json::Builder::Member{"children", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbol& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22814,18 +25698,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentSymbolRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentSymbolOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DocumentSymbolOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22882,9 +25777,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionCon
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeActionContext& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeActionContext& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.diagnostics, b);
@@ -22907,7 +25803,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionContext& in,
         }
         members.push_back(json::Builder::Member{"triggerKind", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeActionContext& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -22960,9 +25864,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionPar
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeActionParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeActionParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -22985,7 +25890,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionParams& in,
         }
         members.push_back(json::Builder::Member{"context", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeActionParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23014,9 +25927,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionDis
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeActionDisabled& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeActionDisabled& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.reason, b);
@@ -23025,7 +25939,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionDisabled& in,
         }
         members.push_back(json::Builder::Member{"reason", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeActionDisabled& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23152,9 +26074,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeAction& o
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeAction& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeAction& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(8);
     {
         auto res = Encode(in.title, b);
@@ -23212,7 +26135,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeAction& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeAction& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23245,18 +26176,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeActionRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeActionRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const CodeActionOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const CodeActionOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeActionRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23285,9 +26227,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymb
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceSymbolParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.query, b);
@@ -23296,7 +26239,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolParams& 
         }
         members.push_back(json::Builder::Member{"query", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23325,9 +26276,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LocationUriOn
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LocationUriOnly& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LocationUriOnly& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.uri, b);
@@ -23336,7 +26288,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const LocationUriOnly& in,
         }
         members.push_back(json::Builder::Member{"uri", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LocationUriOnly& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23386,9 +26346,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymb
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbol& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceSymbol& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.location, b);
@@ -23404,10 +26365,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbol& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
-    if (auto res = Encode(static_cast<const BaseSymbolInformation&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const BaseSymbolInformation&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbol& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23434,14 +26404,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceSymbolRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const WorkspaceSymbolOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolRegistrationOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const WorkspaceSymbolOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -23470,9 +26450,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLensParam
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeLensParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeLensParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -23481,7 +26462,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensParams& in,
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeLensParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23538,9 +26527,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLens& out
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeLens& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeLens& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.range, b);
@@ -23563,7 +26553,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLens& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeLens& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23594,18 +26592,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CodeLensRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CodeLensRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const CodeLensOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const CodeLensOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CodeLensRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23634,9 +26643,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLinkP
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentLinkParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text_document, b);
@@ -23645,7 +26655,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkParams& in,
         }
         members.push_back(json::Builder::Member{"textDocument", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23716,9 +26734,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLink&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentLink& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentLink& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.range, b);
@@ -23748,7 +26767,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLink& in,
         }
         members.push_back(json::Builder::Member{"data", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentLink& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23782,18 +26809,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentLinkRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentLinkOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DocumentLinkOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23876,9 +26914,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FormattingOpt
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const FormattingOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const FormattingOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     {
         auto res = Encode(in.tab_size, b);
@@ -23915,7 +26954,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const FormattingOptions& in,
         }
         members.push_back(json::Builder::Member{"trimFinalNewlines", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const FormattingOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -23956,9 +27003,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentForma
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentFormattingParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.text_document, b);
@@ -23974,7 +27022,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingParam
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24008,18 +27064,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentFormattingRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentFormattingOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const DocumentFormattingOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24075,9 +27142,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormattingParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentRangeFormattingParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -24100,7 +27168,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormatting
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormattingParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24134,20 +27210,31 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentRangeFormattingRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    if (auto res =
+            EncodeMembers(static_cast<const DocumentRangeFormattingOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode(
     [[maybe_unused]] const DocumentRangeFormattingRegistrationOptions& in,
     [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
-        res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentRangeFormattingOptions&>(in), b);
-        res != Success) {
-        return res.Failure();
-    }
-
     return b.Object(members);
 }
 
@@ -24203,9 +27290,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangesFormattingParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentRangesFormattingParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -24228,7 +27316,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangesFormattin
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangesFormattingParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24296,9 +27392,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattingParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentOnTypeFormattingParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     {
         auto res = Encode(in.text_document, b);
@@ -24328,7 +27425,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattin
         }
         members.push_back(json::Builder::Member{"options", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattingParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24362,20 +27467,31 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const DocumentOnTypeFormattingRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    if (auto res =
+            EncodeMembers(static_cast<const DocumentOnTypeFormattingOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode(
     [[maybe_unused]] const DocumentOnTypeFormattingRegistrationOptions& in,
     [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
-        res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const DocumentOnTypeFormattingOptions&>(in), b);
-        res != Success) {
-        return res.Failure();
-    }
-
     return b.Object(members);
 }
 
@@ -24428,9 +27544,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameParams&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.text_document, b);
@@ -24453,7 +27570,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameParams& in,
         }
         members.push_back(json::Builder::Member{"newName", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24483,18 +27608,29 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameRegistr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RenameRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RenameRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentRegistrationOptions&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const TextDocumentRegistrationOptions&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
-    if (auto res = Encode(static_cast<const RenameOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(static_cast<const RenameOptions&>(in), b, members);
+        res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RenameRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24518,14 +27654,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PrepareRename
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PrepareRenameParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const TextDocumentPositionParams&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenameParams& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const TextDocumentPositionParams&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -24568,9 +27714,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecuteComman
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ExecuteCommandParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.command, b);
@@ -24586,7 +27733,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandParams& i
         }
         members.push_back(json::Builder::Member{"arguments", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24613,14 +27768,24 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ExecuteCommandRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
+    members.reserve(0);
+    if (auto res = EncodeMembers(static_cast<const ExecuteCommandOptions&>(in), b, members);
+        res != Success) {
+        return res.Failure();
+    }
+    return Success;
+}
+
 Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandRegistrationOptions& in,
                                   [[maybe_unused]] json::Builder& b) {
     std::vector<json::Builder::Member> members;
-    members.reserve(0);
-    if (auto res = Encode(static_cast<const ExecuteCommandOptions&>(in), b); res != Success) {
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
         return res.Failure();
     }
-
     return b.Object(members);
 }
 
@@ -24663,9 +27828,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ApplyWorkspac
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ApplyWorkspaceEditParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     if (in.label) {
         auto res = Encode(*in.label, b);
@@ -24681,7 +27847,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditParam
         }
         members.push_back(json::Builder::Member{"edit", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24738,9 +27912,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ApplyWorkspac
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditResult& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ApplyWorkspaceEditResult& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.applied, b);
@@ -24763,7 +27938,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditResul
         }
         members.push_back(json::Builder::Member{"failedChange", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditResult& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24837,9 +28020,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressBegin& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressBegin& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(5);
     members.push_back(json::Builder::Member{"kind", b.String("begin")});
     {
@@ -24870,7 +28054,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressBegin& 
         }
         members.push_back(json::Builder::Member{"percentage", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressBegin& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24932,9 +28124,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressReport& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressReport& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     members.push_back(json::Builder::Member{"kind", b.String("report")});
     if (in.cancellable) {
@@ -24958,7 +28151,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressReport&
         }
         members.push_back(json::Builder::Member{"percentage", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressReport& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -24992,9 +28193,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressEnd& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressEnd& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     members.push_back(json::Builder::Member{"kind", b.String("end")});
     if (in.message) {
@@ -25004,7 +28206,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressEnd& in
         }
         members.push_back(json::Builder::Member{"message", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressEnd& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25033,9 +28243,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SetTraceParam
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const SetTraceParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const SetTraceParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.value, b);
@@ -25044,7 +28255,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const SetTraceParams& in,
         }
         members.push_back(json::Builder::Member{"value", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const SetTraceParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25087,9 +28306,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LogTraceParam
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LogTraceParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LogTraceParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.message, b);
@@ -25105,7 +28325,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const LogTraceParams& in,
         }
         members.push_back(json::Builder::Member{"verbose", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LogTraceParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25134,9 +28362,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CancelParams&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const CancelParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const CancelParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.id, b);
@@ -25145,7 +28374,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const CancelParams& in,
         }
         members.push_back(json::Builder::Member{"id", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const CancelParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25186,9 +28423,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ProgressParam
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const ProgressParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const ProgressParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.token, b);
@@ -25204,7 +28442,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const ProgressParams& in,
         }
         members.push_back(json::Builder::Member{"value", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const ProgressParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25235,9 +28481,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkDoneProgressParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.work_done_token) {
         auto res = Encode(*in.work_done_token, b);
@@ -25246,7 +28493,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressParams&
         }
         members.push_back(json::Builder::Member{"workDoneToken", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25277,9 +28532,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PartialResult
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const PartialResultParams& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PartialResultParams& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.partial_result_token) {
         auto res = Encode(*in.partial_result_token, b);
@@ -25288,7 +28544,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const PartialResultParams& in
         }
         members.push_back(json::Builder::Member{"partialResultToken", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const PartialResultParams& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25355,9 +28619,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LocationLink&
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const LocationLink& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const LocationLink& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(4);
     if (in.origin_selection_range) {
         auto res = Encode(*in.origin_selection_range, b);
@@ -25387,7 +28652,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const LocationLink& in,
         }
         members.push_back(json::Builder::Member{"targetSelectionRange", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const LocationLink& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25418,9 +28691,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] StaticRegistr
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const StaticRegistrationOptions& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const StaticRegistrationOptions& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.id) {
         auto res = Encode(*in.id, b);
@@ -25429,7 +28703,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const StaticRegistrationOptio
         }
         members.push_back(json::Builder::Member{"id", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const StaticRegistrationOptions& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25470,9 +28752,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueTe
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueText& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueText& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -25488,7 +28771,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueText& in,
         }
         members.push_back(json::Builder::Member{"text", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueText& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25543,9 +28834,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueVa
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueVariableLookup& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueVariableLookup& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.range, b);
@@ -25568,7 +28860,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueVariableLook
         }
         members.push_back(json::Builder::Member{"caseSensitiveLookup", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueVariableLookup& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25614,9 +28914,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const InlineValueEvaluatableExpression& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const InlineValueEvaluatableExpression& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -25632,7 +28933,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueEvaluatableE
         }
         members.push_back(json::Builder::Member{"expression", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const InlineValueEvaluatableExpression& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25675,9 +28984,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RelatedFullDocumentDiagnosticReport& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RelatedFullDocumentDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.related_documents) {
         auto res = Encode(*in.related_documents, b);
@@ -25686,11 +28996,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const RelatedFullDocumentDiag
         }
         members.push_back(json::Builder::Member{"relatedDocuments", res.Get()});
     }
-    if (auto res = Encode(static_cast<const FullDocumentDiagnosticReport&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const FullDocumentDiagnosticReport&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RelatedFullDocumentDiagnosticReport& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25734,10 +29052,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const RelatedUnchangedDocumentDiagnosticReport& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     if (in.related_documents) {
         auto res = Encode(*in.related_documents, b);
@@ -25746,11 +29064,21 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"relatedDocuments", res.Get()});
     }
-    if (auto res = Encode(static_cast<const UnchangedDocumentDiagnosticReport&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const UnchangedDocumentDiagnosticReport&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const RelatedUnchangedDocumentDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25791,9 +29119,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PrepareRename
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenamePlaceholder& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PrepareRenamePlaceholder& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.range, b);
@@ -25809,7 +29138,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenamePlaceholde
         }
         members.push_back(json::Builder::Member{"placeholder", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenamePlaceholder& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25839,9 +29176,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenameDefaultBehavior& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const PrepareRenameDefaultBehavior& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.default_behavior, b);
@@ -25850,7 +29188,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenameDefaultBeh
         }
         members.push_back(json::Builder::Member{"defaultBehavior", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenameDefaultBehavior& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25901,9 +29247,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFullDocumentDiagnosticReport& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const WorkspaceFullDocumentDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.uri, b);
@@ -25919,11 +29266,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFullDocumentDi
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
-    if (auto res = Encode(static_cast<const FullDocumentDiagnosticReport&>(in), b);
+    if (auto res = EncodeMembers(static_cast<const FullDocumentDiagnosticReport&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFullDocumentDiagnosticReport& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -25975,10 +29330,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode(
+static Result<SuccessType> EncodeMembers(
     [[maybe_unused]] const WorkspaceUnchangedDocumentDiagnosticReport& in,
-    [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.uri, b);
@@ -25994,11 +29349,21 @@ Result<const json::Value*> Encode(
         }
         members.push_back(json::Builder::Member{"version", res.Get()});
     }
-    if (auto res = Encode(static_cast<const UnchangedDocumentDiagnosticReport&>(in), b);
+    if (auto res =
+            EncodeMembers(static_cast<const UnchangedDocumentDiagnosticReport&>(in), b, members);
         res != Success) {
         return res.Failure();
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode(
+    [[maybe_unused]] const WorkspaceUnchangedDocumentDiagnosticReport& in,
+    [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26056,9 +29421,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChangePartial& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentContentChangePartial& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.range, b);
@@ -26081,7 +29447,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChan
         }
         members.push_back(json::Builder::Member{"text", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChangePartial& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26113,9 +29487,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChangeWholeDocument& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentContentChangeWholeDocument& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(1);
     {
         auto res = Encode(in.text, b);
@@ -26124,7 +29499,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChan
         }
         members.push_back(json::Builder::Member{"text", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChangeWholeDocument& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26165,9 +29548,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MarkedStringW
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const MarkedStringWithLanguage& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const MarkedStringWithLanguage& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.language, b);
@@ -26183,7 +29567,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const MarkedStringWithLanguag
         }
         members.push_back(json::Builder::Member{"value", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const MarkedStringWithLanguage& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26229,9 +29621,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellTextDocumentFilter& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookCellTextDocumentFilter& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.notebook, b);
@@ -26247,7 +29640,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellTextDocumen
         }
         members.push_back(json::Builder::Member{"language", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellTextDocumentFilter& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26288,9 +29689,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RelativePatte
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const RelativePattern& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const RelativePattern& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(2);
     {
         auto res = Encode(in.base_uri, b);
@@ -26306,7 +29708,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const RelativePattern& in,
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const RelativePattern& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26364,9 +29774,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterLanguage& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentFilterLanguage& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.language, b);
@@ -26389,7 +29800,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterLangu
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterLanguage& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26446,9 +29865,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentF
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterScheme& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentFilterScheme& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.language) {
         auto res = Encode(*in.language, b);
@@ -26471,7 +29891,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterSchem
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterScheme& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26528,9 +29956,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentF
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterPattern& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const TextDocumentFilterPattern& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.language) {
         auto res = Encode(*in.language, b);
@@ -26553,7 +29982,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterPatte
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterPattern& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26613,9 +30050,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterNotebookType& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentFilterNotebookType& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     {
         auto res = Encode(in.notebook_type, b);
@@ -26638,7 +30076,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterN
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterNotebookType& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26696,9 +30142,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterScheme& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentFilterScheme& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.notebook_type) {
         auto res = Encode(*in.notebook_type, b);
@@ -26721,7 +30168,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterS
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterScheme& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 
@@ -26781,9 +30236,10 @@ Result<SuccessType> Decode([[maybe_unused]] V& v,
     return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterPattern& in,
-                                  [[maybe_unused]] json::Builder& b) {
-    std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers(
+    [[maybe_unused]] const NotebookDocumentFilterPattern& in,
+    [[maybe_unused]] json::Builder& b,
+    [[maybe_unused]] std::vector<json::Builder::Member>& members) {
     members.reserve(3);
     if (in.notebook_type) {
         auto res = Encode(*in.notebook_type, b);
@@ -26806,7 +30262,15 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterP
         }
         members.push_back(json::Builder::Member{"pattern", res.Get()});
     }
+    return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterPattern& in,
+                                  [[maybe_unused]] json::Builder& b) {
+    std::vector<json::Builder::Member> members;
+    if (auto res = EncodeMembers(in, b, members); res != Success) {
+        return res.Failure();
+    }
     return b.Object(members);
 }
 

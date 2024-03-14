@@ -64,6 +64,11 @@ static inline std::ostream& operator<<(std::ostream& out, const Failure& failure
 /// @tparam FAILURE_TYPE the 'failure' value type. Must not be the same type as SUCCESS_TYPE.
 template <typename SUCCESS_TYPE, typename FAILURE_TYPE = Failure>
 struct [[nodiscard]] Result {
+    /// The result's success type
+    using ResultSuccess = SUCCESS_TYPE;
+    /// The result's failure type
+    using ResultFailure = FAILURE_TYPE;
+
     static_assert(!std::is_same_v<SUCCESS_TYPE, FAILURE_TYPE>,
                   "Result must not have the same type for SUCCESS_TYPE and FAILURE_TYPE");
 

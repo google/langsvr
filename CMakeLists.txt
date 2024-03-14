@@ -35,6 +35,7 @@ project(
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 enable_testing()
 
@@ -132,10 +133,10 @@ if(LANGSVR_BUILD_TESTS)
         src/one_of_test.cc
         src/optional_test.cc
         src/result_test.cc
+        src/session_test.cc
         src/span_test.cc
         src/traits_test.cc
         src/json/builder_test.cc
-        src/lsp/session_test.cc
         src/utils/block_allocator_test.cc
     )
 

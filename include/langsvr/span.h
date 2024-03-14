@@ -28,6 +28,7 @@
 #ifndef LANGSVR_SPAN_H_
 #define LANGSVR_SPAN_H_
 
+#include <array>
 #include <cstddef>
 #include <vector>
 
@@ -45,6 +46,11 @@ class Span {
     /// Constructor
     /// @param vec vector to create the span from
     Span(const std::vector<T>& vec) : elements_(vec.data()), count_(vec.size()) {}
+
+    /// Constructor
+    /// @param arr array to create the span from
+    template <size_t N>
+    Span(const std::array<T, N>& arr) : elements_(arr.data()), count_(arr.size()) {}
 
     /// @returns the first element in the span
     const T& front() const { return elements_[0]; }

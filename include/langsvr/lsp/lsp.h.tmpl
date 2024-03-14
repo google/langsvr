@@ -214,12 +214,12 @@ struct {{.Name}}Request
   /// Does the request take parameters?
   static constexpr bool kHasParams = {{if $.Params}}true{{else}}false{{end}};
 
-  /// The result type of the request
-  using Result = {{Eval "Type" $.Result}};
-{{-   if $.ErrorData}}
+  /// The result success type of the request
+  using SuccessType = {{Eval "Type" $.Result}};
   /// The result error type of the request
-  using ErrorData = {{Eval "Type" $.ErrorData}};
-{{-   end}}
+  using FailureType = {{if $.ErrorData}}{{Eval "Type" $.ErrorData}}{{else}}void{{end}};
+  /// The result type (success or failure) of the request
+  using ResultType = {{if $.ErrorData}}Result<SuccessType, FailureType>{{else}}SuccessType{{end}};
 };
 
 {{end}}
