@@ -8343,8 +8343,12 @@ struct TextDocumentImplementationRequest : lsp::ImplementationParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::Definition, std::vector<lsp::DefinitionLink>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::Definition, std::vector<lsp::DefinitionLink>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the type definition locations of a symbol at a given text document
@@ -8360,8 +8364,12 @@ struct TextDocumentTypeDefinitionRequest : lsp::TypeDefinitionParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::Definition, std::vector<lsp::DefinitionLink>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::Definition, std::vector<lsp::DefinitionLink>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The `workspace/workspaceFolders` is sent from the server to the client to fetch the open
@@ -8376,8 +8384,12 @@ struct WorkspaceWorkspaceFoldersRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::WorkspaceFolder>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::WorkspaceFolder>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The 'workspace/configuration' request is sent from the server to the client to fetch a certain
@@ -8396,8 +8408,12 @@ struct WorkspaceConfigurationRequest : lsp::ConfigurationParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = std::vector<lsp::LSPAny>;
+    /// The result success type of the request
+    using SuccessType = std::vector<lsp::LSPAny>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to list all color symbols found in a given text document. The request's parameter is
@@ -8413,8 +8429,12 @@ struct TextDocumentDocumentColorRequest : lsp::DocumentColorParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = std::vector<lsp::ColorInformation>;
+    /// The result success type of the request
+    using SuccessType = std::vector<lsp::ColorInformation>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to list all presentation for a color. The request's parameter is of type
@@ -8430,8 +8450,12 @@ struct TextDocumentColorPresentationRequest : lsp::ColorPresentationParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = std::vector<lsp::ColorPresentation>;
+    /// The result success type of the request
+    using SuccessType = std::vector<lsp::ColorPresentation>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide folding ranges in a document. The request's parameter is of type
@@ -8447,8 +8471,12 @@ struct TextDocumentFoldingRangeRequest : lsp::FoldingRangeParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::FoldingRange>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::FoldingRange>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.18.0
@@ -8464,8 +8492,12 @@ struct WorkspaceFoldingRangeRefreshRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the type definition locations of a symbol at a given text document
@@ -8481,8 +8513,12 @@ struct TextDocumentDeclarationRequest : lsp::DeclarationParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::Declaration, std::vector<lsp::DeclarationLink>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::Declaration, std::vector<lsp::DeclarationLink>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide selection ranges in a document. The request's parameter is of type
@@ -8498,8 +8534,12 @@ struct TextDocumentSelectionRangeRequest : lsp::SelectionRangeParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::SelectionRange>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::SelectionRange>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The `window/workDoneProgress/create` request is sent from the server to the client to initiate
@@ -8514,8 +8554,12 @@ struct WindowWorkDoneProgressCreateRequest : lsp::WorkDoneProgressCreateParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to result a `CallHierarchyItem` in a document at a given position. Can be used as an
@@ -8532,8 +8576,12 @@ struct TextDocumentPrepareCallHierarchyRequest : lsp::CallHierarchyPrepareParams
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::CallHierarchyItem>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::CallHierarchyItem>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the incoming calls for a given `CallHierarchyItem`.
@@ -8549,8 +8597,12 @@ struct CallHierarchyIncomingCallsRequest : lsp::CallHierarchyIncomingCallsParams
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::CallHierarchyIncomingCall>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::CallHierarchyIncomingCall>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the outgoing calls for a given `CallHierarchyItem`.
@@ -8566,8 +8618,12 @@ struct CallHierarchyOutgoingCallsRequest : lsp::CallHierarchyOutgoingCallsParams
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::CallHierarchyOutgoingCall>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::CallHierarchyOutgoingCall>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.16.0
@@ -8581,8 +8637,12 @@ struct TextDocumentSemanticTokensFullRequest : lsp::SemanticTokensParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::SemanticTokens, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::SemanticTokens, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.16.0
@@ -8596,8 +8656,12 @@ struct TextDocumentSemanticTokensFullDeltaRequest : lsp::SemanticTokensDeltaPara
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::SemanticTokens, lsp::SemanticTokensDelta, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::SemanticTokens, lsp::SemanticTokensDelta, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.16.0
@@ -8611,8 +8675,12 @@ struct TextDocumentSemanticTokensRangeRequest : lsp::SemanticTokensRangeParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::SemanticTokens, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::SemanticTokens, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.16.0
@@ -8626,8 +8694,12 @@ struct WorkspaceSemanticTokensRefreshRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to show a document. This request might open an external program depending on the value
@@ -8645,8 +8717,12 @@ struct WindowShowDocumentRequest : lsp::ShowDocumentParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::ShowDocumentResult;
+    /// The result success type of the request
+    using SuccessType = lsp::ShowDocumentResult;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide ranges that can be edited together.
@@ -8662,8 +8738,12 @@ struct TextDocumentLinkedEditingRangeRequest : lsp::LinkedEditingRangeParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::LinkedEditingRanges, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::LinkedEditingRanges, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The will create files request is sent from the client to the server before files are actually
@@ -8682,8 +8762,12 @@ struct WorkspaceWillCreateFilesRequest : lsp::CreateFilesParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The will rename files request is sent from the client to the server before files are actually
@@ -8700,8 +8784,12 @@ struct WorkspaceWillRenameFilesRequest : lsp::RenameFilesParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The did delete files notification is sent from the client to the server when files were deleted
@@ -8718,8 +8806,12 @@ struct WorkspaceWillDeleteFilesRequest : lsp::DeleteFilesParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to get the moniker of a symbol at a given text document position. The request
@@ -8735,8 +8827,12 @@ struct TextDocumentMonikerRequest : lsp::MonikerParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::Moniker>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::Moniker>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to result a `TypeHierarchyItem` in a document at a given position. Can be used as an
@@ -8753,8 +8849,12 @@ struct TextDocumentPrepareTypeHierarchyRequest : lsp::TypeHierarchyPrepareParams
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TypeHierarchyItem>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TypeHierarchyItem>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the supertypes for a given `TypeHierarchyItem`.
@@ -8770,8 +8870,12 @@ struct TypeHierarchySupertypesRequest : lsp::TypeHierarchySupertypesParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TypeHierarchyItem>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TypeHierarchyItem>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the subtypes for a given `TypeHierarchyItem`.
@@ -8787,8 +8891,12 @@ struct TypeHierarchySubtypesRequest : lsp::TypeHierarchySubtypesParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TypeHierarchyItem>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TypeHierarchyItem>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide inline values in a document. The request's parameter is of type
@@ -8806,8 +8914,12 @@ struct TextDocumentInlineValueRequest : lsp::InlineValueParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::InlineValue>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::InlineValue>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.17.0
@@ -8821,8 +8933,12 @@ struct WorkspaceInlineValueRefreshRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide inlay hints in a document. The request's parameter is of type
@@ -8840,8 +8956,12 @@ struct TextDocumentInlayHintRequest : lsp::InlayHintParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::InlayHint>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::InlayHint>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve additional properties for an inlay hint. The request's parameter is of type
@@ -8858,8 +8978,12 @@ struct InlayHintResolveRequest : lsp::InlayHint {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::InlayHint;
+    /// The result success type of the request
+    using SuccessType = lsp::InlayHint;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// @since 3.17.0
@@ -8873,8 +8997,12 @@ struct WorkspaceInlayHintRefreshRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The document diagnostic request definition.
@@ -8890,10 +9018,12 @@ struct TextDocumentDiagnosticRequest : lsp::DocumentDiagnosticParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::DocumentDiagnosticReport;
+    /// The result success type of the request
+    using SuccessType = lsp::DocumentDiagnosticReport;
     /// The result error type of the request
-    using ErrorData = lsp::DiagnosticServerCancellationData;
+    using FailureType = lsp::DiagnosticServerCancellationData;
+    /// The result type (success or failure) of the request
+    using ResultType = Result<SuccessType, FailureType>;
 };
 
 /// The workspace diagnostic request definition.
@@ -8909,10 +9039,12 @@ struct WorkspaceDiagnosticRequest : lsp::WorkspaceDiagnosticParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::WorkspaceDiagnosticReport;
+    /// The result success type of the request
+    using SuccessType = lsp::WorkspaceDiagnosticReport;
     /// The result error type of the request
-    using ErrorData = lsp::DiagnosticServerCancellationData;
+    using FailureType = lsp::DiagnosticServerCancellationData;
+    /// The result type (success or failure) of the request
+    using ResultType = Result<SuccessType, FailureType>;
 };
 
 /// The diagnostic refresh request definition.
@@ -8928,8 +9060,12 @@ struct WorkspaceDiagnosticRefreshRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide inline completions in a document. The request's parameter is of type
@@ -8949,8 +9085,13 @@ struct TextDocumentInlineCompletionRequest : lsp::InlineCompletionParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::InlineCompletionList, std::vector<lsp::InlineCompletionItem>, Null>;
+    /// The result success type of the request
+    using SuccessType =
+        OneOf<lsp::InlineCompletionList, std::vector<lsp::InlineCompletionItem>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The `client/registerCapability` request is sent from the server to the client to register a new
@@ -8965,8 +9106,12 @@ struct ClientRegisterCapabilityRequest : lsp::RegistrationParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The `client/unregisterCapability` request is sent from the server to the client to unregister a
@@ -8981,8 +9126,12 @@ struct ClientUnregisterCapabilityRequest : lsp::UnregistrationParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The initialize request is sent from the client to the server. It is sent once as the request
@@ -8998,10 +9147,12 @@ struct InitializeRequest : lsp::InitializeParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::InitializeResult;
+    /// The result success type of the request
+    using SuccessType = lsp::InitializeResult;
     /// The result error type of the request
-    using ErrorData = lsp::InitializeError;
+    using FailureType = lsp::InitializeError;
+    /// The result type (success or failure) of the request
+    using ResultType = Result<SuccessType, FailureType>;
 };
 
 /// A shutdown request is sent from the client to the server. It is sent once when the client
@@ -9017,8 +9168,12 @@ struct ShutdownRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// The show message request is sent from the server to the client to show a message and a set of
@@ -9033,8 +9188,12 @@ struct WindowShowMessageRequestRequest : lsp::ShowMessageRequestParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::MessageActionItem, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::MessageActionItem, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A document will save request is sent from the client to the server before the document is
@@ -9052,8 +9211,12 @@ struct TextDocumentWillSaveWaitUntilRequest : lsp::WillSaveTextDocumentParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// Request to request completion at a given text document position. The request's parameter is of
@@ -9073,8 +9236,12 @@ struct TextDocumentCompletionRequest : lsp::CompletionParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::CompletionItem>, lsp::CompletionList, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::CompletionItem>, lsp::CompletionList, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// Request to resolve additional information for a given completion item.The request's parameter is
@@ -9090,8 +9257,12 @@ struct CompletionItemResolveRequest : lsp::CompletionItem {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::CompletionItem;
+    /// The result success type of the request
+    using SuccessType = lsp::CompletionItem;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// Request to request hover information at a given text document position. The request's parameter
@@ -9107,8 +9278,12 @@ struct TextDocumentHoverRequest : lsp::HoverParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::Hover, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::Hover, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// No documentation available
@@ -9122,8 +9297,12 @@ struct TextDocumentSignatureHelpRequest : lsp::SignatureHelpParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::SignatureHelp, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::SignatureHelp, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the definition location of a symbol at a given text document position. The
@@ -9139,8 +9318,12 @@ struct TextDocumentDefinitionRequest : lsp::DefinitionParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::Definition, std::vector<lsp::DefinitionLink>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::Definition, std::vector<lsp::DefinitionLink>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve project-wide references for the symbol denoted by the given text document
@@ -9156,8 +9339,12 @@ struct TextDocumentReferencesRequest : lsp::ReferenceParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::Location>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::Location>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// Request to resolve a DocumentHighlight for a given text document position. The request's
@@ -9173,8 +9360,12 @@ struct TextDocumentDocumentHighlightRequest : lsp::DocumentHighlightParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::DocumentHighlight>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::DocumentHighlight>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to list all symbols found in a given text document. The request's parameter is of type
@@ -9190,9 +9381,13 @@ struct TextDocumentDocumentSymbolRequest : lsp::DocumentSymbolParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result =
+    /// The result success type of the request
+    using SuccessType =
         OneOf<std::vector<lsp::SymbolInformation>, std::vector<lsp::DocumentSymbol>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide commands for the given text document and range.
@@ -9206,8 +9401,12 @@ struct TextDocumentCodeActionRequest : lsp::CodeActionParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<OneOf<lsp::Command, lsp::CodeAction>>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<OneOf<lsp::Command, lsp::CodeAction>>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// Request to resolve additional information for a given code action.The request's parameter is of
@@ -9222,8 +9421,12 @@ struct CodeActionResolveRequest : lsp::CodeAction {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::CodeAction;
+    /// The result success type of the request
+    using SuccessType = lsp::CodeAction;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to list project-wide symbols matching the query string given by the
@@ -9242,9 +9445,13 @@ struct WorkspaceSymbolRequest : lsp::WorkspaceSymbolParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result =
+    /// The result success type of the request
+    using SuccessType =
         OneOf<std::vector<lsp::SymbolInformation>, std::vector<lsp::WorkspaceSymbol>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve the range inside the workspace symbol's location.
@@ -9260,8 +9467,12 @@ struct WorkspaceSymbolResolveRequest : lsp::WorkspaceSymbol {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::WorkspaceSymbol;
+    /// The result success type of the request
+    using SuccessType = lsp::WorkspaceSymbol;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide code lens for the given text document.
@@ -9275,8 +9486,12 @@ struct TextDocumentCodeLensRequest : lsp::CodeLensParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::CodeLens>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::CodeLens>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to resolve a command for a given code lens.
@@ -9290,8 +9505,12 @@ struct CodeLensResolveRequest : lsp::CodeLens {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::CodeLens;
+    /// The result success type of the request
+    using SuccessType = lsp::CodeLens;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to refresh all code actions
@@ -9307,8 +9526,12 @@ struct WorkspaceCodeLensRefreshRequest {
     /// Does the request take parameters?
     static constexpr bool kHasParams = false;
 
-    /// The result type of the request
-    using Result = Null;
+    /// The result success type of the request
+    using SuccessType = Null;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to provide document links
@@ -9322,8 +9545,12 @@ struct TextDocumentDocumentLinkRequest : lsp::DocumentLinkParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::DocumentLink>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::DocumentLink>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// Request to resolve additional information for a given document link. The request's parameter is
@@ -9338,8 +9565,12 @@ struct DocumentLinkResolveRequest : lsp::DocumentLink {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::DocumentLink;
+    /// The result success type of the request
+    using SuccessType = lsp::DocumentLink;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to format a whole document.
@@ -9353,8 +9584,12 @@ struct TextDocumentFormattingRequest : lsp::DocumentFormattingParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to format a range in a document.
@@ -9368,8 +9603,12 @@ struct TextDocumentRangeFormattingRequest : lsp::DocumentRangeFormattingParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to format ranges in a document.
@@ -9387,8 +9626,12 @@ struct TextDocumentRangesFormattingRequest : lsp::DocumentRangesFormattingParams
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to format a document on type.
@@ -9402,8 +9645,12 @@ struct TextDocumentOnTypeFormattingRequest : lsp::DocumentOnTypeFormattingParams
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<std::vector<lsp::TextEdit>, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to rename a symbol.
@@ -9417,8 +9664,12 @@ struct TextDocumentRenameRequest : lsp::RenameParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::WorkspaceEdit, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request to test and perform the setup necessary for a rename.
@@ -9434,8 +9685,12 @@ struct TextDocumentPrepareRenameRequest : lsp::PrepareRenameParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::PrepareRenameResult, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::PrepareRenameResult, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request send from the client to the server to execute a command. The request might return a
@@ -9450,8 +9705,12 @@ struct WorkspaceExecuteCommandRequest : lsp::ExecuteCommandParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = OneOf<lsp::LSPAny, Null>;
+    /// The result success type of the request
+    using SuccessType = OneOf<lsp::LSPAny, Null>;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 /// A request sent from the server to the client to modified certain resources.
@@ -9465,8 +9724,12 @@ struct WorkspaceApplyEditRequest : lsp::ApplyWorkspaceEditParams {
     /// Does the request take parameters?
     static constexpr bool kHasParams = true;
 
-    /// The result type of the request
-    using Result = lsp::ApplyWorkspaceEditResult;
+    /// The result success type of the request
+    using SuccessType = lsp::ApplyWorkspaceEditResult;
+    /// The result error type of the request
+    using FailureType = void;
+    /// The result type (success or failure) of the request
+    using ResultType = SuccessType;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

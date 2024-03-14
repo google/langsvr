@@ -102,7 +102,7 @@ struct OneOf {
     }
 
     /// Inequality operator
-    bool operator!=(const OneOf& other) const { return *this != other; }
+    bool operator!=(const OneOf& other) const { return !(*this == other); }
 
     /// Reset clears the value of the OneOf
     void Reset() {

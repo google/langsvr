@@ -26,6 +26,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "langsvr/session.h"
+#include <string>
 #include "langsvr/json/builder.h"
 
 namespace langsvr {
@@ -38,8 +39,21 @@ Result<SuccessType> Session::Receive(std::string_view json) {
     }
 
     auto method = object.Get()->Get<json::String>("method");
-    if (method != Success) {
-        return method.Failure();
+    if (method != Success) {  // Response
+        auto id = object.Get()->Get<json::I64>("id");
+        if (id != Success) {
+            return id.Failure();
+        }
+
+        auto handler_it = response_handlers_.find(id.Get());
+        if (handler_it == response_handlers_.end()) {
+            return Failure{"received response for unknown request with ID " +
+                           std::to_string(id.Get())};
+        }
+
+        auto handler = std::move(handler_it->second);
+        response_handlers_.erase(handler_it);
+        return handler(*object.Get());
     }
 
     if (object.Get()->Has("id")) {  // Request
@@ -54,19 +68,15 @@ Result<SuccessType> Session::Receive(std::string_view json) {
         }
         auto& request_handler = it->second;
 
-        std::vector response_members{
-            json::Builder::Member{"id", json_builder->I64(id.Get())},
-        };
-
-        if (auto result = request_handler.function(*object.Get(), *json_builder.get());
-            result == Success) {
-            if (auto* result_json = result.Get()) {
-                response_members.push_back(json::Builder::Member{"result", result.Get()});
-            }
-        } else {
-            auto err = result.Failure().reason;
-            response_members.push_back(json::Builder::Member{"error", json_builder->String(err)});
+        auto result = request_handler.function(*object.Get(), *json_builder.get());
+        if (result != Success) {
+            return result.Failure();
         }
+
+        std::array response_members{
+            json::Builder::Member{"id", json_builder->I64(id.Get())},
+            result.Get(),
+        };
 
         auto* response = json_builder->Object(response_members);
         if (auto res = SendJson(response->Json()); res != Success) {

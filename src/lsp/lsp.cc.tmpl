@@ -160,8 +160,7 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] {{$name}}& ou
   return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const {{$name}}& in, [[maybe_unused]] json::Builder& b) {
-  std::vector<json::Builder::Member> members;
+static Result<SuccessType> EncodeMembers([[maybe_unused]] const {{$name}}& in, [[maybe_unused]] json::Builder& b, [[maybe_unused]] std::vector<json::Builder::Member>& members) {
 {{-   if .Kind}}
   members.reserve({{Sum 1 (len .Properties)}});
   members.push_back(json::Builder::Member{"kind", b.String("{{.Kind}}")});
@@ -189,11 +188,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const {{$name}}& in, [[maybe_
 {{-   end}}
 
 {{-   range .Extends}}
-  if (auto res = Encode(static_cast<const {{.Name}}&>(in), b); res != Success) {
-      return res.Failure();
+  if (auto res = EncodeMembers(static_cast<const {{.Name}}&>(in), b, members); res != Success) {
+    return res.Failure();
   }
 {{-   end}}
+  return Success;
+}
 
+Result<const json::Value*> Encode([[maybe_unused]] const {{$name}}& in, [[maybe_unused]] json::Builder& b) {
+  std::vector<json::Builder::Member> members;
+  if (auto res = EncodeMembers(in, b, members); res != Success) {
+    return res.Failure();
+  }
   return b.Object(members);
 }
 

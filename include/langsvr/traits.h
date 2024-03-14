@@ -31,6 +31,12 @@
 #include <string>
 #include <tuple>
 
+/// Forward declaration
+namespace langsvr {
+template <typename SUCCESS_TYPE, typename FAILURE_TYPE>
+struct Result;
+}
+
 namespace langsvr::detail {
 
 /// NthTypeOf returns the `N`th type in `Types`
@@ -108,6 +114,11 @@ struct HasOperatorShiftLeft<LHS,
                             std::void_t<decltype((std::declval<LHS>() << std::declval<RHS>()))>>
     : std::true_type {};
 
+template <typename T, typename = void>
+struct IsResult : std::false_type {};
+template <typename SUCCESS, typename FAILURE>
+struct IsResult<Result<SUCCESS, FAILURE>> : std::true_type {};
+
 }  // namespace langsvr::detail
 
 namespace langsvr {
@@ -143,6 +154,10 @@ static constexpr bool IsStringLike =
     std::is_same_v<std::decay_t<T>, std::string> ||
     std::is_same_v<std::decay_t<T>, std::string_view> ||
     std::is_same_v<std::decay_t<T>, const char*> || std::is_same_v<std::decay_t<T>, char*>;
+
+/// Evaluates to true if `T` is a Result<...>
+template <typename T>
+static constexpr bool IsResult = detail::IsResult<T>::value;
 
 }  // namespace langsvr
 
