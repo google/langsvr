@@ -176,8 +176,11 @@ struct {{$.Name}}
 {{- /* ------------------------------------------------------------------ */ -}}
 {{-                        define "StructureMethods"                         -}}
 {{- /* ------------------------------------------------------------------ */ -}}
-Result<SuccessType> Decode(const json::Value& v, {{Join $.NestedNames "::"}}& out);
-Result<const json::Value*> Encode(const {{Join $.NestedNames "::"}}& in, json::Builder& b);
+{{$name := Join $.NestedNames "::"}}
+bool operator==(const {{$name}}& lhs, const {{$name}}& rhs);
+bool operator!=(const {{$name}}& lhs, const {{$name}}& rhs);
+Result<SuccessType> Decode(const json::Value& v, {{$name}}& out);
+Result<const json::Value*> Encode(const {{$name}}& in, json::Builder& b);
 {{-   range $i, $n := $.NestedStructures}}
 {{-     template "StructureMethods" $n}}
 {{-   end }}

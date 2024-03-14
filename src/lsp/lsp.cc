@@ -1888,6 +1888,17 @@ Result<const json::Value*> Encode(TokenFormat in, json::Builder& b) {
     return Failure{"invalid value for enum TokenFormat"};
 }
 
+bool operator==(const TextDocumentIdentifier& lhs, const TextDocumentIdentifier& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentIdentifier& lhs, const TextDocumentIdentifier& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentIdentifier& out) {
     {
         auto member = v.Get("uri");
@@ -1915,6 +1926,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentIdentifier&
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Position& lhs, const Position& rhs) {
+    if (lhs.line != rhs.line) {
+        return false;
+    }
+    if (lhs.character != rhs.character) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Position& lhs, const Position& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Position& out) {
@@ -1960,6 +1985,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const Position& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TextDocumentPositionParams& lhs, const TextDocumentPositionParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.position != rhs.position) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentPositionParams& lhs, const TextDocumentPositionParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -2008,6 +2047,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentPositionPar
     return b.Object(members);
 }
 
+bool operator==(const ImplementationParams& lhs, const ImplementationParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ImplementationParams& lhs, const ImplementationParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ImplementationParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -2025,6 +2076,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ImplementationParams& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Range& lhs, const Range& rhs) {
+    if (lhs.start != rhs.start) {
+        return false;
+    }
+    if (lhs.end != rhs.end) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Range& lhs, const Range& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Range& out) {
@@ -2072,6 +2137,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const Range& in,
     return b.Object(members);
 }
 
+bool operator==(const Location& lhs, const Location& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Location& lhs, const Location& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Location& out) {
     {
         auto member = v.Get("uri");
@@ -2117,6 +2196,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const Location& in,
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentRegistrationOptions& lhs,
+                const TextDocumentRegistrationOptions& rhs) {
+    if (lhs.document_selector != rhs.document_selector) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentRegistrationOptions& lhs,
+                const TextDocumentRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentRegistrationOptions& out) {
     {
@@ -2147,6 +2239,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentRegistratio
     return b.Object(members);
 }
 
+bool operator==(const ImplementationOptions& lhs, const ImplementationOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const ImplementationOptions& lhs, const ImplementationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ImplementationOptions& out) {
     return Success;
 }
@@ -2157,6 +2257,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const ImplementationOptions& 
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const ImplementationRegistrationOptions& lhs,
+                const ImplementationRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const ImplementationOptions&>(lhs) !=
+        static_cast<const ImplementationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ImplementationRegistrationOptions& lhs,
+                const ImplementationRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -2186,6 +2304,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const ImplementationRegistrat
     return b.Object(members);
 }
 
+bool operator==(const TypeDefinitionParams& lhs, const TypeDefinitionParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeDefinitionParams& lhs, const TypeDefinitionParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeDefinitionParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -2205,6 +2335,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionParams& i
     return b.Object(members);
 }
 
+bool operator==(const TypeDefinitionOptions& lhs, const TypeDefinitionOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const TypeDefinitionOptions& lhs, const TypeDefinitionOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeDefinitionOptions& out) {
     return Success;
 }
@@ -2215,6 +2353,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionOptions& 
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const TypeDefinitionRegistrationOptions& lhs,
+                const TypeDefinitionRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TypeDefinitionOptions&>(lhs) !=
+        static_cast<const TypeDefinitionOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeDefinitionRegistrationOptions& lhs,
+                const TypeDefinitionRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -2242,6 +2398,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionRegistrat
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceFolder& lhs, const WorkspaceFolder& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceFolder& lhs, const WorkspaceFolder& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceFolder& out) {
@@ -2287,6 +2457,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFolder& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceFoldersChangeEvent& lhs, const WorkspaceFoldersChangeEvent& rhs) {
+    if (lhs.added != rhs.added) {
+        return false;
+    }
+    if (lhs.removed != rhs.removed) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceFoldersChangeEvent& lhs, const WorkspaceFoldersChangeEvent& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -2335,6 +2519,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersChangeE
     return b.Object(members);
 }
 
+bool operator==(const DidChangeWorkspaceFoldersParams& lhs,
+                const DidChangeWorkspaceFoldersParams& rhs) {
+    if (lhs.event != rhs.event) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeWorkspaceFoldersParams& lhs,
+                const DidChangeWorkspaceFoldersParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWorkspaceFoldersParams& out) {
     {
@@ -2363,6 +2560,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWorkspaceFolde
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ConfigurationItem& lhs, const ConfigurationItem& rhs) {
+    if (lhs.scope_uri != rhs.scope_uri) {
+        return false;
+    }
+    if (lhs.section != rhs.section) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ConfigurationItem& lhs, const ConfigurationItem& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ConfigurationItem& out) {
@@ -2414,6 +2625,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationItem& in,
     return b.Object(members);
 }
 
+bool operator==(const ConfigurationParams& lhs, const ConfigurationParams& rhs) {
+    if (lhs.items != rhs.items) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ConfigurationParams& lhs, const ConfigurationParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ConfigurationParams& out) {
     {
         auto member = v.Get("items");
@@ -2443,6 +2665,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ConfigurationParams& in
     return b.Object(members);
 }
 
+bool operator==(const DocumentColorParams& lhs, const DocumentColorParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentColorParams& lhs, const DocumentColorParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentColorParams& out) {
     {
         auto member = v.Get("textDocument");
@@ -2470,6 +2703,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorParams& in
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Color& lhs, const Color& rhs) {
+    if (lhs.red != rhs.red) {
+        return false;
+    }
+    if (lhs.green != rhs.green) {
+        return false;
+    }
+    if (lhs.blue != rhs.blue) {
+        return false;
+    }
+    if (lhs.alpha != rhs.alpha) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Color& lhs, const Color& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Color& out) {
@@ -2549,6 +2802,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const Color& in,
     return b.Object(members);
 }
 
+bool operator==(const ColorInformation& lhs, const ColorInformation& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.color != rhs.color) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ColorInformation& lhs, const ColorInformation& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorInformation& out) {
     {
         auto member = v.Get("range");
@@ -2594,6 +2861,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const ColorInformation& in,
     return b.Object(members);
 }
 
+bool operator==(const DocumentColorOptions& lhs, const DocumentColorOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const DocumentColorOptions& lhs, const DocumentColorOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentColorOptions& out) {
     return Success;
 }
@@ -2604,6 +2879,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorOptions& i
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentColorRegistrationOptions& lhs,
+                const DocumentColorRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentColorOptions&>(lhs) !=
+        static_cast<const DocumentColorOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentColorRegistrationOptions& lhs,
+                const DocumentColorRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -2631,6 +2924,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorRegistrati
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ColorPresentationParams& lhs, const ColorPresentationParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.color != rhs.color) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ColorPresentationParams& lhs, const ColorPresentationParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorPresentationParams& out) {
@@ -2694,6 +3004,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentationParams
     return b.Object(members);
 }
 
+bool operator==(const TextEdit& lhs, const TextEdit& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.new_text != rhs.new_text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextEdit& lhs, const TextEdit& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextEdit& out) {
     {
         auto member = v.Get("range");
@@ -2737,6 +3061,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextEdit& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ColorPresentation& lhs, const ColorPresentation& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.text_edit != rhs.text_edit) {
+        return false;
+    }
+    if (lhs.additional_text_edits != rhs.additional_text_edits) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ColorPresentation& lhs, const ColorPresentation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorPresentation& out) {
@@ -2804,6 +3145,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ColorPresentation& in,
     return b.Object(members);
 }
 
+bool operator==(const WorkDoneProgressOptions& lhs, const WorkDoneProgressOptions& rhs) {
+    if (lhs.work_done_progress != rhs.work_done_progress) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressOptions& lhs, const WorkDoneProgressOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressOptions& out) {
     if (v.Has("workDoneProgress")) {
         Boolean val;
@@ -2835,6 +3187,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressOptions
     return b.Object(members);
 }
 
+bool operator==(const FoldingRangeParams& lhs, const FoldingRangeParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FoldingRangeParams& lhs, const FoldingRangeParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRangeParams& out) {
     {
         auto member = v.Get("textDocument");
@@ -2862,6 +3225,32 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FoldingRange& lhs, const FoldingRange& rhs) {
+    if (lhs.start_line != rhs.start_line) {
+        return false;
+    }
+    if (lhs.start_character != rhs.start_character) {
+        return false;
+    }
+    if (lhs.end_line != rhs.end_line) {
+        return false;
+    }
+    if (lhs.end_character != rhs.end_character) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.collapsed_text != rhs.collapsed_text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FoldingRange& lhs, const FoldingRange& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRange& out) {
@@ -2981,6 +3370,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRange& in,
     return b.Object(members);
 }
 
+bool operator==(const FoldingRangeOptions& lhs, const FoldingRangeOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const FoldingRangeOptions& lhs, const FoldingRangeOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRangeOptions& out) {
     return Success;
 }
@@ -2991,6 +3388,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeOptions& in
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const FoldingRangeRegistrationOptions& lhs,
+                const FoldingRangeRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const FoldingRangeOptions&>(lhs) !=
+        static_cast<const FoldingRangeOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FoldingRangeRegistrationOptions& lhs,
+                const FoldingRangeRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3020,6 +3435,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeRegistratio
     return b.Object(members);
 }
 
+bool operator==(const DeclarationParams& lhs, const DeclarationParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DeclarationParams& lhs, const DeclarationParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeclarationParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -3039,6 +3466,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeclarationParams& in,
     return b.Object(members);
 }
 
+bool operator==(const DeclarationOptions& lhs, const DeclarationOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const DeclarationOptions& lhs, const DeclarationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeclarationOptions& out) {
     return Success;
 }
@@ -3049,6 +3484,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeclarationOptions& in,
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const DeclarationRegistrationOptions& lhs,
+                const DeclarationRegistrationOptions& rhs) {
+    if (static_cast<const DeclarationOptions&>(lhs) !=
+        static_cast<const DeclarationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DeclarationRegistrationOptions& lhs,
+                const DeclarationRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3076,6 +3529,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeclarationRegistration
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SelectionRangeParams& lhs, const SelectionRangeParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.positions != rhs.positions) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SelectionRangeParams& lhs, const SelectionRangeParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRangeParams& out) {
@@ -3121,6 +3588,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeParams& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SelectionRange& lhs, const SelectionRange& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.parent != rhs.parent) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SelectionRange& lhs, const SelectionRange& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRange& out) {
@@ -3170,6 +3651,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRange& in,
     return b.Object(members);
 }
 
+bool operator==(const SelectionRangeOptions& lhs, const SelectionRangeOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const SelectionRangeOptions& lhs, const SelectionRangeOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRangeOptions& out) {
     return Success;
 }
@@ -3180,6 +3669,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeOptions& 
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const SelectionRangeRegistrationOptions& lhs,
+                const SelectionRangeRegistrationOptions& rhs) {
+    if (static_cast<const SelectionRangeOptions&>(lhs) !=
+        static_cast<const SelectionRangeOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SelectionRangeRegistrationOptions& lhs,
+                const SelectionRangeRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3207,6 +3714,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeRegistrat
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkDoneProgressCreateParams& lhs, const WorkDoneProgressCreateParams& rhs) {
+    if (lhs.token != rhs.token) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressCreateParams& lhs, const WorkDoneProgressCreateParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3239,6 +3757,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCreateP
     return b.Object(members);
 }
 
+bool operator==(const WorkDoneProgressCancelParams& lhs, const WorkDoneProgressCancelParams& rhs) {
+    if (lhs.token != rhs.token) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressCancelParams& lhs, const WorkDoneProgressCancelParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkDoneProgressCancelParams& out) {
     {
@@ -3269,6 +3798,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressCancelP
     return b.Object(members);
 }
 
+bool operator==(const CallHierarchyPrepareParams& lhs, const CallHierarchyPrepareParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyPrepareParams& lhs, const CallHierarchyPrepareParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyPrepareParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
@@ -3287,6 +3828,38 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyPreparePar
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CallHierarchyItem& lhs, const CallHierarchyItem& rhs) {
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.tags != rhs.tags) {
+        return false;
+    }
+    if (lhs.detail != rhs.detail) {
+        return false;
+    }
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.selection_range != rhs.selection_range) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyItem& lhs, const CallHierarchyItem& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyItem& out) {
@@ -3436,6 +4009,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyItem& in,
     return b.Object(members);
 }
 
+bool operator==(const CallHierarchyOptions& lhs, const CallHierarchyOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const CallHierarchyOptions& lhs, const CallHierarchyOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyOptions& out) {
     return Success;
 }
@@ -3446,6 +4027,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOptions& i
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const CallHierarchyRegistrationOptions& lhs,
+                const CallHierarchyRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const CallHierarchyOptions&>(lhs) !=
+        static_cast<const CallHierarchyOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyRegistrationOptions& lhs,
+                const CallHierarchyRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3473,6 +4072,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyRegistrati
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CallHierarchyIncomingCallsParams& lhs,
+                const CallHierarchyIncomingCallsParams& rhs) {
+    if (lhs.item != rhs.item) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyIncomingCallsParams& lhs,
+                const CallHierarchyIncomingCallsParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3503,6 +4115,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCa
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CallHierarchyIncomingCall& lhs, const CallHierarchyIncomingCall& rhs) {
+    if (lhs.from != rhs.from) {
+        return false;
+    }
+    if (lhs.from_ranges != rhs.from_ranges) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyIncomingCall& lhs, const CallHierarchyIncomingCall& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyIncomingCall& out) {
@@ -3550,6 +4176,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyIncomingCa
     return b.Object(members);
 }
 
+bool operator==(const CallHierarchyOutgoingCallsParams& lhs,
+                const CallHierarchyOutgoingCallsParams& rhs) {
+    if (lhs.item != rhs.item) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyOutgoingCallsParams& lhs,
+                const CallHierarchyOutgoingCallsParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyOutgoingCallsParams& out) {
     {
@@ -3578,6 +4217,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCa
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CallHierarchyOutgoingCall& lhs, const CallHierarchyOutgoingCall& rhs) {
+    if (lhs.to != rhs.to) {
+        return false;
+    }
+    if (lhs.from_ranges != rhs.from_ranges) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyOutgoingCall& lhs, const CallHierarchyOutgoingCall& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyOutgoingCall& out) {
@@ -3625,6 +4278,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyOutgoingCa
     return b.Object(members);
 }
 
+bool operator==(const SemanticTokensParams& lhs, const SemanticTokensParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensParams& lhs, const SemanticTokensParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensParams& out) {
     {
         auto member = v.Get("textDocument");
@@ -3652,6 +4316,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensParams& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokens& lhs, const SemanticTokens& rhs) {
+    if (lhs.result_id != rhs.result_id) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokens& lhs, const SemanticTokens& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokens& out) {
@@ -3701,6 +4379,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokens& in,
     return b.Object(members);
 }
 
+bool operator==(const SemanticTokensPartialResult& lhs, const SemanticTokensPartialResult& rhs) {
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensPartialResult& lhs, const SemanticTokensPartialResult& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensPartialResult& out) {
     {
@@ -3729,6 +4418,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensPartialRe
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensLegend& lhs, const SemanticTokensLegend& rhs) {
+    if (lhs.token_types != rhs.token_types) {
+        return false;
+    }
+    if (lhs.token_modifiers != rhs.token_modifiers) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensLegend& lhs, const SemanticTokensLegend& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensLegend& out) {
@@ -3776,6 +4479,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensLegend& i
     return b.Object(members);
 }
 
+bool operator==(const SemanticTokensFullDelta& lhs, const SemanticTokensFullDelta& rhs) {
+    if (lhs.delta != rhs.delta) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensFullDelta& lhs, const SemanticTokensFullDelta& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensFullDelta& out) {
     if (v.Has("delta")) {
         Boolean val;
@@ -3805,6 +4519,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensFullDelta
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensOptions& lhs, const SemanticTokensOptions& rhs) {
+    if (lhs.legend != rhs.legend) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.full != rhs.full) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensOptions& lhs, const SemanticTokensOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensOptions& out) {
@@ -3871,6 +4602,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensOptions& 
 
     return b.Object(members);
 }
+bool operator==(const SemanticTokensOptions::Range& lhs, const SemanticTokensOptions::Range& rhs) {
+    return true;
+}
+
+bool operator!=(const SemanticTokensOptions::Range& lhs, const SemanticTokensOptions::Range& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensOptions::Range& out) {
     return Success;
@@ -3882,6 +4621,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensOptions::
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensRegistrationOptions& lhs,
+                const SemanticTokensRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const SemanticTokensOptions&>(lhs) !=
+        static_cast<const SemanticTokensOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensRegistrationOptions& lhs,
+                const SemanticTokensRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -3909,6 +4666,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRegistrat
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensDeltaParams& lhs, const SemanticTokensDeltaParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.previous_result_id != rhs.previous_result_id) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensDeltaParams& lhs, const SemanticTokensDeltaParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensDeltaParams& out) {
@@ -3954,6 +4725,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaPara
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensEdit& lhs, const SemanticTokensEdit& rhs) {
+    if (lhs.start != rhs.start) {
+        return false;
+    }
+    if (lhs.delete_count != rhs.delete_count) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensEdit& lhs, const SemanticTokensEdit& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensEdit& out) {
@@ -4019,6 +4807,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensEdit& in,
     return b.Object(members);
 }
 
+bool operator==(const SemanticTokensDelta& lhs, const SemanticTokensDelta& rhs) {
+    if (lhs.result_id != rhs.result_id) {
+        return false;
+    }
+    if (lhs.edits != rhs.edits) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensDelta& lhs, const SemanticTokensDelta& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensDelta& out) {
     if (v.Has("resultId")) {
         String val;
@@ -4066,6 +4868,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDelta& in
     return b.Object(members);
 }
 
+bool operator==(const SemanticTokensDeltaPartialResult& lhs,
+                const SemanticTokensDeltaPartialResult& rhs) {
+    if (lhs.edits != rhs.edits) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensDeltaPartialResult& lhs,
+                const SemanticTokensDeltaPartialResult& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensDeltaPartialResult& out) {
     {
@@ -4094,6 +4909,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensDeltaPart
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensRangeParams& lhs, const SemanticTokensRangeParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensRangeParams& lhs, const SemanticTokensRangeParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensRangeParams& out) {
@@ -4139,6 +4968,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensRangePara
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ShowDocumentParams& lhs, const ShowDocumentParams& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.external != rhs.external) {
+        return false;
+    }
+    if (lhs.take_focus != rhs.take_focus) {
+        return false;
+    }
+    if (lhs.selection != rhs.selection) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ShowDocumentParams& lhs, const ShowDocumentParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowDocumentParams& out) {
@@ -4224,6 +5073,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentParams& in,
     return b.Object(members);
 }
 
+bool operator==(const ShowDocumentResult& lhs, const ShowDocumentResult& rhs) {
+    if (lhs.success != rhs.success) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ShowDocumentResult& lhs, const ShowDocumentResult& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowDocumentResult& out) {
     {
         auto member = v.Get("success");
@@ -4253,6 +5113,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentResult& in,
     return b.Object(members);
 }
 
+bool operator==(const LinkedEditingRangeParams& lhs, const LinkedEditingRangeParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LinkedEditingRangeParams& lhs, const LinkedEditingRangeParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditingRangeParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -4270,6 +5142,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeParam
     }
 
     return b.Object(members);
+}
+
+bool operator==(const LinkedEditingRanges& lhs, const LinkedEditingRanges& rhs) {
+    if (lhs.ranges != rhs.ranges) {
+        return false;
+    }
+    if (lhs.word_pattern != rhs.word_pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LinkedEditingRanges& lhs, const LinkedEditingRanges& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditingRanges& out) {
@@ -4319,6 +5205,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRanges& in
     return b.Object(members);
 }
 
+bool operator==(const LinkedEditingRangeOptions& lhs, const LinkedEditingRangeOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const LinkedEditingRangeOptions& lhs, const LinkedEditingRangeOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditingRangeOptions& out) {
     return Success;
 }
@@ -4329,6 +5223,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeOptio
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const LinkedEditingRangeRegistrationOptions& lhs,
+                const LinkedEditingRangeRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const LinkedEditingRangeOptions&>(lhs) !=
+        static_cast<const LinkedEditingRangeOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LinkedEditingRangeRegistrationOptions& lhs,
+                const LinkedEditingRangeRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -4356,6 +5268,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeRegis
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileCreate& lhs, const FileCreate& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileCreate& lhs, const FileCreate& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileCreate& out) {
@@ -4387,6 +5310,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileCreate& in,
     return b.Object(members);
 }
 
+bool operator==(const CreateFilesParams& lhs, const CreateFilesParams& rhs) {
+    if (lhs.files != rhs.files) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CreateFilesParams& lhs, const CreateFilesParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFilesParams& out) {
     {
         auto member = v.Get("files");
@@ -4414,6 +5348,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CreateFilesParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ResourceOperation& lhs, const ResourceOperation& rhs) {
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.annotation_id != rhs.annotation_id) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ResourceOperation& lhs, const ResourceOperation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ResourceOperation& out) {
@@ -4463,6 +5411,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ResourceOperation& in,
     return b.Object(members);
 }
 
+bool operator==(const DeleteFileOptions& lhs, const DeleteFileOptions& rhs) {
+    if (lhs.recursive != rhs.recursive) {
+        return false;
+    }
+    if (lhs.ignore_if_not_exists != rhs.ignore_if_not_exists) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DeleteFileOptions& lhs, const DeleteFileOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFileOptions& out) {
     if (v.Has("recursive")) {
         Boolean val;
@@ -4510,6 +5472,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeleteFileOptions& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DeleteFile& lhs, const DeleteFile& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    if (static_cast<const ResourceOperation&>(lhs) != static_cast<const ResourceOperation&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DeleteFile& lhs, const DeleteFile& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFile& out) {
@@ -4569,6 +5548,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeleteFile& in,
     return b.Object(members);
 }
 
+bool operator==(const RenameFileOptions& lhs, const RenameFileOptions& rhs) {
+    if (lhs.overwrite != rhs.overwrite) {
+        return false;
+    }
+    if (lhs.ignore_if_exists != rhs.ignore_if_exists) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameFileOptions& lhs, const RenameFileOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFileOptions& out) {
     if (v.Has("overwrite")) {
         Boolean val;
@@ -4616,6 +5609,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameFileOptions& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const RenameFile& lhs, const RenameFile& rhs) {
+    if (lhs.old_uri != rhs.old_uri) {
+        return false;
+    }
+    if (lhs.new_uri != rhs.new_uri) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    if (static_cast<const ResourceOperation&>(lhs) != static_cast<const ResourceOperation&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameFile& lhs, const RenameFile& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFile& out) {
@@ -4691,6 +5704,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameFile& in,
     return b.Object(members);
 }
 
+bool operator==(const CreateFileOptions& lhs, const CreateFileOptions& rhs) {
+    if (lhs.overwrite != rhs.overwrite) {
+        return false;
+    }
+    if (lhs.ignore_if_exists != rhs.ignore_if_exists) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CreateFileOptions& lhs, const CreateFileOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFileOptions& out) {
     if (v.Has("overwrite")) {
         Boolean val;
@@ -4738,6 +5765,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CreateFileOptions& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CreateFile& lhs, const CreateFile& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    if (static_cast<const ResourceOperation&>(lhs) != static_cast<const ResourceOperation&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CreateFile& lhs, const CreateFile& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFile& out) {
@@ -4797,6 +5841,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CreateFile& in,
     return b.Object(members);
 }
 
+bool operator==(const OptionalVersionedTextDocumentIdentifier& lhs,
+                const OptionalVersionedTextDocumentIdentifier& rhs) {
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (static_cast<const TextDocumentIdentifier&>(lhs) !=
+        static_cast<const TextDocumentIdentifier&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const OptionalVersionedTextDocumentIdentifier& lhs,
+                const OptionalVersionedTextDocumentIdentifier& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] OptionalVersionedTextDocumentIdentifier& out) {
     {
@@ -4834,6 +5895,20 @@ Result<const json::Value*> Encode(
     return b.Object(members);
 }
 
+bool operator==(const AnnotatedTextEdit& lhs, const AnnotatedTextEdit& rhs) {
+    if (lhs.annotation_id != rhs.annotation_id) {
+        return false;
+    }
+    if (static_cast<const TextEdit&>(lhs) != static_cast<const TextEdit&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const AnnotatedTextEdit& lhs, const AnnotatedTextEdit& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] AnnotatedTextEdit& out) {
     {
         auto member = v.Get("annotationId");
@@ -4867,6 +5942,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const AnnotatedTextEdit& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TextDocumentEdit& lhs, const TextDocumentEdit& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.edits != rhs.edits) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentEdit& lhs, const TextDocumentEdit& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentEdit& out) {
@@ -4912,6 +6001,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentEdit& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ChangeAnnotation& lhs, const ChangeAnnotation& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.needs_confirmation != rhs.needs_confirmation) {
+        return false;
+    }
+    if (lhs.description != rhs.description) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ChangeAnnotation& lhs, const ChangeAnnotation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ChangeAnnotation& out) {
@@ -4977,6 +6083,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotation& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceEdit& lhs, const WorkspaceEdit& rhs) {
+    if (lhs.changes != rhs.changes) {
+        return false;
+    }
+    if (lhs.document_changes != rhs.document_changes) {
+        return false;
+    }
+    if (lhs.change_annotations != rhs.change_annotations) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceEdit& lhs, const WorkspaceEdit& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceEdit& out) {
@@ -5047,6 +6170,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEdit& in,
     return b.Object(members);
 }
 
+bool operator==(const FileOperationPatternOptions& lhs, const FileOperationPatternOptions& rhs) {
+    if (lhs.ignore_case != rhs.ignore_case) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileOperationPatternOptions& lhs, const FileOperationPatternOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FileOperationPatternOptions& out) {
     if (v.Has("ignoreCase")) {
@@ -5077,6 +6211,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPatternOpt
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileOperationPattern& lhs, const FileOperationPattern& rhs) {
+    if (lhs.glob != rhs.glob) {
+        return false;
+    }
+    if (lhs.matches != rhs.matches) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileOperationPattern& lhs, const FileOperationPattern& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperationPattern& out) {
@@ -5144,6 +6295,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationPattern& i
     return b.Object(members);
 }
 
+bool operator==(const FileOperationFilter& lhs, const FileOperationFilter& rhs) {
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileOperationFilter& lhs, const FileOperationFilter& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperationFilter& out) {
     if (v.Has("scheme")) {
         String val;
@@ -5191,6 +6356,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationFilter& in
     return b.Object(members);
 }
 
+bool operator==(const FileOperationRegistrationOptions& lhs,
+                const FileOperationRegistrationOptions& rhs) {
+    if (lhs.filters != rhs.filters) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileOperationRegistrationOptions& lhs,
+                const FileOperationRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FileOperationRegistrationOptions& out) {
     {
@@ -5219,6 +6397,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationRegistrati
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileRename& lhs, const FileRename& rhs) {
+    if (lhs.old_uri != rhs.old_uri) {
+        return false;
+    }
+    if (lhs.new_uri != rhs.new_uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileRename& lhs, const FileRename& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileRename& out) {
@@ -5266,6 +6458,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileRename& in,
     return b.Object(members);
 }
 
+bool operator==(const RenameFilesParams& lhs, const RenameFilesParams& rhs) {
+    if (lhs.files != rhs.files) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameFilesParams& lhs, const RenameFilesParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFilesParams& out) {
     {
         auto member = v.Get("files");
@@ -5293,6 +6496,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameFilesParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileDelete& lhs, const FileDelete& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileDelete& lhs, const FileDelete& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileDelete& out) {
@@ -5324,6 +6538,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileDelete& in,
     return b.Object(members);
 }
 
+bool operator==(const DeleteFilesParams& lhs, const DeleteFilesParams& rhs) {
+    if (lhs.files != rhs.files) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DeleteFilesParams& lhs, const DeleteFilesParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFilesParams& out) {
     {
         auto member = v.Get("files");
@@ -5353,6 +6578,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeleteFilesParams& in,
     return b.Object(members);
 }
 
+bool operator==(const MonikerParams& lhs, const MonikerParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MonikerParams& lhs, const MonikerParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -5370,6 +6607,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const MonikerParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Moniker& lhs, const Moniker& rhs) {
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.identifier != rhs.identifier) {
+        return false;
+    }
+    if (lhs.unique != rhs.unique) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Moniker& lhs, const Moniker& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Moniker& out) {
@@ -5451,6 +6708,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const Moniker& in,
     return b.Object(members);
 }
 
+bool operator==(const MonikerOptions& lhs, const MonikerOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const MonikerOptions& lhs, const MonikerOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerOptions& out) {
     return Success;
 }
@@ -5461,6 +6726,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const MonikerOptions& in,
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const MonikerRegistrationOptions& lhs, const MonikerRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const MonikerOptions&>(lhs) != static_cast<const MonikerOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MonikerRegistrationOptions& lhs, const MonikerRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -5490,6 +6770,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const MonikerRegistrationOpti
     return b.Object(members);
 }
 
+bool operator==(const TypeHierarchyPrepareParams& lhs, const TypeHierarchyPrepareParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeHierarchyPrepareParams& lhs, const TypeHierarchyPrepareParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchyPrepareParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
@@ -5508,6 +6800,38 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyPreparePar
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TypeHierarchyItem& lhs, const TypeHierarchyItem& rhs) {
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.tags != rhs.tags) {
+        return false;
+    }
+    if (lhs.detail != rhs.detail) {
+        return false;
+    }
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.selection_range != rhs.selection_range) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeHierarchyItem& lhs, const TypeHierarchyItem& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeHierarchyItem& out) {
@@ -5657,6 +6981,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyItem& in,
     return b.Object(members);
 }
 
+bool operator==(const TypeHierarchyOptions& lhs, const TypeHierarchyOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const TypeHierarchyOptions& lhs, const TypeHierarchyOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeHierarchyOptions& out) {
     return Success;
 }
@@ -5667,6 +6999,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyOptions& i
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const TypeHierarchyRegistrationOptions& lhs,
+                const TypeHierarchyRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TypeHierarchyOptions&>(lhs) !=
+        static_cast<const TypeHierarchyOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeHierarchyRegistrationOptions& lhs,
+                const TypeHierarchyRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -5694,6 +7044,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyRegistrati
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TypeHierarchySupertypesParams& lhs,
+                const TypeHierarchySupertypesParams& rhs) {
+    if (lhs.item != rhs.item) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeHierarchySupertypesParams& lhs,
+                const TypeHierarchySupertypesParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -5726,6 +7089,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySupertypes
     return b.Object(members);
 }
 
+bool operator==(const TypeHierarchySubtypesParams& lhs, const TypeHierarchySubtypesParams& rhs) {
+    if (lhs.item != rhs.item) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeHierarchySubtypesParams& lhs, const TypeHierarchySubtypesParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchySubtypesParams& out) {
     {
@@ -5754,6 +7128,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchySubtypesPa
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlineValueContext& lhs, const InlineValueContext& rhs) {
+    if (lhs.frame_id != rhs.frame_id) {
+        return false;
+    }
+    if (lhs.stopped_location != rhs.stopped_location) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueContext& lhs, const InlineValueContext& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueContext& out) {
@@ -5799,6 +7187,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueContext& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlineValueParams& lhs, const InlineValueParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.context != rhs.context) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueParams& lhs, const InlineValueParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueParams& out) {
@@ -5862,6 +7267,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueParams& in,
     return b.Object(members);
 }
 
+bool operator==(const InlineValueOptions& lhs, const InlineValueOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const InlineValueOptions& lhs, const InlineValueOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueOptions& out) {
     return Success;
 }
@@ -5872,6 +7285,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueOptions& in,
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const InlineValueRegistrationOptions& lhs,
+                const InlineValueRegistrationOptions& rhs) {
+    if (static_cast<const InlineValueOptions&>(lhs) !=
+        static_cast<const InlineValueOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueRegistrationOptions& lhs,
+                const InlineValueRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -5899,6 +7330,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueRegistration
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlayHintParams& lhs, const InlayHintParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHintParams& lhs, const InlayHintParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintParams& out) {
@@ -5946,6 +7391,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintParams& in,
     return b.Object(members);
 }
 
+bool operator==(const MarkupContent& lhs, const MarkupContent& rhs) {
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MarkupContent& lhs, const MarkupContent& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MarkupContent& out) {
     {
         auto member = v.Get("kind");
@@ -5989,6 +7448,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const MarkupContent& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Command& lhs, const Command& rhs) {
+    if (lhs.title != rhs.title) {
+        return false;
+    }
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    if (lhs.arguments != rhs.arguments) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Command& lhs, const Command& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Command& out) {
@@ -6052,6 +7528,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const Command& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlayHintLabelPart& lhs, const InlayHintLabelPart& rhs) {
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    if (lhs.tooltip != rhs.tooltip) {
+        return false;
+    }
+    if (lhs.location != rhs.location) {
+        return false;
+    }
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHintLabelPart& lhs, const InlayHintLabelPart& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintLabelPart& out) {
@@ -6135,6 +7631,38 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintLabelPart& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlayHint& lhs, const InlayHint& rhs) {
+    if (lhs.position != rhs.position) {
+        return false;
+    }
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.text_edits != rhs.text_edits) {
+        return false;
+    }
+    if (lhs.tooltip != rhs.tooltip) {
+        return false;
+    }
+    if (lhs.padding_left != rhs.padding_left) {
+        return false;
+    }
+    if (lhs.padding_right != rhs.padding_right) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHint& lhs, const InlayHint& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHint& out) {
@@ -6290,6 +7818,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHint& in,
     return b.Object(members);
 }
 
+bool operator==(const InlayHintOptions& lhs, const InlayHintOptions& rhs) {
+    if (lhs.resolve_provider != rhs.resolve_provider) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHintOptions& lhs, const InlayHintOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintOptions& out) {
     if (v.Has("resolveProvider")) {
         Boolean val;
@@ -6321,6 +7860,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const InlayHintRegistrationOptions& lhs, const InlayHintRegistrationOptions& rhs) {
+    if (static_cast<const InlayHintOptions&>(lhs) != static_cast<const InlayHintOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHintRegistrationOptions& lhs, const InlayHintRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlayHintRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<InlayHintOptions&>(out)); res != Success) {
@@ -6346,6 +7900,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintRegistrationOp
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentDiagnosticParams& lhs, const DocumentDiagnosticParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.identifier != rhs.identifier) {
+        return false;
+    }
+    if (lhs.previous_result_id != rhs.previous_result_id) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentDiagnosticParams& lhs, const DocumentDiagnosticParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentDiagnosticParams& out) {
@@ -6413,6 +7984,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticParam
     return b.Object(members);
 }
 
+bool operator==(const UnchangedDocumentDiagnosticReport& lhs,
+                const UnchangedDocumentDiagnosticReport& rhs) {
+    if (lhs.result_id != rhs.result_id) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const UnchangedDocumentDiagnosticReport& lhs,
+                const UnchangedDocumentDiagnosticReport& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] UnchangedDocumentDiagnosticReport& out) {
     if (auto res = MatchKind(v, "unchanged"); res != Success) {
@@ -6447,6 +8031,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const UnchangedDocumentDiagno
     return b.Object(members);
 }
 
+bool operator==(const CodeDescription& lhs, const CodeDescription& rhs) {
+    if (lhs.href != rhs.href) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeDescription& lhs, const CodeDescription& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeDescription& out) {
     {
         auto member = v.Get("href");
@@ -6474,6 +8069,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeDescription& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DiagnosticRelatedInformation& lhs, const DiagnosticRelatedInformation& rhs) {
+    if (lhs.location != rhs.location) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DiagnosticRelatedInformation& lhs, const DiagnosticRelatedInformation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -6520,6 +8129,41 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRelatedInform
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Diagnostic& lhs, const Diagnostic& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.severity != rhs.severity) {
+        return false;
+    }
+    if (lhs.code != rhs.code) {
+        return false;
+    }
+    if (lhs.code_description != rhs.code_description) {
+        return false;
+    }
+    if (lhs.source != rhs.source) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    if (lhs.tags != rhs.tags) {
+        return false;
+    }
+    if (lhs.related_information != rhs.related_information) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Diagnostic& lhs, const Diagnostic& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Diagnostic& out) {
@@ -6693,6 +8337,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const Diagnostic& in,
     return b.Object(members);
 }
 
+bool operator==(const FullDocumentDiagnosticReport& lhs, const FullDocumentDiagnosticReport& rhs) {
+    if (lhs.result_id != rhs.result_id) {
+        return false;
+    }
+    if (lhs.items != rhs.items) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FullDocumentDiagnosticReport& lhs, const FullDocumentDiagnosticReport& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FullDocumentDiagnosticReport& out) {
     if (auto res = MatchKind(v, "full"); res != Success) {
@@ -6745,6 +8403,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const FullDocumentDiagnosticR
     return b.Object(members);
 }
 
+bool operator==(const DocumentDiagnosticReportPartialResult& lhs,
+                const DocumentDiagnosticReportPartialResult& rhs) {
+    if (lhs.related_documents != rhs.related_documents) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentDiagnosticReportPartialResult& lhs,
+                const DocumentDiagnosticReportPartialResult& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentDiagnosticReportPartialResult& out) {
     {
@@ -6775,6 +8446,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentDiagnosticRepor
     return b.Object(members);
 }
 
+bool operator==(const DiagnosticServerCancellationData& lhs,
+                const DiagnosticServerCancellationData& rhs) {
+    if (lhs.retrigger_request != rhs.retrigger_request) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DiagnosticServerCancellationData& lhs,
+                const DiagnosticServerCancellationData& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticServerCancellationData& out) {
     {
@@ -6803,6 +8487,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticServerCancell
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DiagnosticOptions& lhs, const DiagnosticOptions& rhs) {
+    if (lhs.identifier != rhs.identifier) {
+        return false;
+    }
+    if (lhs.inter_file_dependencies != rhs.inter_file_dependencies) {
+        return false;
+    }
+    if (lhs.workspace_diagnostics != rhs.workspace_diagnostics) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DiagnosticOptions& lhs, const DiagnosticOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DiagnosticOptions& out) {
@@ -6868,6 +8569,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const DiagnosticRegistrationOptions& lhs,
+                const DiagnosticRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DiagnosticOptions&>(lhs) != static_cast<const DiagnosticOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DiagnosticRegistrationOptions& lhs,
+                const DiagnosticRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -6893,6 +8611,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticRegistrationO
     }
 
     return b.Object(members);
+}
+
+bool operator==(const PreviousResultId& lhs, const PreviousResultId& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PreviousResultId& lhs, const PreviousResultId& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PreviousResultId& out) {
@@ -6938,6 +8670,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const PreviousResultId& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceDiagnosticParams& lhs, const WorkspaceDiagnosticParams& rhs) {
+    if (lhs.identifier != rhs.identifier) {
+        return false;
+    }
+    if (lhs.previous_result_ids != rhs.previous_result_ids) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceDiagnosticParams& lhs, const WorkspaceDiagnosticParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceDiagnosticParams& out) {
@@ -6987,6 +8733,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticPara
     return b.Object(members);
 }
 
+bool operator==(const WorkspaceDiagnosticReport& lhs, const WorkspaceDiagnosticReport& rhs) {
+    if (lhs.items != rhs.items) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceDiagnosticReport& lhs, const WorkspaceDiagnosticReport& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceDiagnosticReport& out) {
     {
         auto member = v.Get("items");
@@ -7014,6 +8771,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticRepo
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceDiagnosticReportPartialResult& lhs,
+                const WorkspaceDiagnosticReportPartialResult& rhs) {
+    if (lhs.items != rhs.items) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceDiagnosticReportPartialResult& lhs,
+                const WorkspaceDiagnosticReportPartialResult& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -7044,6 +8814,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceDiagnosticRepo
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ExecutionSummary& lhs, const ExecutionSummary& rhs) {
+    if (lhs.execution_order != rhs.execution_order) {
+        return false;
+    }
+    if (lhs.success != rhs.success) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ExecutionSummary& lhs, const ExecutionSummary& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecutionSummary& out) {
@@ -7091,6 +8875,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecutionSummary& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookCell& lhs, const NotebookCell& rhs) {
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.document != rhs.document) {
+        return false;
+    }
+    if (lhs.metadata != rhs.metadata) {
+        return false;
+    }
+    if (lhs.execution_summary != rhs.execution_summary) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookCell& lhs, const NotebookCell& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCell& out) {
@@ -7172,6 +8976,29 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCell& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocument& lhs, const NotebookDocument& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.notebook_type != rhs.notebook_type) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (lhs.metadata != rhs.metadata) {
+        return false;
+    }
+    if (lhs.cells != rhs.cells) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocument& lhs, const NotebookDocument& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookDocument& out) {
@@ -7269,6 +9096,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocument& in,
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentItem& lhs, const TextDocumentItem& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.language_id != rhs.language_id) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (lhs.text != rhs.text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentItem& lhs, const TextDocumentItem& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentItem& out) {
     {
         auto member = v.Get("uri");
@@ -7346,6 +9193,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentItem& in,
     return b.Object(members);
 }
 
+bool operator==(const DidOpenNotebookDocumentParams& lhs,
+                const DidOpenNotebookDocumentParams& rhs) {
+    if (lhs.notebook_document != rhs.notebook_document) {
+        return false;
+    }
+    if (lhs.cell_text_documents != rhs.cell_text_documents) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidOpenNotebookDocumentParams& lhs,
+                const DidOpenNotebookDocumentParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidOpenNotebookDocumentParams& out) {
     {
@@ -7392,6 +9255,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidOpenNotebookDocument
     return b.Object(members);
 }
 
+bool operator==(const VersionedNotebookDocumentIdentifier& lhs,
+                const VersionedNotebookDocumentIdentifier& rhs) {
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const VersionedNotebookDocumentIdentifier& lhs,
+                const VersionedNotebookDocumentIdentifier& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] VersionedNotebookDocumentIdentifier& out) {
     {
@@ -7436,6 +9315,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const VersionedNotebookDocume
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookCellArrayChange& lhs, const NotebookCellArrayChange& rhs) {
+    if (lhs.start != rhs.start) {
+        return false;
+    }
+    if (lhs.delete_count != rhs.delete_count) {
+        return false;
+    }
+    if (lhs.cells != rhs.cells) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookCellArrayChange& lhs, const NotebookCellArrayChange& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCellArrayChange& out) {
@@ -7499,6 +9395,25 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellArrayChange
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentCellChangeStructure& lhs,
+                const NotebookDocumentCellChangeStructure& rhs) {
+    if (lhs.array != rhs.array) {
+        return false;
+    }
+    if (lhs.did_open != rhs.did_open) {
+        return false;
+    }
+    if (lhs.did_close != rhs.did_close) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentCellChangeStructure& lhs,
+                const NotebookDocumentCellChangeStructure& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -7567,6 +9482,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellCha
     return b.Object(members);
 }
 
+bool operator==(const VersionedTextDocumentIdentifier& lhs,
+                const VersionedTextDocumentIdentifier& rhs) {
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (static_cast<const TextDocumentIdentifier&>(lhs) !=
+        static_cast<const TextDocumentIdentifier&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const VersionedTextDocumentIdentifier& lhs,
+                const VersionedTextDocumentIdentifier& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] VersionedTextDocumentIdentifier& out) {
     {
@@ -7601,6 +9533,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const VersionedTextDocumentId
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentCellContentChanges& lhs,
+                const NotebookDocumentCellContentChanges& rhs) {
+    if (lhs.document != rhs.document) {
+        return false;
+    }
+    if (lhs.changes != rhs.changes) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentCellContentChanges& lhs,
+                const NotebookDocumentCellContentChanges& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -7647,6 +9595,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellCon
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentCellChanges& lhs, const NotebookDocumentCellChanges& rhs) {
+    if (lhs.structure != rhs.structure) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    if (lhs.text_content != rhs.text_content) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentCellChanges& lhs, const NotebookDocumentCellChanges& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -7717,6 +9682,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentCellCha
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentChangeEvent& lhs, const NotebookDocumentChangeEvent& rhs) {
+    if (lhs.metadata != rhs.metadata) {
+        return false;
+    }
+    if (lhs.cells != rhs.cells) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentChangeEvent& lhs, const NotebookDocumentChangeEvent& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentChangeEvent& out) {
     if (v.Has("metadata")) {
@@ -7767,6 +9746,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentChangeE
     return b.Object(members);
 }
 
+bool operator==(const DidChangeNotebookDocumentParams& lhs,
+                const DidChangeNotebookDocumentParams& rhs) {
+    if (lhs.notebook_document != rhs.notebook_document) {
+        return false;
+    }
+    if (lhs.change != rhs.change) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeNotebookDocumentParams& lhs,
+                const DidChangeNotebookDocumentParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeNotebookDocumentParams& out) {
     {
@@ -7813,6 +9808,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeNotebookDocume
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentIdentifier& lhs, const NotebookDocumentIdentifier& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentIdentifier& lhs, const NotebookDocumentIdentifier& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentIdentifier& out) {
     {
@@ -7843,6 +9849,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentIdentif
     return b.Object(members);
 }
 
+bool operator==(const DidSaveNotebookDocumentParams& lhs,
+                const DidSaveNotebookDocumentParams& rhs) {
+    if (lhs.notebook_document != rhs.notebook_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidSaveNotebookDocumentParams& lhs,
+                const DidSaveNotebookDocumentParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidSaveNotebookDocumentParams& out) {
     {
@@ -7871,6 +9890,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidSaveNotebookDocument
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DidCloseNotebookDocumentParams& lhs,
+                const DidCloseNotebookDocumentParams& rhs) {
+    if (lhs.notebook_document != rhs.notebook_document) {
+        return false;
+    }
+    if (lhs.cell_text_documents != rhs.cell_text_documents) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidCloseNotebookDocumentParams& lhs,
+                const DidCloseNotebookDocumentParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -7919,6 +9954,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidCloseNotebookDocumen
     return b.Object(members);
 }
 
+bool operator==(const SelectedCompletionInfo& lhs, const SelectedCompletionInfo& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.text != rhs.text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SelectedCompletionInfo& lhs, const SelectedCompletionInfo& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectedCompletionInfo& out) {
     {
         auto member = v.Get("range");
@@ -7962,6 +10011,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectedCompletionInfo&
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlineCompletionContext& lhs, const InlineCompletionContext& rhs) {
+    if (lhs.trigger_kind != rhs.trigger_kind) {
+        return false;
+    }
+    if (lhs.selected_completion_info != rhs.selected_completion_info) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineCompletionContext& lhs, const InlineCompletionContext& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionContext& out) {
@@ -8011,6 +10074,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionContext
     return b.Object(members);
 }
 
+bool operator==(const InlineCompletionParams& lhs, const InlineCompletionParams& rhs) {
+    if (lhs.context != rhs.context) {
+        return false;
+    }
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineCompletionParams& lhs, const InlineCompletionParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionParams& out) {
     {
         auto member = v.Get("context");
@@ -8046,6 +10124,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionParams&
     return b.Object(members);
 }
 
+bool operator==(const StringValue& lhs, const StringValue& rhs) {
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const StringValue& lhs, const StringValue& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] StringValue& out) {
     if (auto res = MatchKind(v, "snippet"); res != Success) {
         return res.Failure();
@@ -8077,6 +10166,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const StringValue& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlineCompletionItem& lhs, const InlineCompletionItem& rhs) {
+    if (lhs.insert_text != rhs.insert_text) {
+        return false;
+    }
+    if (lhs.filter_text != rhs.filter_text) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineCompletionItem& lhs, const InlineCompletionItem& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionItem& out) {
@@ -8162,6 +10271,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionItem& i
     return b.Object(members);
 }
 
+bool operator==(const InlineCompletionList& lhs, const InlineCompletionList& rhs) {
+    if (lhs.items != rhs.items) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineCompletionList& lhs, const InlineCompletionList& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionList& out) {
     {
         auto member = v.Get("items");
@@ -8191,6 +10311,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionList& i
     return b.Object(members);
 }
 
+bool operator==(const InlineCompletionOptions& lhs, const InlineCompletionOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const InlineCompletionOptions& lhs, const InlineCompletionOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionOptions& out) {
     return Success;
 }
@@ -8201,6 +10329,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionOptions
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const InlineCompletionRegistrationOptions& lhs,
+                const InlineCompletionRegistrationOptions& rhs) {
+    if (static_cast<const InlineCompletionOptions&>(lhs) !=
+        static_cast<const InlineCompletionOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineCompletionRegistrationOptions& lhs,
+                const InlineCompletionRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -8228,6 +10374,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionRegistr
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Registration& lhs, const Registration& rhs) {
+    if (lhs.id != rhs.id) {
+        return false;
+    }
+    if (lhs.method != rhs.method) {
+        return false;
+    }
+    if (lhs.register_options != rhs.register_options) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Registration& lhs, const Registration& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Registration& out) {
@@ -8293,6 +10456,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const Registration& in,
     return b.Object(members);
 }
 
+bool operator==(const RegistrationParams& lhs, const RegistrationParams& rhs) {
+    if (lhs.registrations != rhs.registrations) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RegistrationParams& lhs, const RegistrationParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RegistrationParams& out) {
     {
         auto member = v.Get("registrations");
@@ -8320,6 +10494,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const RegistrationParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Unregistration& lhs, const Unregistration& rhs) {
+    if (lhs.id != rhs.id) {
+        return false;
+    }
+    if (lhs.method != rhs.method) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Unregistration& lhs, const Unregistration& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Unregistration& out) {
@@ -8367,6 +10555,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const Unregistration& in,
     return b.Object(members);
 }
 
+bool operator==(const UnregistrationParams& lhs, const UnregistrationParams& rhs) {
+    if (lhs.unregisterations != rhs.unregisterations) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const UnregistrationParams& lhs, const UnregistrationParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] UnregistrationParams& out) {
     {
         auto member = v.Get("unregisterations");
@@ -8394,6 +10593,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const UnregistrationParams& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientInfo& lhs, const ClientInfo& rhs) {
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientInfo& lhs, const ClientInfo& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientInfo& out) {
@@ -8443,6 +10656,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientInfo& in,
     return b.Object(members);
 }
 
+bool operator==(const ChangeAnnotationsSupportOptions& lhs,
+                const ChangeAnnotationsSupportOptions& rhs) {
+    if (lhs.groups_on_label != rhs.groups_on_label) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ChangeAnnotationsSupportOptions& lhs,
+                const ChangeAnnotationsSupportOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ChangeAnnotationsSupportOptions& out) {
     if (v.Has("groupsOnLabel")) {
@@ -8473,6 +10699,31 @@ Result<const json::Value*> Encode([[maybe_unused]] const ChangeAnnotationsSuppor
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceEditClientCapabilities& lhs,
+                const WorkspaceEditClientCapabilities& rhs) {
+    if (lhs.document_changes != rhs.document_changes) {
+        return false;
+    }
+    if (lhs.resource_operations != rhs.resource_operations) {
+        return false;
+    }
+    if (lhs.failure_handling != rhs.failure_handling) {
+        return false;
+    }
+    if (lhs.normalizes_line_endings != rhs.normalizes_line_endings) {
+        return false;
+    }
+    if (lhs.change_annotation_support != rhs.change_annotation_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceEditClientCapabilities& lhs,
+                const WorkspaceEditClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -8579,6 +10830,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceEditClientCapa
     return b.Object(members);
 }
 
+bool operator==(const DidChangeConfigurationClientCapabilities& lhs,
+                const DidChangeConfigurationClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeConfigurationClientCapabilities& lhs,
+                const DidChangeConfigurationClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeConfigurationClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -8610,6 +10874,22 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DidChangeWatchedFilesClientCapabilities& lhs,
+                const DidChangeWatchedFilesClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.relative_pattern_support != rhs.relative_pattern_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeWatchedFilesClientCapabilities& lhs,
+                const DidChangeWatchedFilesClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -8663,6 +10943,17 @@ Result<const json::Value*> Encode(
     return b.Object(members);
 }
 
+bool operator==(const ClientSymbolKindOptions& lhs, const ClientSymbolKindOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSymbolKindOptions& lhs, const ClientSymbolKindOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientSymbolKindOptions& out) {
     if (v.Has("valueSet")) {
         std::vector<lsp::SymbolKind> val;
@@ -8694,6 +10985,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolKindOptions
     return b.Object(members);
 }
 
+bool operator==(const ClientSymbolTagOptions& lhs, const ClientSymbolTagOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSymbolTagOptions& lhs, const ClientSymbolTagOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientSymbolTagOptions& out) {
     {
         auto member = v.Get("valueSet");
@@ -8721,6 +11023,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolTagOptions&
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientSymbolResolveOptions& lhs, const ClientSymbolResolveOptions& rhs) {
+    if (lhs.properties != rhs.properties) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSymbolResolveOptions& lhs, const ClientSymbolResolveOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -8751,6 +11064,28 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSymbolResolveOpti
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceSymbolClientCapabilities& lhs,
+                const WorkspaceSymbolClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.symbol_kind != rhs.symbol_kind) {
+        return false;
+    }
+    if (lhs.tag_support != rhs.tag_support) {
+        return false;
+    }
+    if (lhs.resolve_support != rhs.resolve_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceSymbolClientCapabilities& lhs,
+                const WorkspaceSymbolClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -8839,6 +11174,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolClientCa
     return b.Object(members);
 }
 
+bool operator==(const ExecuteCommandClientCapabilities& lhs,
+                const ExecuteCommandClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ExecuteCommandClientCapabilities& lhs,
+                const ExecuteCommandClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ExecuteCommandClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -8869,6 +11217,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandClientCap
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensWorkspaceClientCapabilities& lhs,
+                const SemanticTokensWorkspaceClientCapabilities& rhs) {
+    if (lhs.refresh_support != rhs.refresh_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensWorkspaceClientCapabilities& lhs,
+                const SemanticTokensWorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -8904,6 +11265,19 @@ Result<const json::Value*> Encode(
     return b.Object(members);
 }
 
+bool operator==(const CodeLensWorkspaceClientCapabilities& lhs,
+                const CodeLensWorkspaceClientCapabilities& rhs) {
+    if (lhs.refresh_support != rhs.refresh_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeLensWorkspaceClientCapabilities& lhs,
+                const CodeLensWorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeLensWorkspaceClientCapabilities& out) {
     if (v.Has("refreshSupport")) {
@@ -8934,6 +11308,37 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensWorkspaceClient
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileOperationClientCapabilities& lhs,
+                const FileOperationClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.did_create != rhs.did_create) {
+        return false;
+    }
+    if (lhs.will_create != rhs.will_create) {
+        return false;
+    }
+    if (lhs.did_rename != rhs.did_rename) {
+        return false;
+    }
+    if (lhs.will_rename != rhs.will_rename) {
+        return false;
+    }
+    if (lhs.did_delete != rhs.did_delete) {
+        return false;
+    }
+    if (lhs.will_delete != rhs.will_delete) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileOperationClientCapabilities& lhs,
+                const FileOperationClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -9076,6 +11481,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationClientCapa
     return b.Object(members);
 }
 
+bool operator==(const InlineValueWorkspaceClientCapabilities& lhs,
+                const InlineValueWorkspaceClientCapabilities& rhs) {
+    if (lhs.refresh_support != rhs.refresh_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueWorkspaceClientCapabilities& lhs,
+                const InlineValueWorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueWorkspaceClientCapabilities& out) {
     if (v.Has("refreshSupport")) {
@@ -9106,6 +11524,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueWorkspaceCli
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlayHintWorkspaceClientCapabilities& lhs,
+                const InlayHintWorkspaceClientCapabilities& rhs) {
+    if (lhs.refresh_support != rhs.refresh_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHintWorkspaceClientCapabilities& lhs,
+                const InlayHintWorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -9140,6 +11571,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintWorkspaceClien
     return b.Object(members);
 }
 
+bool operator==(const DiagnosticWorkspaceClientCapabilities& lhs,
+                const DiagnosticWorkspaceClientCapabilities& rhs) {
+    if (lhs.refresh_support != rhs.refresh_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DiagnosticWorkspaceClientCapabilities& lhs,
+                const DiagnosticWorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticWorkspaceClientCapabilities& out) {
     if (v.Has("refreshSupport")) {
@@ -9170,6 +11614,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticWorkspaceClie
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FoldingRangeWorkspaceClientCapabilities& lhs,
+                const FoldingRangeWorkspaceClientCapabilities& rhs) {
+    if (lhs.refresh_support != rhs.refresh_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FoldingRangeWorkspaceClientCapabilities& lhs,
+                const FoldingRangeWorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -9203,6 +11660,59 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceClientCapabilities& lhs, const WorkspaceClientCapabilities& rhs) {
+    if (lhs.apply_edit != rhs.apply_edit) {
+        return false;
+    }
+    if (lhs.workspace_edit != rhs.workspace_edit) {
+        return false;
+    }
+    if (lhs.did_change_configuration != rhs.did_change_configuration) {
+        return false;
+    }
+    if (lhs.did_change_watched_files != rhs.did_change_watched_files) {
+        return false;
+    }
+    if (lhs.symbol != rhs.symbol) {
+        return false;
+    }
+    if (lhs.execute_command != rhs.execute_command) {
+        return false;
+    }
+    if (lhs.workspace_folders != rhs.workspace_folders) {
+        return false;
+    }
+    if (lhs.configuration != rhs.configuration) {
+        return false;
+    }
+    if (lhs.semantic_tokens != rhs.semantic_tokens) {
+        return false;
+    }
+    if (lhs.code_lens != rhs.code_lens) {
+        return false;
+    }
+    if (lhs.file_operations != rhs.file_operations) {
+        return false;
+    }
+    if (lhs.inline_value != rhs.inline_value) {
+        return false;
+    }
+    if (lhs.inlay_hint != rhs.inlay_hint) {
+        return false;
+    }
+    if (lhs.diagnostics != rhs.diagnostics) {
+        return false;
+    }
+    if (lhs.folding_range != rhs.folding_range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceClientCapabilities& lhs, const WorkspaceClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -9489,6 +11999,28 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceClientCapabili
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentSyncClientCapabilities& lhs,
+                const TextDocumentSyncClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.will_save != rhs.will_save) {
+        return false;
+    }
+    if (lhs.will_save_wait_until != rhs.will_save_wait_until) {
+        return false;
+    }
+    if (lhs.did_save != rhs.did_save) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentSyncClientCapabilities& lhs,
+                const TextDocumentSyncClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentSyncClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -9575,6 +12107,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncClientC
     return b.Object(members);
 }
 
+bool operator==(const CompletionItemTagOptions& lhs, const CompletionItemTagOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionItemTagOptions& lhs, const CompletionItemTagOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionItemTagOptions& out) {
     {
         auto member = v.Get("valueSet");
@@ -9602,6 +12145,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemTagOption
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientCompletionItemResolveOptions& lhs,
+                const ClientCompletionItemResolveOptions& rhs) {
+    if (lhs.properties != rhs.properties) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCompletionItemResolveOptions& lhs,
+                const ClientCompletionItemResolveOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -9634,6 +12190,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemRes
     return b.Object(members);
 }
 
+bool operator==(const ClientCompletionItemInsertTextModeOptions& lhs,
+                const ClientCompletionItemInsertTextModeOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCompletionItemInsertTextModeOptions& lhs,
+                const ClientCompletionItemInsertTextModeOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCompletionItemInsertTextModeOptions& out) {
     {
@@ -9663,6 +12232,44 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientCompletionItemOptions& lhs, const ClientCompletionItemOptions& rhs) {
+    if (lhs.snippet_support != rhs.snippet_support) {
+        return false;
+    }
+    if (lhs.commit_characters_support != rhs.commit_characters_support) {
+        return false;
+    }
+    if (lhs.documentation_format != rhs.documentation_format) {
+        return false;
+    }
+    if (lhs.deprecated_support != rhs.deprecated_support) {
+        return false;
+    }
+    if (lhs.preselect_support != rhs.preselect_support) {
+        return false;
+    }
+    if (lhs.tag_support != rhs.tag_support) {
+        return false;
+    }
+    if (lhs.insert_replace_support != rhs.insert_replace_support) {
+        return false;
+    }
+    if (lhs.resolve_support != rhs.resolve_support) {
+        return false;
+    }
+    if (lhs.insert_text_mode_support != rhs.insert_text_mode_support) {
+        return false;
+    }
+    if (lhs.label_details_support != rhs.label_details_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCompletionItemOptions& lhs, const ClientCompletionItemOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -9859,6 +12466,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOpt
     return b.Object(members);
 }
 
+bool operator==(const ClientCompletionItemOptionsKind& lhs,
+                const ClientCompletionItemOptionsKind& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCompletionItemOptionsKind& lhs,
+                const ClientCompletionItemOptionsKind& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCompletionItemOptionsKind& out) {
     if (v.Has("valueSet")) {
@@ -9891,6 +12511,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCompletionItemOpt
     return b.Object(members);
 }
 
+bool operator==(const CompletionListCapabilities& lhs, const CompletionListCapabilities& rhs) {
+    if (lhs.item_defaults != rhs.item_defaults) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionListCapabilities& lhs, const CompletionListCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CompletionListCapabilities& out) {
     if (v.Has("itemDefaults")) {
@@ -9921,6 +12552,32 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionListCapabilit
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CompletionClientCapabilities& lhs, const CompletionClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.completion_item != rhs.completion_item) {
+        return false;
+    }
+    if (lhs.completion_item_kind != rhs.completion_item_kind) {
+        return false;
+    }
+    if (lhs.insert_text_mode != rhs.insert_text_mode) {
+        return false;
+    }
+    if (lhs.context_support != rhs.context_support) {
+        return false;
+    }
+    if (lhs.completion_list != rhs.completion_list) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionClientCapabilities& lhs, const CompletionClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10045,6 +12702,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionClientCapabil
     return b.Object(members);
 }
 
+bool operator==(const HoverClientCapabilities& lhs, const HoverClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.content_format != rhs.content_format) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const HoverClientCapabilities& lhs, const HoverClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
         Boolean val;
@@ -10094,6 +12765,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const HoverClientCapabilities
     return b.Object(members);
 }
 
+bool operator==(const ClientSignatureParameterInformationOptions& lhs,
+                const ClientSignatureParameterInformationOptions& rhs) {
+    if (lhs.label_offset_support != rhs.label_offset_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSignatureParameterInformationOptions& lhs,
+                const ClientSignatureParameterInformationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSignatureParameterInformationOptions& out) {
     if (v.Has("labelOffsetSupport")) {
@@ -10125,6 +12809,25 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientSignatureInformationOptions& lhs,
+                const ClientSignatureInformationOptions& rhs) {
+    if (lhs.documentation_format != rhs.documentation_format) {
+        return false;
+    }
+    if (lhs.parameter_information != rhs.parameter_information) {
+        return false;
+    }
+    if (lhs.active_parameter_support != rhs.active_parameter_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSignatureInformationOptions& lhs,
+                const ClientSignatureInformationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10195,6 +12898,25 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSignatureInformat
     return b.Object(members);
 }
 
+bool operator==(const SignatureHelpClientCapabilities& lhs,
+                const SignatureHelpClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.signature_information != rhs.signature_information) {
+        return false;
+    }
+    if (lhs.context_support != rhs.context_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureHelpClientCapabilities& lhs,
+                const SignatureHelpClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SignatureHelpClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10263,6 +12985,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpClientCapa
     return b.Object(members);
 }
 
+bool operator==(const DeclarationClientCapabilities& lhs,
+                const DeclarationClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.link_support != rhs.link_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DeclarationClientCapabilities& lhs,
+                const DeclarationClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DeclarationClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10311,6 +13049,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DeclarationClientCapabi
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DefinitionClientCapabilities& lhs, const DefinitionClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.link_support != rhs.link_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DefinitionClientCapabilities& lhs, const DefinitionClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10363,6 +13115,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const DefinitionClientCapabil
     return b.Object(members);
 }
 
+bool operator==(const TypeDefinitionClientCapabilities& lhs,
+                const TypeDefinitionClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.link_support != rhs.link_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeDefinitionClientCapabilities& lhs,
+                const TypeDefinitionClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeDefinitionClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10411,6 +13179,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeDefinitionClientCap
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ImplementationClientCapabilities& lhs,
+                const ImplementationClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.link_support != rhs.link_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ImplementationClientCapabilities& lhs,
+                const ImplementationClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10463,6 +13247,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ImplementationClientCap
     return b.Object(members);
 }
 
+bool operator==(const ReferenceClientCapabilities& lhs, const ReferenceClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ReferenceClientCapabilities& lhs, const ReferenceClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ReferenceClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10495,6 +13290,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceClientCapabili
     return b.Object(members);
 }
 
+bool operator==(const DocumentHighlightClientCapabilities& lhs,
+                const DocumentHighlightClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentHighlightClientCapabilities& lhs,
+                const DocumentHighlightClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentHighlightClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10525,6 +13333,31 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightClient
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentSymbolClientCapabilities& lhs,
+                const DocumentSymbolClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.symbol_kind != rhs.symbol_kind) {
+        return false;
+    }
+    if (lhs.hierarchical_document_symbol_support != rhs.hierarchical_document_symbol_support) {
+        return false;
+    }
+    if (lhs.tag_support != rhs.tag_support) {
+        return false;
+    }
+    if (lhs.label_support != rhs.label_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentSymbolClientCapabilities& lhs,
+                const DocumentSymbolClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10631,6 +13464,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolClientCap
     return b.Object(members);
 }
 
+bool operator==(const ClientCodeActionKindOptions& lhs, const ClientCodeActionKindOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCodeActionKindOptions& lhs, const ClientCodeActionKindOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCodeActionKindOptions& out) {
     {
@@ -10659,6 +13503,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionKindOpt
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientCodeActionLiteralOptions& lhs,
+                const ClientCodeActionLiteralOptions& rhs) {
+    if (lhs.code_action_kind != rhs.code_action_kind) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCodeActionLiteralOptions& lhs,
+                const ClientCodeActionLiteralOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10691,6 +13548,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionLiteral
     return b.Object(members);
 }
 
+bool operator==(const ClientCodeActionResolveOptions& lhs,
+                const ClientCodeActionResolveOptions& rhs) {
+    if (lhs.properties != rhs.properties) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCodeActionResolveOptions& lhs,
+                const ClientCodeActionResolveOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCodeActionResolveOptions& out) {
     {
@@ -10719,6 +13589,35 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCodeActionResolve
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CodeActionClientCapabilities& lhs, const CodeActionClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.code_action_literal_support != rhs.code_action_literal_support) {
+        return false;
+    }
+    if (lhs.is_preferred_support != rhs.is_preferred_support) {
+        return false;
+    }
+    if (lhs.disabled_support != rhs.disabled_support) {
+        return false;
+    }
+    if (lhs.data_support != rhs.data_support) {
+        return false;
+    }
+    if (lhs.resolve_support != rhs.resolve_support) {
+        return false;
+    }
+    if (lhs.honors_change_annotations != rhs.honors_change_annotations) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeActionClientCapabilities& lhs, const CodeActionClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10861,6 +13760,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionClientCapabil
     return b.Object(members);
 }
 
+bool operator==(const CodeLensClientCapabilities& lhs, const CodeLensClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeLensClientCapabilities& lhs, const CodeLensClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeLensClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10891,6 +13801,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensClientCapabilit
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentLinkClientCapabilities& lhs,
+                const DocumentLinkClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.tooltip_support != rhs.tooltip_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentLinkClientCapabilities& lhs,
+                const DocumentLinkClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -10943,6 +13869,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkClientCapab
     return b.Object(members);
 }
 
+bool operator==(const DocumentColorClientCapabilities& lhs,
+                const DocumentColorClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentColorClientCapabilities& lhs,
+                const DocumentColorClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentColorClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -10975,6 +13914,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentColorClientCapa
     return b.Object(members);
 }
 
+bool operator==(const DocumentFormattingClientCapabilities& lhs,
+                const DocumentFormattingClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentFormattingClientCapabilities& lhs,
+                const DocumentFormattingClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentFormattingClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -11005,6 +13957,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingClien
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentRangeFormattingClientCapabilities& lhs,
+                const DocumentRangeFormattingClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.ranges_support != rhs.ranges_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentRangeFormattingClientCapabilities& lhs,
+                const DocumentRangeFormattingClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -11058,6 +14026,19 @@ Result<const json::Value*> Encode(
     return b.Object(members);
 }
 
+bool operator==(const DocumentOnTypeFormattingClientCapabilities& lhs,
+                const DocumentOnTypeFormattingClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentOnTypeFormattingClientCapabilities& lhs,
+                const DocumentOnTypeFormattingClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentOnTypeFormattingClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -11089,6 +14070,26 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const RenameClientCapabilities& lhs, const RenameClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.prepare_support != rhs.prepare_support) {
+        return false;
+    }
+    if (lhs.prepare_support_default_behavior != rhs.prepare_support_default_behavior) {
+        return false;
+    }
+    if (lhs.honors_change_annotations != rhs.honors_change_annotations) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameClientCapabilities& lhs, const RenameClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameClientCapabilities& out) {
@@ -11176,6 +14177,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameClientCapabilitie
     return b.Object(members);
 }
 
+bool operator==(const ClientFoldingRangeKindOptions& lhs,
+                const ClientFoldingRangeKindOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientFoldingRangeKindOptions& lhs,
+                const ClientFoldingRangeKindOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientFoldingRangeKindOptions& out) {
     if (v.Has("valueSet")) {
@@ -11208,6 +14222,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeKindO
     return b.Object(members);
 }
 
+bool operator==(const ClientFoldingRangeOptions& lhs, const ClientFoldingRangeOptions& rhs) {
+    if (lhs.collapsed_text != rhs.collapsed_text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientFoldingRangeOptions& lhs, const ClientFoldingRangeOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientFoldingRangeOptions& out) {
     if (v.Has("collapsedText")) {
         Boolean val;
@@ -11237,6 +14262,31 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientFoldingRangeOptio
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FoldingRangeClientCapabilities& lhs,
+                const FoldingRangeClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.range_limit != rhs.range_limit) {
+        return false;
+    }
+    if (lhs.line_folding_only != rhs.line_folding_only) {
+        return false;
+    }
+    if (lhs.folding_range_kind != rhs.folding_range_kind) {
+        return false;
+    }
+    if (lhs.folding_range != rhs.folding_range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FoldingRangeClientCapabilities& lhs,
+                const FoldingRangeClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -11343,6 +14393,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const FoldingRangeClientCapab
     return b.Object(members);
 }
 
+bool operator==(const SelectionRangeClientCapabilities& lhs,
+                const SelectionRangeClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SelectionRangeClientCapabilities& lhs,
+                const SelectionRangeClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SelectionRangeClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -11375,6 +14438,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const SelectionRangeClientCap
     return b.Object(members);
 }
 
+bool operator==(const ClientDiagnosticsTagOptions& lhs, const ClientDiagnosticsTagOptions& rhs) {
+    if (lhs.value_set != rhs.value_set) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientDiagnosticsTagOptions& lhs, const ClientDiagnosticsTagOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientDiagnosticsTagOptions& out) {
     {
@@ -11403,6 +14477,31 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientDiagnosticsTagOpt
     }
 
     return b.Object(members);
+}
+
+bool operator==(const PublishDiagnosticsClientCapabilities& lhs,
+                const PublishDiagnosticsClientCapabilities& rhs) {
+    if (lhs.related_information != rhs.related_information) {
+        return false;
+    }
+    if (lhs.tag_support != rhs.tag_support) {
+        return false;
+    }
+    if (lhs.version_support != rhs.version_support) {
+        return false;
+    }
+    if (lhs.code_description_support != rhs.code_description_support) {
+        return false;
+    }
+    if (lhs.data_support != rhs.data_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PublishDiagnosticsClientCapabilities& lhs,
+                const PublishDiagnosticsClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -11509,6 +14608,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsClien
     return b.Object(members);
 }
 
+bool operator==(const CallHierarchyClientCapabilities& lhs,
+                const CallHierarchyClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CallHierarchyClientCapabilities& lhs,
+                const CallHierarchyClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -11541,6 +14653,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const CallHierarchyClientCapa
     return b.Object(members);
 }
 
+bool operator==(const ClientSemanticTokensRequestFullDelta& lhs,
+                const ClientSemanticTokensRequestFullDelta& rhs) {
+    if (lhs.delta != rhs.delta) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSemanticTokensRequestFullDelta& lhs,
+                const ClientSemanticTokensRequestFullDelta& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSemanticTokensRequestFullDelta& out) {
     if (v.Has("delta")) {
@@ -11571,6 +14696,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensReq
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientSemanticTokensRequestOptions& lhs,
+                const ClientSemanticTokensRequestOptions& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.full != rhs.full) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientSemanticTokensRequestOptions& lhs,
+                const ClientSemanticTokensRequestOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -11622,6 +14763,16 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientSemanticTokensReq
 
     return b.Object(members);
 }
+bool operator==(const ClientSemanticTokensRequestOptions::Range& lhs,
+                const ClientSemanticTokensRequestOptions::Range& rhs) {
+    return true;
+}
+
+bool operator!=(const ClientSemanticTokensRequestOptions::Range& lhs,
+                const ClientSemanticTokensRequestOptions::Range& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSemanticTokensRequestOptions::Range& out) {
     return Success;
@@ -11634,6 +14785,43 @@ Result<const json::Value*> Encode(
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const SemanticTokensClientCapabilities& lhs,
+                const SemanticTokensClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.requests != rhs.requests) {
+        return false;
+    }
+    if (lhs.token_types != rhs.token_types) {
+        return false;
+    }
+    if (lhs.token_modifiers != rhs.token_modifiers) {
+        return false;
+    }
+    if (lhs.formats != rhs.formats) {
+        return false;
+    }
+    if (lhs.overlapping_token_support != rhs.overlapping_token_support) {
+        return false;
+    }
+    if (lhs.multiline_token_support != rhs.multiline_token_support) {
+        return false;
+    }
+    if (lhs.server_cancel_support != rhs.server_cancel_support) {
+        return false;
+    }
+    if (lhs.augments_syntax_tokens != rhs.augments_syntax_tokens) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SemanticTokensClientCapabilities& lhs,
+                const SemanticTokensClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -11804,6 +14992,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const SemanticTokensClientCap
     return b.Object(members);
 }
 
+bool operator==(const LinkedEditingRangeClientCapabilities& lhs,
+                const LinkedEditingRangeClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LinkedEditingRangeClientCapabilities& lhs,
+                const LinkedEditingRangeClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] LinkedEditingRangeClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -11836,6 +15037,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const LinkedEditingRangeClien
     return b.Object(members);
 }
 
+bool operator==(const MonikerClientCapabilities& lhs, const MonikerClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MonikerClientCapabilities& lhs, const MonikerClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
         Boolean val;
@@ -11865,6 +15077,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const MonikerClientCapabiliti
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TypeHierarchyClientCapabilities& lhs,
+                const TypeHierarchyClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TypeHierarchyClientCapabilities& lhs,
+                const TypeHierarchyClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -11899,6 +15124,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const TypeHierarchyClientCapa
     return b.Object(members);
 }
 
+bool operator==(const InlineValueClientCapabilities& lhs,
+                const InlineValueClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueClientCapabilities& lhs,
+                const InlineValueClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -11931,6 +15169,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueClientCapabi
     return b.Object(members);
 }
 
+bool operator==(const ClientInlayHintResolveOptions& lhs,
+                const ClientInlayHintResolveOptions& rhs) {
+    if (lhs.properties != rhs.properties) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientInlayHintResolveOptions& lhs,
+                const ClientInlayHintResolveOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientInlayHintResolveOptions& out) {
     {
@@ -11959,6 +15210,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientInlayHintResolveO
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlayHintClientCapabilities& lhs, const InlayHintClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.resolve_support != rhs.resolve_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlayHintClientCapabilities& lhs, const InlayHintClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -12011,6 +15276,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlayHintClientCapabili
     return b.Object(members);
 }
 
+bool operator==(const DiagnosticClientCapabilities& lhs, const DiagnosticClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.related_document_support != rhs.related_document_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DiagnosticClientCapabilities& lhs, const DiagnosticClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -12061,6 +15340,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DiagnosticClientCapabil
     return b.Object(members);
 }
 
+bool operator==(const InlineCompletionClientCapabilities& lhs,
+                const InlineCompletionClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineCompletionClientCapabilities& lhs,
+                const InlineCompletionClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineCompletionClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -12091,6 +15383,109 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineCompletionClientC
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TextDocumentClientCapabilities& lhs,
+                const TextDocumentClientCapabilities& rhs) {
+    if (lhs.synchronization != rhs.synchronization) {
+        return false;
+    }
+    if (lhs.completion != rhs.completion) {
+        return false;
+    }
+    if (lhs.hover != rhs.hover) {
+        return false;
+    }
+    if (lhs.signature_help != rhs.signature_help) {
+        return false;
+    }
+    if (lhs.declaration != rhs.declaration) {
+        return false;
+    }
+    if (lhs.definition != rhs.definition) {
+        return false;
+    }
+    if (lhs.type_definition != rhs.type_definition) {
+        return false;
+    }
+    if (lhs.implementation != rhs.implementation) {
+        return false;
+    }
+    if (lhs.references != rhs.references) {
+        return false;
+    }
+    if (lhs.document_highlight != rhs.document_highlight) {
+        return false;
+    }
+    if (lhs.document_symbol != rhs.document_symbol) {
+        return false;
+    }
+    if (lhs.code_action != rhs.code_action) {
+        return false;
+    }
+    if (lhs.code_lens != rhs.code_lens) {
+        return false;
+    }
+    if (lhs.document_link != rhs.document_link) {
+        return false;
+    }
+    if (lhs.color_provider != rhs.color_provider) {
+        return false;
+    }
+    if (lhs.formatting != rhs.formatting) {
+        return false;
+    }
+    if (lhs.range_formatting != rhs.range_formatting) {
+        return false;
+    }
+    if (lhs.on_type_formatting != rhs.on_type_formatting) {
+        return false;
+    }
+    if (lhs.rename != rhs.rename) {
+        return false;
+    }
+    if (lhs.folding_range != rhs.folding_range) {
+        return false;
+    }
+    if (lhs.selection_range != rhs.selection_range) {
+        return false;
+    }
+    if (lhs.publish_diagnostics != rhs.publish_diagnostics) {
+        return false;
+    }
+    if (lhs.call_hierarchy != rhs.call_hierarchy) {
+        return false;
+    }
+    if (lhs.semantic_tokens != rhs.semantic_tokens) {
+        return false;
+    }
+    if (lhs.linked_editing_range != rhs.linked_editing_range) {
+        return false;
+    }
+    if (lhs.moniker != rhs.moniker) {
+        return false;
+    }
+    if (lhs.type_hierarchy != rhs.type_hierarchy) {
+        return false;
+    }
+    if (lhs.inline_value != rhs.inline_value) {
+        return false;
+    }
+    if (lhs.inlay_hint != rhs.inlay_hint) {
+        return false;
+    }
+    if (lhs.diagnostic != rhs.diagnostic) {
+        return false;
+    }
+    if (lhs.inline_completion != rhs.inline_completion) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentClientCapabilities& lhs,
+                const TextDocumentClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -12665,6 +16060,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentClientCapab
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentSyncClientCapabilities& lhs,
+                const NotebookDocumentSyncClientCapabilities& rhs) {
+    if (lhs.dynamic_registration != rhs.dynamic_registration) {
+        return false;
+    }
+    if (lhs.execution_summary_support != rhs.execution_summary_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentSyncClientCapabilities& lhs,
+                const NotebookDocumentSyncClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentSyncClientCapabilities& out) {
     if (v.Has("dynamicRegistration")) {
@@ -12715,6 +16126,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncCli
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentClientCapabilities& lhs,
+                const NotebookDocumentClientCapabilities& rhs) {
+    if (lhs.synchronization != rhs.synchronization) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentClientCapabilities& lhs,
+                const NotebookDocumentClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentClientCapabilities& out) {
     {
@@ -12743,6 +16167,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentClientC
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientShowMessageActionItemOptions& lhs,
+                const ClientShowMessageActionItemOptions& rhs) {
+    if (lhs.additional_properties_support != rhs.additional_properties_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientShowMessageActionItemOptions& lhs,
+                const ClientShowMessageActionItemOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -12777,6 +16214,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientShowMessageAction
     return b.Object(members);
 }
 
+bool operator==(const ShowMessageRequestClientCapabilities& lhs,
+                const ShowMessageRequestClientCapabilities& rhs) {
+    if (lhs.message_action_item != rhs.message_action_item) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ShowMessageRequestClientCapabilities& lhs,
+                const ShowMessageRequestClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ShowMessageRequestClientCapabilities& out) {
     if (v.Has("messageActionItem")) {
@@ -12809,6 +16259,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestClien
     return b.Object(members);
 }
 
+bool operator==(const ShowDocumentClientCapabilities& lhs,
+                const ShowDocumentClientCapabilities& rhs) {
+    if (lhs.support != rhs.support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ShowDocumentClientCapabilities& lhs,
+                const ShowDocumentClientCapabilities& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ShowDocumentClientCapabilities& out) {
     {
@@ -12837,6 +16300,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowDocumentClientCapab
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WindowClientCapabilities& lhs, const WindowClientCapabilities& rhs) {
+    if (lhs.work_done_progress != rhs.work_done_progress) {
+        return false;
+    }
+    if (lhs.show_message != rhs.show_message) {
+        return false;
+    }
+    if (lhs.show_document != rhs.show_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WindowClientCapabilities& lhs, const WindowClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WindowClientCapabilities& out) {
@@ -12906,6 +16386,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const WindowClientCapabilitie
     return b.Object(members);
 }
 
+bool operator==(const StaleRequestSupportOptions& lhs, const StaleRequestSupportOptions& rhs) {
+    if (lhs.cancel != rhs.cancel) {
+        return false;
+    }
+    if (lhs.retry_on_content_modified != rhs.retry_on_content_modified) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const StaleRequestSupportOptions& lhs, const StaleRequestSupportOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] StaleRequestSupportOptions& out) {
     {
@@ -12950,6 +16444,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const StaleRequestSupportOpti
     }
 
     return b.Object(members);
+}
+
+bool operator==(const RegularExpressionsClientCapabilities& lhs,
+                const RegularExpressionsClientCapabilities& rhs) {
+    if (lhs.engine != rhs.engine) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RegularExpressionsClientCapabilities& lhs,
+                const RegularExpressionsClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -12998,6 +16508,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const RegularExpressionsClien
     }
 
     return b.Object(members);
+}
+
+bool operator==(const MarkdownClientCapabilities& lhs, const MarkdownClientCapabilities& rhs) {
+    if (lhs.parser != rhs.parser) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (lhs.allowed_tags != rhs.allowed_tags) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MarkdownClientCapabilities& lhs, const MarkdownClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -13064,6 +16591,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const MarkdownClientCapabilit
     }
 
     return b.Object(members);
+}
+
+bool operator==(const GeneralClientCapabilities& lhs, const GeneralClientCapabilities& rhs) {
+    if (lhs.stale_request_support != rhs.stale_request_support) {
+        return false;
+    }
+    if (lhs.regular_expressions != rhs.regular_expressions) {
+        return false;
+    }
+    if (lhs.markdown != rhs.markdown) {
+        return false;
+    }
+    if (lhs.position_encodings != rhs.position_encodings) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const GeneralClientCapabilities& lhs, const GeneralClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] GeneralClientCapabilities& out) {
@@ -13149,6 +16696,32 @@ Result<const json::Value*> Encode([[maybe_unused]] const GeneralClientCapabiliti
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ClientCapabilities& lhs, const ClientCapabilities& rhs) {
+    if (lhs.workspace != rhs.workspace) {
+        return false;
+    }
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.notebook_document != rhs.notebook_document) {
+        return false;
+    }
+    if (lhs.window != rhs.window) {
+        return false;
+    }
+    if (lhs.general != rhs.general) {
+        return false;
+    }
+    if (lhs.experimental != rhs.experimental) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ClientCapabilities& lhs, const ClientCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientCapabilities& out) {
@@ -13270,6 +16843,38 @@ Result<const json::Value*> Encode([[maybe_unused]] const ClientCapabilities& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InitializeParamsBase& lhs, const InitializeParamsBase& rhs) {
+    if (lhs.process_id != rhs.process_id) {
+        return false;
+    }
+    if (lhs.client_info != rhs.client_info) {
+        return false;
+    }
+    if (lhs.locale != rhs.locale) {
+        return false;
+    }
+    if (lhs.root_path != rhs.root_path) {
+        return false;
+    }
+    if (lhs.root_uri != rhs.root_uri) {
+        return false;
+    }
+    if (lhs.capabilities != rhs.capabilities) {
+        return false;
+    }
+    if (lhs.initialization_options != rhs.initialization_options) {
+        return false;
+    }
+    if (lhs.trace != rhs.trace) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InitializeParamsBase& lhs, const InitializeParamsBase& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeParamsBase& out) {
@@ -13423,6 +17028,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeParamsBase& i
     return b.Object(members);
 }
 
+bool operator==(const WorkspaceFoldersInitializeParams& lhs,
+                const WorkspaceFoldersInitializeParams& rhs) {
+    if (lhs.workspace_folders != rhs.workspace_folders) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceFoldersInitializeParams& lhs,
+                const WorkspaceFoldersInitializeParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceFoldersInitializeParams& out) {
     if (v.Has("workspaceFolders")) {
@@ -13455,6 +17073,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersInitial
     return b.Object(members);
 }
 
+bool operator==(const InitializeParams& lhs, const InitializeParams& rhs) {
+    if (static_cast<const InitializeParamsBase&>(lhs) !=
+        static_cast<const InitializeParamsBase&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const WorkspaceFoldersInitializeParams&>(lhs) !=
+        static_cast<const WorkspaceFoldersInitializeParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InitializeParams& lhs, const InitializeParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeParams& out) {
     if (auto res = Decode(v, static_cast<InitializeParamsBase&>(out)); res != Success) {
         return res.Failure();
@@ -13479,6 +17113,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SaveOptions& lhs, const SaveOptions& rhs) {
+    if (lhs.include_text != rhs.include_text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SaveOptions& lhs, const SaveOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SaveOptions& out) {
@@ -13510,6 +17155,29 @@ Result<const json::Value*> Encode([[maybe_unused]] const SaveOptions& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TextDocumentSyncOptions& lhs, const TextDocumentSyncOptions& rhs) {
+    if (lhs.open_close != rhs.open_close) {
+        return false;
+    }
+    if (lhs.change != rhs.change) {
+        return false;
+    }
+    if (lhs.will_save != rhs.will_save) {
+        return false;
+    }
+    if (lhs.will_save_wait_until != rhs.will_save_wait_until) {
+        return false;
+    }
+    if (lhs.save != rhs.save) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentSyncOptions& lhs, const TextDocumentSyncOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentSyncOptions& out) {
@@ -13615,6 +17283,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSyncOptions
     return b.Object(members);
 }
 
+bool operator==(const NotebookCellLanguage& lhs, const NotebookCellLanguage& rhs) {
+    if (lhs.language != rhs.language) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookCellLanguage& lhs, const NotebookCellLanguage& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCellLanguage& out) {
     {
         auto member = v.Get("language");
@@ -13642,6 +17321,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellLanguage& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentFilterWithCells& lhs,
+                const NotebookDocumentFilterWithCells& rhs) {
+    if (lhs.notebook != rhs.notebook) {
+        return false;
+    }
+    if (lhs.cells != rhs.cells) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentFilterWithCells& lhs,
+                const NotebookDocumentFilterWithCells& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -13692,6 +17387,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterW
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentFilterWithNotebook& lhs,
+                const NotebookDocumentFilterWithNotebook& rhs) {
+    if (lhs.notebook != rhs.notebook) {
+        return false;
+    }
+    if (lhs.cells != rhs.cells) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentFilterWithNotebook& lhs,
+                const NotebookDocumentFilterWithNotebook& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterWithNotebook& out) {
     {
@@ -13738,6 +17449,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterW
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentSyncOptions& lhs, const NotebookDocumentSyncOptions& rhs) {
+    if (lhs.notebook_selector != rhs.notebook_selector) {
+        return false;
+    }
+    if (lhs.save != rhs.save) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentSyncOptions& lhs, const NotebookDocumentSyncOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -13788,6 +17513,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentSyncOpt
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentSyncRegistrationOptions& lhs,
+                const NotebookDocumentSyncRegistrationOptions& rhs) {
+    if (static_cast<const NotebookDocumentSyncOptions&>(lhs) !=
+        static_cast<const NotebookDocumentSyncOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentSyncRegistrationOptions& lhs,
+                const NotebookDocumentSyncRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentSyncRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<NotebookDocumentSyncOptions&>(out)); res != Success) {
@@ -13807,6 +17546,17 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ServerCompletionItemOptions& lhs, const ServerCompletionItemOptions& rhs) {
+    if (lhs.label_details_support != rhs.label_details_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ServerCompletionItemOptions& lhs, const ServerCompletionItemOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -13839,6 +17589,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const ServerCompletionItemOpt
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CompletionOptions& lhs, const CompletionOptions& rhs) {
+    if (lhs.trigger_characters != rhs.trigger_characters) {
+        return false;
+    }
+    if (lhs.all_commit_characters != rhs.all_commit_characters) {
+        return false;
+    }
+    if (lhs.resolve_provider != rhs.resolve_provider) {
+        return false;
+    }
+    if (lhs.completion_item != rhs.completion_item) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionOptions& lhs, const CompletionOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionOptions& out) {
@@ -13926,6 +17696,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const HoverOptions& lhs, const HoverOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const HoverOptions& lhs, const HoverOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverOptions& out) {
     return Success;
 }
@@ -13936,6 +17714,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const HoverOptions& in,
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const SignatureHelpOptions& lhs, const SignatureHelpOptions& rhs) {
+    if (lhs.trigger_characters != rhs.trigger_characters) {
+        return false;
+    }
+    if (lhs.retrigger_characters != rhs.retrigger_characters) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureHelpOptions& lhs, const SignatureHelpOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelpOptions& out) {
@@ -13987,6 +17779,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpOptions& i
     return b.Object(members);
 }
 
+bool operator==(const DefinitionOptions& lhs, const DefinitionOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const DefinitionOptions& lhs, const DefinitionOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DefinitionOptions& out) {
     return Success;
 }
@@ -13997,6 +17797,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const DefinitionOptions& in,
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const ReferenceOptions& lhs, const ReferenceOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const ReferenceOptions& lhs, const ReferenceOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceOptions& out) {
@@ -14011,6 +17819,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const DocumentHighlightOptions& lhs, const DocumentHighlightOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const DocumentHighlightOptions& lhs, const DocumentHighlightOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighlightOptions& out) {
     return Success;
 }
@@ -14021,6 +17837,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightOption
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentSymbolOptions& lhs, const DocumentSymbolOptions& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentSymbolOptions& lhs, const DocumentSymbolOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbolOptions& out) {
@@ -14052,6 +17879,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolOptions& 
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CodeActionOptions& lhs, const CodeActionOptions& rhs) {
+    if (lhs.code_action_kinds != rhs.code_action_kinds) {
+        return false;
+    }
+    if (lhs.resolve_provider != rhs.resolve_provider) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeActionOptions& lhs, const CodeActionOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionOptions& out) {
@@ -14103,6 +17944,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const CodeLensOptions& lhs, const CodeLensOptions& rhs) {
+    if (lhs.resolve_provider != rhs.resolve_provider) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeLensOptions& lhs, const CodeLensOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLensOptions& out) {
     if (v.Has("resolveProvider")) {
         Boolean val;
@@ -14132,6 +17984,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensOptions& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentLinkOptions& lhs, const DocumentLinkOptions& rhs) {
+    if (lhs.resolve_provider != rhs.resolve_provider) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentLinkOptions& lhs, const DocumentLinkOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLinkOptions& out) {
@@ -14165,6 +18028,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkOptions& in
     return b.Object(members);
 }
 
+bool operator==(const WorkspaceSymbolOptions& lhs, const WorkspaceSymbolOptions& rhs) {
+    if (lhs.resolve_provider != rhs.resolve_provider) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceSymbolOptions& lhs, const WorkspaceSymbolOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymbolOptions& out) {
     if (v.Has("resolveProvider")) {
         Boolean val;
@@ -14196,6 +18070,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolOptions&
     return b.Object(members);
 }
 
+bool operator==(const DocumentFormattingOptions& lhs, const DocumentFormattingOptions& rhs) {
+    return true;
+}
+
+bool operator!=(const DocumentFormattingOptions& lhs, const DocumentFormattingOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentFormattingOptions& out) {
     return Success;
 }
@@ -14206,6 +18088,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingOptio
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentRangeFormattingOptions& lhs,
+                const DocumentRangeFormattingOptions& rhs) {
+    if (lhs.ranges_support != rhs.ranges_support) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentRangeFormattingOptions& lhs,
+                const DocumentRangeFormattingOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -14238,6 +18133,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormatting
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentOnTypeFormattingOptions& lhs,
+                const DocumentOnTypeFormattingOptions& rhs) {
+    if (lhs.first_trigger_character != rhs.first_trigger_character) {
+        return false;
+    }
+    if (lhs.more_trigger_character != rhs.more_trigger_character) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentOnTypeFormattingOptions& lhs,
+                const DocumentOnTypeFormattingOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -14288,6 +18199,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattin
     return b.Object(members);
 }
 
+bool operator==(const RenameOptions& lhs, const RenameOptions& rhs) {
+    if (lhs.prepare_provider != rhs.prepare_provider) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameOptions& lhs, const RenameOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameOptions& out) {
     if (v.Has("prepareProvider")) {
         Boolean val;
@@ -14319,6 +18241,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const ExecuteCommandOptions& lhs, const ExecuteCommandOptions& rhs) {
+    if (lhs.commands != rhs.commands) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ExecuteCommandOptions& lhs, const ExecuteCommandOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecuteCommandOptions& out) {
     {
         auto member = v.Get("commands");
@@ -14346,6 +18279,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandOptions& 
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceFoldersServerCapabilities& lhs,
+                const WorkspaceFoldersServerCapabilities& rhs) {
+    if (lhs.supported != rhs.supported) {
+        return false;
+    }
+    if (lhs.change_notifications != rhs.change_notifications) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceFoldersServerCapabilities& lhs,
+                const WorkspaceFoldersServerCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -14396,6 +18345,32 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFoldersServerC
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileOperationOptions& lhs, const FileOperationOptions& rhs) {
+    if (lhs.did_create != rhs.did_create) {
+        return false;
+    }
+    if (lhs.will_create != rhs.will_create) {
+        return false;
+    }
+    if (lhs.did_rename != rhs.did_rename) {
+        return false;
+    }
+    if (lhs.will_rename != rhs.will_rename) {
+        return false;
+    }
+    if (lhs.did_delete != rhs.did_delete) {
+        return false;
+    }
+    if (lhs.will_delete != rhs.will_delete) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileOperationOptions& lhs, const FileOperationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperationOptions& out) {
@@ -14519,6 +18494,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileOperationOptions& i
     return b.Object(members);
 }
 
+bool operator==(const WorkspaceOptions& lhs, const WorkspaceOptions& rhs) {
+    if (lhs.workspace_folders != rhs.workspace_folders) {
+        return false;
+    }
+    if (lhs.file_operations != rhs.file_operations) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceOptions& lhs, const WorkspaceOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceOptions& out) {
     if (v.Has("workspaceFolders")) {
         lsp::WorkspaceFoldersServerCapabilities val;
@@ -14566,6 +18555,122 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceOptions& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ServerCapabilities& lhs, const ServerCapabilities& rhs) {
+    if (lhs.position_encoding != rhs.position_encoding) {
+        return false;
+    }
+    if (lhs.text_document_sync != rhs.text_document_sync) {
+        return false;
+    }
+    if (lhs.notebook_document_sync != rhs.notebook_document_sync) {
+        return false;
+    }
+    if (lhs.completion_provider != rhs.completion_provider) {
+        return false;
+    }
+    if (lhs.hover_provider != rhs.hover_provider) {
+        return false;
+    }
+    if (lhs.signature_help_provider != rhs.signature_help_provider) {
+        return false;
+    }
+    if (lhs.declaration_provider != rhs.declaration_provider) {
+        return false;
+    }
+    if (lhs.definition_provider != rhs.definition_provider) {
+        return false;
+    }
+    if (lhs.type_definition_provider != rhs.type_definition_provider) {
+        return false;
+    }
+    if (lhs.implementation_provider != rhs.implementation_provider) {
+        return false;
+    }
+    if (lhs.references_provider != rhs.references_provider) {
+        return false;
+    }
+    if (lhs.document_highlight_provider != rhs.document_highlight_provider) {
+        return false;
+    }
+    if (lhs.document_symbol_provider != rhs.document_symbol_provider) {
+        return false;
+    }
+    if (lhs.code_action_provider != rhs.code_action_provider) {
+        return false;
+    }
+    if (lhs.code_lens_provider != rhs.code_lens_provider) {
+        return false;
+    }
+    if (lhs.document_link_provider != rhs.document_link_provider) {
+        return false;
+    }
+    if (lhs.color_provider != rhs.color_provider) {
+        return false;
+    }
+    if (lhs.workspace_symbol_provider != rhs.workspace_symbol_provider) {
+        return false;
+    }
+    if (lhs.document_formatting_provider != rhs.document_formatting_provider) {
+        return false;
+    }
+    if (lhs.document_range_formatting_provider != rhs.document_range_formatting_provider) {
+        return false;
+    }
+    if (lhs.document_on_type_formatting_provider != rhs.document_on_type_formatting_provider) {
+        return false;
+    }
+    if (lhs.rename_provider != rhs.rename_provider) {
+        return false;
+    }
+    if (lhs.folding_range_provider != rhs.folding_range_provider) {
+        return false;
+    }
+    if (lhs.selection_range_provider != rhs.selection_range_provider) {
+        return false;
+    }
+    if (lhs.execute_command_provider != rhs.execute_command_provider) {
+        return false;
+    }
+    if (lhs.call_hierarchy_provider != rhs.call_hierarchy_provider) {
+        return false;
+    }
+    if (lhs.linked_editing_range_provider != rhs.linked_editing_range_provider) {
+        return false;
+    }
+    if (lhs.semantic_tokens_provider != rhs.semantic_tokens_provider) {
+        return false;
+    }
+    if (lhs.moniker_provider != rhs.moniker_provider) {
+        return false;
+    }
+    if (lhs.type_hierarchy_provider != rhs.type_hierarchy_provider) {
+        return false;
+    }
+    if (lhs.inline_value_provider != rhs.inline_value_provider) {
+        return false;
+    }
+    if (lhs.inlay_hint_provider != rhs.inlay_hint_provider) {
+        return false;
+    }
+    if (lhs.diagnostic_provider != rhs.diagnostic_provider) {
+        return false;
+    }
+    if (lhs.inline_completion_provider != rhs.inline_completion_provider) {
+        return false;
+    }
+    if (lhs.workspace != rhs.workspace) {
+        return false;
+    }
+    if (lhs.experimental != rhs.experimental) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ServerCapabilities& lhs, const ServerCapabilities& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ServerCapabilities& out) {
@@ -15230,6 +19335,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ServerCapabilities& in,
     return b.Object(members);
 }
 
+bool operator==(const ServerInfo& lhs, const ServerInfo& rhs) {
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ServerInfo& lhs, const ServerInfo& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ServerInfo& out) {
     {
         auto member = v.Get("name");
@@ -15275,6 +19394,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ServerInfo& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InitializeResult& lhs, const InitializeResult& rhs) {
+    if (lhs.capabilities != rhs.capabilities) {
+        return false;
+    }
+    if (lhs.server_info != rhs.server_info) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InitializeResult& lhs, const InitializeResult& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeResult& out) {
@@ -15324,6 +19457,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeResult& in,
     return b.Object(members);
 }
 
+bool operator==(const InitializeError& lhs, const InitializeError& rhs) {
+    if (lhs.retry != rhs.retry) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InitializeError& lhs, const InitializeError& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeError& out) {
     {
         auto member = v.Get("retry");
@@ -15353,6 +19497,14 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializeError& in,
     return b.Object(members);
 }
 
+bool operator==(const InitializedParams& lhs, const InitializedParams& rhs) {
+    return true;
+}
+
+bool operator!=(const InitializedParams& lhs, const InitializedParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializedParams& out) {
     return Success;
 }
@@ -15363,6 +19515,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const InitializedParams& in,
     members.reserve(0);
 
     return b.Object(members);
+}
+
+bool operator==(const DidChangeConfigurationParams& lhs, const DidChangeConfigurationParams& rhs) {
+    if (lhs.settings != rhs.settings) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeConfigurationParams& lhs, const DidChangeConfigurationParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -15393,6 +19556,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeConfigurationP
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DidChangeConfigurationRegistrationOptions& lhs,
+                const DidChangeConfigurationRegistrationOptions& rhs) {
+    if (lhs.section != rhs.section) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeConfigurationRegistrationOptions& lhs,
+                const DidChangeConfigurationRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -15426,6 +19602,20 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ShowMessageParams& lhs, const ShowMessageParams& rhs) {
+    if (lhs.type != rhs.type) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ShowMessageParams& lhs, const ShowMessageParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowMessageParams& out) {
@@ -15473,6 +19663,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageParams& in,
     return b.Object(members);
 }
 
+bool operator==(const MessageActionItem& lhs, const MessageActionItem& rhs) {
+    if (lhs.title != rhs.title) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MessageActionItem& lhs, const MessageActionItem& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MessageActionItem& out) {
     {
         auto member = v.Get("title");
@@ -15500,6 +19701,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const MessageActionItem& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ShowMessageRequestParams& lhs, const ShowMessageRequestParams& rhs) {
+    if (lhs.type != rhs.type) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    if (lhs.actions != rhs.actions) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ShowMessageRequestParams& lhs, const ShowMessageRequestParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowMessageRequestParams& out) {
@@ -15565,6 +19783,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ShowMessageRequestParam
     return b.Object(members);
 }
 
+bool operator==(const LogMessageParams& lhs, const LogMessageParams& rhs) {
+    if (lhs.type != rhs.type) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LogMessageParams& lhs, const LogMessageParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LogMessageParams& out) {
     {
         auto member = v.Get("type");
@@ -15610,6 +19842,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const LogMessageParams& in,
     return b.Object(members);
 }
 
+bool operator==(const DidOpenTextDocumentParams& lhs, const DidOpenTextDocumentParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidOpenTextDocumentParams& lhs, const DidOpenTextDocumentParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DidOpenTextDocumentParams& out) {
     {
         auto member = v.Get("textDocument");
@@ -15637,6 +19880,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidOpenTextDocumentPara
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DidChangeTextDocumentParams& lhs, const DidChangeTextDocumentParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.content_changes != rhs.content_changes) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeTextDocumentParams& lhs, const DidChangeTextDocumentParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -15685,6 +19942,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeTextDocumentPa
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentChangeRegistrationOptions& lhs,
+                const TextDocumentChangeRegistrationOptions& rhs) {
+    if (lhs.sync_kind != rhs.sync_kind) {
+        return false;
+    }
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentChangeRegistrationOptions& lhs,
+                const TextDocumentChangeRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentChangeRegistrationOptions& out) {
     {
@@ -15722,6 +19996,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentChangeRegis
     return b.Object(members);
 }
 
+bool operator==(const DidCloseTextDocumentParams& lhs, const DidCloseTextDocumentParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidCloseTextDocumentParams& lhs, const DidCloseTextDocumentParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidCloseTextDocumentParams& out) {
     {
@@ -15750,6 +20035,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidCloseTextDocumentPar
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DidSaveTextDocumentParams& lhs, const DidSaveTextDocumentParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.text != rhs.text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidSaveTextDocumentParams& lhs, const DidSaveTextDocumentParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DidSaveTextDocumentParams& out) {
@@ -15799,6 +20098,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidSaveTextDocumentPara
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentSaveRegistrationOptions& lhs,
+                const TextDocumentSaveRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const SaveOptions&>(lhs) != static_cast<const SaveOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentSaveRegistrationOptions& lhs,
+                const TextDocumentSaveRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentSaveRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -15824,6 +20140,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentSaveRegistr
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WillSaveTextDocumentParams& lhs, const WillSaveTextDocumentParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.reason != rhs.reason) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WillSaveTextDocumentParams& lhs, const WillSaveTextDocumentParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -15872,6 +20202,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const WillSaveTextDocumentPar
     return b.Object(members);
 }
 
+bool operator==(const FileEvent& lhs, const FileEvent& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.type != rhs.type) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileEvent& lhs, const FileEvent& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileEvent& out) {
     {
         auto member = v.Get("uri");
@@ -15917,6 +20261,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileEvent& in,
     return b.Object(members);
 }
 
+bool operator==(const DidChangeWatchedFilesParams& lhs, const DidChangeWatchedFilesParams& rhs) {
+    if (lhs.changes != rhs.changes) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeWatchedFilesParams& lhs, const DidChangeWatchedFilesParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWatchedFilesParams& out) {
     {
@@ -15945,6 +20300,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DidChangeWatchedFilesPa
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FileSystemWatcher& lhs, const FileSystemWatcher& rhs) {
+    if (lhs.glob_pattern != rhs.glob_pattern) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FileSystemWatcher& lhs, const FileSystemWatcher& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileSystemWatcher& out) {
@@ -15994,6 +20363,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const FileSystemWatcher& in,
     return b.Object(members);
 }
 
+bool operator==(const DidChangeWatchedFilesRegistrationOptions& lhs,
+                const DidChangeWatchedFilesRegistrationOptions& rhs) {
+    if (lhs.watchers != rhs.watchers) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DidChangeWatchedFilesRegistrationOptions& lhs,
+                const DidChangeWatchedFilesRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWatchedFilesRegistrationOptions& out) {
     {
@@ -16023,6 +20405,23 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const PublishDiagnosticsParams& lhs, const PublishDiagnosticsParams& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (lhs.diagnostics != rhs.diagnostics) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PublishDiagnosticsParams& lhs, const PublishDiagnosticsParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PublishDiagnosticsParams& out) {
@@ -16088,6 +20487,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const PublishDiagnosticsParam
     return b.Object(members);
 }
 
+bool operator==(const CompletionContext& lhs, const CompletionContext& rhs) {
+    if (lhs.trigger_kind != rhs.trigger_kind) {
+        return false;
+    }
+    if (lhs.trigger_character != rhs.trigger_character) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionContext& lhs, const CompletionContext& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionContext& out) {
     {
         auto member = v.Get("triggerKind");
@@ -16135,6 +20548,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionContext& in,
     return b.Object(members);
 }
 
+bool operator==(const CompletionParams& lhs, const CompletionParams& rhs) {
+    if (lhs.context != rhs.context) {
+        return false;
+    }
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionParams& lhs, const CompletionParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionParams& out) {
     if (v.Has("context")) {
         lsp::CompletionContext val;
@@ -16170,6 +20598,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CompletionItemLabelDetails& lhs, const CompletionItemLabelDetails& rhs) {
+    if (lhs.detail != rhs.detail) {
+        return false;
+    }
+    if (lhs.description != rhs.description) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionItemLabelDetails& lhs, const CompletionItemLabelDetails& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -16220,6 +20662,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemLabelDeta
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InsertReplaceEdit& lhs, const InsertReplaceEdit& rhs) {
+    if (lhs.new_text != rhs.new_text) {
+        return false;
+    }
+    if (lhs.insert != rhs.insert) {
+        return false;
+    }
+    if (lhs.replace != rhs.replace) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InsertReplaceEdit& lhs, const InsertReplaceEdit& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InsertReplaceEdit& out) {
@@ -16281,6 +20740,71 @@ Result<const json::Value*> Encode([[maybe_unused]] const InsertReplaceEdit& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CompletionItem& lhs, const CompletionItem& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.label_details != rhs.label_details) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.tags != rhs.tags) {
+        return false;
+    }
+    if (lhs.detail != rhs.detail) {
+        return false;
+    }
+    if (lhs.documentation != rhs.documentation) {
+        return false;
+    }
+    if (lhs.deprecated != rhs.deprecated) {
+        return false;
+    }
+    if (lhs.preselect != rhs.preselect) {
+        return false;
+    }
+    if (lhs.sort_text != rhs.sort_text) {
+        return false;
+    }
+    if (lhs.filter_text != rhs.filter_text) {
+        return false;
+    }
+    if (lhs.insert_text != rhs.insert_text) {
+        return false;
+    }
+    if (lhs.insert_text_format != rhs.insert_text_format) {
+        return false;
+    }
+    if (lhs.insert_text_mode != rhs.insert_text_mode) {
+        return false;
+    }
+    if (lhs.text_edit != rhs.text_edit) {
+        return false;
+    }
+    if (lhs.text_edit_text != rhs.text_edit_text) {
+        return false;
+    }
+    if (lhs.additional_text_edits != rhs.additional_text_edits) {
+        return false;
+    }
+    if (lhs.commit_characters != rhs.commit_characters) {
+        return false;
+    }
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionItem& lhs, const CompletionItem& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionItem& out) {
@@ -16636,6 +21160,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItem& in,
     return b.Object(members);
 }
 
+bool operator==(const EditRangeWithInsertReplace& lhs, const EditRangeWithInsertReplace& rhs) {
+    if (lhs.insert != rhs.insert) {
+        return false;
+    }
+    if (lhs.replace != rhs.replace) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const EditRangeWithInsertReplace& lhs, const EditRangeWithInsertReplace& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] EditRangeWithInsertReplace& out) {
     {
@@ -16680,6 +21218,29 @@ Result<const json::Value*> Encode([[maybe_unused]] const EditRangeWithInsertRepl
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CompletionItemDefaults& lhs, const CompletionItemDefaults& rhs) {
+    if (lhs.commit_characters != rhs.commit_characters) {
+        return false;
+    }
+    if (lhs.edit_range != rhs.edit_range) {
+        return false;
+    }
+    if (lhs.insert_text_format != rhs.insert_text_format) {
+        return false;
+    }
+    if (lhs.insert_text_mode != rhs.insert_text_mode) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionItemDefaults& lhs, const CompletionItemDefaults& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionItemDefaults& out) {
@@ -16785,6 +21346,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionItemDefaults&
     return b.Object(members);
 }
 
+bool operator==(const CompletionList& lhs, const CompletionList& rhs) {
+    if (lhs.is_incomplete != rhs.is_incomplete) {
+        return false;
+    }
+    if (lhs.item_defaults != rhs.item_defaults) {
+        return false;
+    }
+    if (lhs.items != rhs.items) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionList& lhs, const CompletionList& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionList& out) {
     {
         auto member = v.Get("isIncomplete");
@@ -16848,6 +21426,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionList& in,
     return b.Object(members);
 }
 
+bool operator==(const CompletionRegistrationOptions& lhs,
+                const CompletionRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const CompletionOptions&>(lhs) != static_cast<const CompletionOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CompletionRegistrationOptions& lhs,
+                const CompletionRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CompletionRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -16875,6 +21470,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const CompletionRegistrationO
     return b.Object(members);
 }
 
+bool operator==(const HoverParams& lhs, const HoverParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const HoverParams& lhs, const HoverParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -16892,6 +21499,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const HoverParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const Hover& lhs, const Hover& rhs) {
+    if (lhs.contents != rhs.contents) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const Hover& lhs, const Hover& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Hover& out) {
@@ -16941,6 +21562,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const Hover& in,
     return b.Object(members);
 }
 
+bool operator==(const HoverRegistrationOptions& lhs, const HoverRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const HoverOptions&>(lhs) != static_cast<const HoverOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const HoverRegistrationOptions& lhs, const HoverRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
@@ -16965,6 +21601,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const HoverRegistrationOption
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ParameterInformation& lhs, const ParameterInformation& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.documentation != rhs.documentation) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ParameterInformation& lhs, const ParameterInformation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ParameterInformation& out) {
@@ -17012,6 +21662,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const ParameterInformation& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SignatureInformation& lhs, const SignatureInformation& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.documentation != rhs.documentation) {
+        return false;
+    }
+    if (lhs.parameters != rhs.parameters) {
+        return false;
+    }
+    if (lhs.active_parameter != rhs.active_parameter) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureInformation& lhs, const SignatureInformation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureInformation& out) {
@@ -17097,6 +21767,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureInformation& i
     return b.Object(members);
 }
 
+bool operator==(const SignatureHelp& lhs, const SignatureHelp& rhs) {
+    if (lhs.signatures != rhs.signatures) {
+        return false;
+    }
+    if (lhs.active_signature != rhs.active_signature) {
+        return false;
+    }
+    if (lhs.active_parameter != rhs.active_parameter) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureHelp& lhs, const SignatureHelp& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelp& out) {
     {
         auto member = v.Get("signatures");
@@ -17160,6 +21847,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelp& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const SignatureHelpContext& lhs, const SignatureHelpContext& rhs) {
+    if (lhs.trigger_kind != rhs.trigger_kind) {
+        return false;
+    }
+    if (lhs.trigger_character != rhs.trigger_character) {
+        return false;
+    }
+    if (lhs.is_retrigger != rhs.is_retrigger) {
+        return false;
+    }
+    if (lhs.active_signature_help != rhs.active_signature_help) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureHelpContext& lhs, const SignatureHelpContext& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelpContext& out) {
@@ -17243,6 +21950,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpContext& i
     return b.Object(members);
 }
 
+bool operator==(const SignatureHelpParams& lhs, const SignatureHelpParams& rhs) {
+    if (lhs.context != rhs.context) {
+        return false;
+    }
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureHelpParams& lhs, const SignatureHelpParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelpParams& out) {
     if (v.Has("context")) {
         lsp::SignatureHelpContext val;
@@ -17280,6 +22002,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpParams& in
     return b.Object(members);
 }
 
+bool operator==(const SignatureHelpRegistrationOptions& lhs,
+                const SignatureHelpRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const SignatureHelpOptions&>(lhs) !=
+        static_cast<const SignatureHelpOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SignatureHelpRegistrationOptions& lhs,
+                const SignatureHelpRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SignatureHelpRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -17307,6 +22047,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const SignatureHelpRegistrati
     return b.Object(members);
 }
 
+bool operator==(const DefinitionParams& lhs, const DefinitionParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DefinitionParams& lhs, const DefinitionParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DefinitionParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -17324,6 +22076,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DefinitionParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DefinitionRegistrationOptions& lhs,
+                const DefinitionRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DefinitionOptions&>(lhs) != static_cast<const DefinitionOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DefinitionRegistrationOptions& lhs,
+                const DefinitionRegistrationOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -17353,6 +22122,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DefinitionRegistrationO
     return b.Object(members);
 }
 
+bool operator==(const ReferenceContext& lhs, const ReferenceContext& rhs) {
+    if (lhs.include_declaration != rhs.include_declaration) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ReferenceContext& lhs, const ReferenceContext& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceContext& out) {
     {
         auto member = v.Get("includeDeclaration");
@@ -17380,6 +22160,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceContext& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ReferenceParams& lhs, const ReferenceParams& rhs) {
+    if (lhs.context != rhs.context) {
+        return false;
+    }
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ReferenceParams& lhs, const ReferenceParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceParams& out) {
@@ -17417,6 +22212,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceParams& in,
     return b.Object(members);
 }
 
+bool operator==(const ReferenceRegistrationOptions& lhs, const ReferenceRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const ReferenceOptions&>(lhs) != static_cast<const ReferenceOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ReferenceRegistrationOptions& lhs, const ReferenceRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ReferenceRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -17444,6 +22254,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const ReferenceRegistrationOp
     return b.Object(members);
 }
 
+bool operator==(const DocumentHighlightParams& lhs, const DocumentHighlightParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentHighlightParams& lhs, const DocumentHighlightParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighlightParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -17461,6 +22283,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightParams
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentHighlight& lhs, const DocumentHighlight& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentHighlight& lhs, const DocumentHighlight& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighlight& out) {
@@ -17510,6 +22346,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlight& in,
     return b.Object(members);
 }
 
+bool operator==(const DocumentHighlightRegistrationOptions& lhs,
+                const DocumentHighlightRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentHighlightOptions&>(lhs) !=
+        static_cast<const DocumentHighlightOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentHighlightRegistrationOptions& lhs,
+                const DocumentHighlightRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentHighlightRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -17535,6 +22389,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentHighlightRegist
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentSymbolParams& lhs, const DocumentSymbolParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentSymbolParams& lhs, const DocumentSymbolParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbolParams& out) {
@@ -17564,6 +22429,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolParams& i
     }
 
     return b.Object(members);
+}
+
+bool operator==(const BaseSymbolInformation& lhs, const BaseSymbolInformation& rhs) {
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.tags != rhs.tags) {
+        return false;
+    }
+    if (lhs.container_name != rhs.container_name) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const BaseSymbolInformation& lhs, const BaseSymbolInformation& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] BaseSymbolInformation& out) {
@@ -17647,6 +22532,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const BaseSymbolInformation& 
     return b.Object(members);
 }
 
+bool operator==(const SymbolInformation& lhs, const SymbolInformation& rhs) {
+    if (lhs.deprecated != rhs.deprecated) {
+        return false;
+    }
+    if (lhs.location != rhs.location) {
+        return false;
+    }
+    if (static_cast<const BaseSymbolInformation&>(lhs) !=
+        static_cast<const BaseSymbolInformation&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SymbolInformation& lhs, const SymbolInformation& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SymbolInformation& out) {
     if (v.Has("deprecated")) {
         Boolean val;
@@ -17698,6 +22601,38 @@ Result<const json::Value*> Encode([[maybe_unused]] const SymbolInformation& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentSymbol& lhs, const DocumentSymbol& rhs) {
+    if (lhs.name != rhs.name) {
+        return false;
+    }
+    if (lhs.detail != rhs.detail) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.tags != rhs.tags) {
+        return false;
+    }
+    if (lhs.deprecated != rhs.deprecated) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.selection_range != rhs.selection_range) {
+        return false;
+    }
+    if (lhs.children != rhs.children) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentSymbol& lhs, const DocumentSymbol& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbol& out) {
@@ -17849,6 +22784,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbol& in,
     return b.Object(members);
 }
 
+bool operator==(const DocumentSymbolRegistrationOptions& lhs,
+                const DocumentSymbolRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentSymbolOptions&>(lhs) !=
+        static_cast<const DocumentSymbolOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentSymbolRegistrationOptions& lhs,
+                const DocumentSymbolRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentSymbolRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -17874,6 +22827,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentSymbolRegistrat
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CodeActionContext& lhs, const CodeActionContext& rhs) {
+    if (lhs.diagnostics != rhs.diagnostics) {
+        return false;
+    }
+    if (lhs.only != rhs.only) {
+        return false;
+    }
+    if (lhs.trigger_kind != rhs.trigger_kind) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeActionContext& lhs, const CodeActionContext& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionContext& out) {
@@ -17941,6 +22911,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionContext& in,
     return b.Object(members);
 }
 
+bool operator==(const CodeActionParams& lhs, const CodeActionParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.context != rhs.context) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeActionParams& lhs, const CodeActionParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionParams& out) {
     {
         auto member = v.Get("textDocument");
@@ -18002,6 +22989,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionParams& in,
     return b.Object(members);
 }
 
+bool operator==(const CodeActionDisabled& lhs, const CodeActionDisabled& rhs) {
+    if (lhs.reason != rhs.reason) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeActionDisabled& lhs, const CodeActionDisabled& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionDisabled& out) {
     {
         auto member = v.Get("reason");
@@ -18029,6 +23027,38 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionDisabled& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CodeAction& lhs, const CodeAction& rhs) {
+    if (lhs.title != rhs.title) {
+        return false;
+    }
+    if (lhs.kind != rhs.kind) {
+        return false;
+    }
+    if (lhs.diagnostics != rhs.diagnostics) {
+        return false;
+    }
+    if (lhs.is_preferred != rhs.is_preferred) {
+        return false;
+    }
+    if (lhs.disabled != rhs.disabled) {
+        return false;
+    }
+    if (lhs.edit != rhs.edit) {
+        return false;
+    }
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeAction& lhs, const CodeAction& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeAction& out) {
@@ -18186,6 +23216,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeAction& in,
     return b.Object(members);
 }
 
+bool operator==(const CodeActionRegistrationOptions& lhs,
+                const CodeActionRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const CodeActionOptions&>(lhs) != static_cast<const CodeActionOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeActionRegistrationOptions& lhs,
+                const CodeActionRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeActionRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -18211,6 +23258,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeActionRegistrationO
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceSymbolParams& lhs, const WorkspaceSymbolParams& rhs) {
+    if (lhs.query != rhs.query) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceSymbolParams& lhs, const WorkspaceSymbolParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymbolParams& out) {
@@ -18242,6 +23300,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolParams& 
     return b.Object(members);
 }
 
+bool operator==(const LocationUriOnly& lhs, const LocationUriOnly& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LocationUriOnly& lhs, const LocationUriOnly& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LocationUriOnly& out) {
     {
         auto member = v.Get("uri");
@@ -18269,6 +23338,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const LocationUriOnly& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceSymbol& lhs, const WorkspaceSymbol& rhs) {
+    if (lhs.location != rhs.location) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    if (static_cast<const BaseSymbolInformation&>(lhs) !=
+        static_cast<const BaseSymbolInformation&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceSymbol& lhs, const WorkspaceSymbol& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymbol& out) {
@@ -18324,6 +23411,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbol& in,
     return b.Object(members);
 }
 
+bool operator==(const WorkspaceSymbolRegistrationOptions& lhs,
+                const WorkspaceSymbolRegistrationOptions& rhs) {
+    if (static_cast<const WorkspaceSymbolOptions&>(lhs) !=
+        static_cast<const WorkspaceSymbolOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceSymbolRegistrationOptions& lhs,
+                const WorkspaceSymbolRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceSymbolRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<WorkspaceSymbolOptions&>(out)); res != Success) {
@@ -18342,6 +23443,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceSymbolRegistra
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CodeLensParams& lhs, const CodeLensParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeLensParams& lhs, const CodeLensParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLensParams& out) {
@@ -18371,6 +23483,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const CodeLens& lhs, const CodeLens& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeLens& lhs, const CodeLens& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLens& out) {
@@ -18438,6 +23567,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLens& in,
     return b.Object(members);
 }
 
+bool operator==(const CodeLensRegistrationOptions& lhs, const CodeLensRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const CodeLensOptions&>(lhs) != static_cast<const CodeLensOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CodeLensRegistrationOptions& lhs, const CodeLensRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeLensRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -18463,6 +23607,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const CodeLensRegistrationOpt
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentLinkParams& lhs, const DocumentLinkParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentLinkParams& lhs, const DocumentLinkParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLinkParams& out) {
@@ -18492,6 +23647,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentLink& lhs, const DocumentLink& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.target != rhs.target) {
+        return false;
+    }
+    if (lhs.tooltip != rhs.tooltip) {
+        return false;
+    }
+    if (lhs.data != rhs.data) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentLink& lhs, const DocumentLink& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLink& out) {
@@ -18577,6 +23752,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLink& in,
     return b.Object(members);
 }
 
+bool operator==(const DocumentLinkRegistrationOptions& lhs,
+                const DocumentLinkRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentLinkOptions&>(lhs) !=
+        static_cast<const DocumentLinkOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentLinkRegistrationOptions& lhs,
+                const DocumentLinkRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentLinkRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -18602,6 +23795,29 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentLinkRegistratio
     }
 
     return b.Object(members);
+}
+
+bool operator==(const FormattingOptions& lhs, const FormattingOptions& rhs) {
+    if (lhs.tab_size != rhs.tab_size) {
+        return false;
+    }
+    if (lhs.insert_spaces != rhs.insert_spaces) {
+        return false;
+    }
+    if (lhs.trim_trailing_whitespace != rhs.trim_trailing_whitespace) {
+        return false;
+    }
+    if (lhs.insert_final_newline != rhs.insert_final_newline) {
+        return false;
+    }
+    if (lhs.trim_final_newlines != rhs.trim_final_newlines) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const FormattingOptions& lhs, const FormattingOptions& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FormattingOptions& out) {
@@ -18703,6 +23919,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const FormattingOptions& in,
     return b.Object(members);
 }
 
+bool operator==(const DocumentFormattingParams& lhs, const DocumentFormattingParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentFormattingParams& lhs, const DocumentFormattingParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentFormattingParams& out) {
     {
         auto member = v.Get("textDocument");
@@ -18748,6 +23978,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingParam
     return b.Object(members);
 }
 
+bool operator==(const DocumentFormattingRegistrationOptions& lhs,
+                const DocumentFormattingRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentFormattingOptions&>(lhs) !=
+        static_cast<const DocumentFormattingOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentFormattingRegistrationOptions& lhs,
+                const DocumentFormattingRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentFormattingRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -18773,6 +24021,25 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentFormattingRegis
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentRangeFormattingParams& lhs,
+                const DocumentRangeFormattingParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentRangeFormattingParams& lhs,
+                const DocumentRangeFormattingParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -18837,6 +24104,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangeFormatting
     return b.Object(members);
 }
 
+bool operator==(const DocumentRangeFormattingRegistrationOptions& lhs,
+                const DocumentRangeFormattingRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentRangeFormattingOptions&>(lhs) !=
+        static_cast<const DocumentRangeFormattingOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentRangeFormattingRegistrationOptions& lhs,
+                const DocumentRangeFormattingRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentRangeFormattingRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -18864,6 +24149,25 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentRangesFormattingParams& lhs,
+                const DocumentRangesFormattingParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.ranges != rhs.ranges) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentRangesFormattingParams& lhs,
+                const DocumentRangesFormattingParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -18926,6 +24230,28 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentRangesFormattin
     }
 
     return b.Object(members);
+}
+
+bool operator==(const DocumentOnTypeFormattingParams& lhs,
+                const DocumentOnTypeFormattingParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.position != rhs.position) {
+        return false;
+    }
+    if (lhs.ch != rhs.ch) {
+        return false;
+    }
+    if (lhs.options != rhs.options) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentOnTypeFormattingParams& lhs,
+                const DocumentOnTypeFormattingParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -19006,6 +24332,24 @@ Result<const json::Value*> Encode([[maybe_unused]] const DocumentOnTypeFormattin
     return b.Object(members);
 }
 
+bool operator==(const DocumentOnTypeFormattingRegistrationOptions& lhs,
+                const DocumentOnTypeFormattingRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const DocumentOnTypeFormattingOptions&>(lhs) !=
+        static_cast<const DocumentOnTypeFormattingOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const DocumentOnTypeFormattingRegistrationOptions& lhs,
+                const DocumentOnTypeFormattingRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentOnTypeFormattingRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
@@ -19033,6 +24377,23 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const RenameParams& lhs, const RenameParams& rhs) {
+    if (lhs.text_document != rhs.text_document) {
+        return false;
+    }
+    if (lhs.position != rhs.position) {
+        return false;
+    }
+    if (lhs.new_name != rhs.new_name) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameParams& lhs, const RenameParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameParams& out) {
@@ -19096,6 +24457,21 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameParams& in,
     return b.Object(members);
 }
 
+bool operator==(const RenameRegistrationOptions& lhs, const RenameRegistrationOptions& rhs) {
+    if (static_cast<const TextDocumentRegistrationOptions&>(lhs) !=
+        static_cast<const TextDocumentRegistrationOptions&>(rhs)) {
+        return false;
+    }
+    if (static_cast<const RenameOptions&>(lhs) != static_cast<const RenameOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RenameRegistrationOptions& lhs, const RenameRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
@@ -19122,6 +24498,18 @@ Result<const json::Value*> Encode([[maybe_unused]] const RenameRegistrationOptio
     return b.Object(members);
 }
 
+bool operator==(const PrepareRenameParams& lhs, const PrepareRenameParams& rhs) {
+    if (static_cast<const TextDocumentPositionParams&>(lhs) !=
+        static_cast<const TextDocumentPositionParams&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PrepareRenameParams& lhs, const PrepareRenameParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PrepareRenameParams& out) {
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
@@ -19139,6 +24527,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenameParams& in
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ExecuteCommandParams& lhs, const ExecuteCommandParams& rhs) {
+    if (lhs.command != rhs.command) {
+        return false;
+    }
+    if (lhs.arguments != rhs.arguments) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ExecuteCommandParams& lhs, const ExecuteCommandParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecuteCommandParams& out) {
@@ -19188,6 +24590,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandParams& i
     return b.Object(members);
 }
 
+bool operator==(const ExecuteCommandRegistrationOptions& lhs,
+                const ExecuteCommandRegistrationOptions& rhs) {
+    if (static_cast<const ExecuteCommandOptions&>(lhs) !=
+        static_cast<const ExecuteCommandOptions&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ExecuteCommandRegistrationOptions& lhs,
+                const ExecuteCommandRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ExecuteCommandRegistrationOptions& out) {
     if (auto res = Decode(v, static_cast<ExecuteCommandOptions&>(out)); res != Success) {
@@ -19206,6 +24622,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const ExecuteCommandRegistrat
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ApplyWorkspaceEditParams& lhs, const ApplyWorkspaceEditParams& rhs) {
+    if (lhs.label != rhs.label) {
+        return false;
+    }
+    if (lhs.edit != rhs.edit) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ApplyWorkspaceEditParams& lhs, const ApplyWorkspaceEditParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ApplyWorkspaceEditParams& out) {
@@ -19253,6 +24683,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditParam
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ApplyWorkspaceEditResult& lhs, const ApplyWorkspaceEditResult& rhs) {
+    if (lhs.applied != rhs.applied) {
+        return false;
+    }
+    if (lhs.failure_reason != rhs.failure_reason) {
+        return false;
+    }
+    if (lhs.failed_change != rhs.failed_change) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ApplyWorkspaceEditResult& lhs, const ApplyWorkspaceEditResult& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ApplyWorkspaceEditResult& out) {
@@ -19318,6 +24765,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const ApplyWorkspaceEditResul
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkDoneProgressBegin& lhs, const WorkDoneProgressBegin& rhs) {
+    if (lhs.title != rhs.title) {
+        return false;
+    }
+    if (lhs.cancellable != rhs.cancellable) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    if (lhs.percentage != rhs.percentage) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressBegin& lhs, const WorkDoneProgressBegin& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressBegin& out) {
@@ -19407,6 +24874,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressBegin& 
     return b.Object(members);
 }
 
+bool operator==(const WorkDoneProgressReport& lhs, const WorkDoneProgressReport& rhs) {
+    if (lhs.cancellable != rhs.cancellable) {
+        return false;
+    }
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    if (lhs.percentage != rhs.percentage) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressReport& lhs, const WorkDoneProgressReport& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressReport& out) {
     if (auto res = MatchKind(v, "report"); res != Success) {
         return res.Failure();
@@ -19478,6 +24962,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressReport&
     return b.Object(members);
 }
 
+bool operator==(const WorkDoneProgressEnd& lhs, const WorkDoneProgressEnd& rhs) {
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressEnd& lhs, const WorkDoneProgressEnd& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressEnd& out) {
     if (auto res = MatchKind(v, "end"); res != Success) {
         return res.Failure();
@@ -19513,6 +25008,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressEnd& in
     return b.Object(members);
 }
 
+bool operator==(const SetTraceParams& lhs, const SetTraceParams& rhs) {
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const SetTraceParams& lhs, const SetTraceParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SetTraceParams& out) {
     {
         auto member = v.Get("value");
@@ -19540,6 +25046,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const SetTraceParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const LogTraceParams& lhs, const LogTraceParams& rhs) {
+    if (lhs.message != rhs.message) {
+        return false;
+    }
+    if (lhs.verbose != rhs.verbose) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LogTraceParams& lhs, const LogTraceParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LogTraceParams& out) {
@@ -19589,6 +25109,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const LogTraceParams& in,
     return b.Object(members);
 }
 
+bool operator==(const CancelParams& lhs, const CancelParams& rhs) {
+    if (lhs.id != rhs.id) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const CancelParams& lhs, const CancelParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CancelParams& out) {
     {
         auto member = v.Get("id");
@@ -19616,6 +25147,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const CancelParams& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const ProgressParams& lhs, const ProgressParams& rhs) {
+    if (lhs.token != rhs.token) {
+        return false;
+    }
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const ProgressParams& lhs, const ProgressParams& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ProgressParams& out) {
@@ -19663,6 +25208,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const ProgressParams& in,
     return b.Object(members);
 }
 
+bool operator==(const WorkDoneProgressParams& lhs, const WorkDoneProgressParams& rhs) {
+    if (lhs.work_done_token != rhs.work_done_token) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkDoneProgressParams& lhs, const WorkDoneProgressParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressParams& out) {
     if (v.Has("workDoneToken")) {
         lsp::ProgressToken val;
@@ -19694,6 +25250,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkDoneProgressParams&
     return b.Object(members);
 }
 
+bool operator==(const PartialResultParams& lhs, const PartialResultParams& rhs) {
+    if (lhs.partial_result_token != rhs.partial_result_token) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PartialResultParams& lhs, const PartialResultParams& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PartialResultParams& out) {
     if (v.Has("partialResultToken")) {
         lsp::ProgressToken val;
@@ -19723,6 +25290,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const PartialResultParams& in
     }
 
     return b.Object(members);
+}
+
+bool operator==(const LocationLink& lhs, const LocationLink& rhs) {
+    if (lhs.origin_selection_range != rhs.origin_selection_range) {
+        return false;
+    }
+    if (lhs.target_uri != rhs.target_uri) {
+        return false;
+    }
+    if (lhs.target_range != rhs.target_range) {
+        return false;
+    }
+    if (lhs.target_selection_range != rhs.target_selection_range) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const LocationLink& lhs, const LocationLink& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LocationLink& out) {
@@ -19804,6 +25391,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const LocationLink& in,
     return b.Object(members);
 }
 
+bool operator==(const StaticRegistrationOptions& lhs, const StaticRegistrationOptions& rhs) {
+    if (lhs.id != rhs.id) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const StaticRegistrationOptions& lhs, const StaticRegistrationOptions& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] StaticRegistrationOptions& out) {
     if (v.Has("id")) {
         String val;
@@ -19833,6 +25431,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const StaticRegistrationOptio
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlineValueText& lhs, const InlineValueText& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.text != rhs.text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueText& lhs, const InlineValueText& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueText& out) {
@@ -19878,6 +25490,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueText& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const InlineValueVariableLookup& lhs, const InlineValueVariableLookup& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.variable_name != rhs.variable_name) {
+        return false;
+    }
+    if (lhs.case_sensitive_lookup != rhs.case_sensitive_lookup) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueVariableLookup& lhs, const InlineValueVariableLookup& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueVariableLookup& out) {
@@ -19943,6 +25572,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueVariableLook
     return b.Object(members);
 }
 
+bool operator==(const InlineValueEvaluatableExpression& lhs,
+                const InlineValueEvaluatableExpression& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.expression != rhs.expression) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const InlineValueEvaluatableExpression& lhs,
+                const InlineValueEvaluatableExpression& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueEvaluatableExpression& out) {
     {
@@ -19991,6 +25636,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const InlineValueEvaluatableE
     return b.Object(members);
 }
 
+bool operator==(const RelatedFullDocumentDiagnosticReport& lhs,
+                const RelatedFullDocumentDiagnosticReport& rhs) {
+    if (lhs.related_documents != rhs.related_documents) {
+        return false;
+    }
+    if (static_cast<const FullDocumentDiagnosticReport&>(lhs) !=
+        static_cast<const FullDocumentDiagnosticReport&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RelatedFullDocumentDiagnosticReport& lhs,
+                const RelatedFullDocumentDiagnosticReport& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] RelatedFullDocumentDiagnosticReport& out) {
     if (v.Has("relatedDocuments")) {
@@ -20030,6 +25692,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const RelatedFullDocumentDiag
     }
 
     return b.Object(members);
+}
+
+bool operator==(const RelatedUnchangedDocumentDiagnosticReport& lhs,
+                const RelatedUnchangedDocumentDiagnosticReport& rhs) {
+    if (lhs.related_documents != rhs.related_documents) {
+        return false;
+    }
+    if (static_cast<const UnchangedDocumentDiagnosticReport&>(lhs) !=
+        static_cast<const UnchangedDocumentDiagnosticReport&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RelatedUnchangedDocumentDiagnosticReport& lhs,
+                const RelatedUnchangedDocumentDiagnosticReport& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -20073,6 +25752,20 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const PrepareRenamePlaceholder& lhs, const PrepareRenamePlaceholder& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.placeholder != rhs.placeholder) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PrepareRenamePlaceholder& lhs, const PrepareRenamePlaceholder& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PrepareRenamePlaceholder& out) {
@@ -20120,6 +25813,17 @@ Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenamePlaceholde
     return b.Object(members);
 }
 
+bool operator==(const PrepareRenameDefaultBehavior& lhs, const PrepareRenameDefaultBehavior& rhs) {
+    if (lhs.default_behavior != rhs.default_behavior) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const PrepareRenameDefaultBehavior& lhs, const PrepareRenameDefaultBehavior& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] PrepareRenameDefaultBehavior& out) {
     {
@@ -20148,6 +25852,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const PrepareRenameDefaultBeh
     }
 
     return b.Object(members);
+}
+
+bool operator==(const WorkspaceFullDocumentDiagnosticReport& lhs,
+                const WorkspaceFullDocumentDiagnosticReport& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (static_cast<const FullDocumentDiagnosticReport&>(lhs) !=
+        static_cast<const FullDocumentDiagnosticReport&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceFullDocumentDiagnosticReport& lhs,
+                const WorkspaceFullDocumentDiagnosticReport& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -20203,6 +25927,26 @@ Result<const json::Value*> Encode([[maybe_unused]] const WorkspaceFullDocumentDi
     return b.Object(members);
 }
 
+bool operator==(const WorkspaceUnchangedDocumentDiagnosticReport& lhs,
+                const WorkspaceUnchangedDocumentDiagnosticReport& rhs) {
+    if (lhs.uri != rhs.uri) {
+        return false;
+    }
+    if (lhs.version != rhs.version) {
+        return false;
+    }
+    if (static_cast<const UnchangedDocumentDiagnosticReport&>(lhs) !=
+        static_cast<const UnchangedDocumentDiagnosticReport&>(rhs)) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const WorkspaceUnchangedDocumentDiagnosticReport& lhs,
+                const WorkspaceUnchangedDocumentDiagnosticReport& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceUnchangedDocumentDiagnosticReport& out) {
     {
@@ -20256,6 +26000,25 @@ Result<const json::Value*> Encode(
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TextDocumentContentChangePartial& lhs,
+                const TextDocumentContentChangePartial& rhs) {
+    if (lhs.range != rhs.range) {
+        return false;
+    }
+    if (lhs.range_length != rhs.range_length) {
+        return false;
+    }
+    if (lhs.text != rhs.text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentContentChangePartial& lhs,
+                const TextDocumentContentChangePartial& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -20322,6 +26085,19 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChan
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentContentChangeWholeDocument& lhs,
+                const TextDocumentContentChangeWholeDocument& rhs) {
+    if (lhs.text != rhs.text) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentContentChangeWholeDocument& lhs,
+                const TextDocumentContentChangeWholeDocument& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentContentChangeWholeDocument& out) {
     {
@@ -20350,6 +26126,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentContentChan
     }
 
     return b.Object(members);
+}
+
+bool operator==(const MarkedStringWithLanguage& lhs, const MarkedStringWithLanguage& rhs) {
+    if (lhs.language != rhs.language) {
+        return false;
+    }
+    if (lhs.value != rhs.value) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const MarkedStringWithLanguage& lhs, const MarkedStringWithLanguage& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MarkedStringWithLanguage& out) {
@@ -20395,6 +26185,22 @@ Result<const json::Value*> Encode([[maybe_unused]] const MarkedStringWithLanguag
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookCellTextDocumentFilter& lhs,
+                const NotebookCellTextDocumentFilter& rhs) {
+    if (lhs.notebook != rhs.notebook) {
+        return false;
+    }
+    if (lhs.language != rhs.language) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookCellTextDocumentFilter& lhs,
+                const NotebookCellTextDocumentFilter& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -20445,6 +26251,20 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookCellTextDocumen
     return b.Object(members);
 }
 
+bool operator==(const RelativePattern& lhs, const RelativePattern& rhs) {
+    if (lhs.base_uri != rhs.base_uri) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const RelativePattern& lhs, const RelativePattern& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RelativePattern& out) {
     {
         auto member = v.Get("baseUri");
@@ -20488,6 +26308,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const RelativePattern& in,
     }
 
     return b.Object(members);
+}
+
+bool operator==(const TextDocumentFilterLanguage& lhs, const TextDocumentFilterLanguage& rhs) {
+    if (lhs.language != rhs.language) {
+        return false;
+    }
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentFilterLanguage& lhs, const TextDocumentFilterLanguage& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -20556,6 +26393,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterLangu
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentFilterScheme& lhs, const TextDocumentFilterScheme& rhs) {
+    if (lhs.language != rhs.language) {
+        return false;
+    }
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentFilterScheme& lhs, const TextDocumentFilterScheme& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentFilterScheme& out) {
     if (v.Has("language")) {
         String val;
@@ -20621,6 +26475,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterSchem
     return b.Object(members);
 }
 
+bool operator==(const TextDocumentFilterPattern& lhs, const TextDocumentFilterPattern& rhs) {
+    if (lhs.language != rhs.language) {
+        return false;
+    }
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const TextDocumentFilterPattern& lhs, const TextDocumentFilterPattern& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentFilterPattern& out) {
     if (v.Has("language")) {
         String val;
@@ -20684,6 +26555,25 @@ Result<const json::Value*> Encode([[maybe_unused]] const TextDocumentFilterPatte
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentFilterNotebookType& lhs,
+                const NotebookDocumentFilterNotebookType& rhs) {
+    if (lhs.notebook_type != rhs.notebook_type) {
+        return false;
+    }
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentFilterNotebookType& lhs,
+                const NotebookDocumentFilterNotebookType& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
@@ -20752,6 +26642,23 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterN
     return b.Object(members);
 }
 
+bool operator==(const NotebookDocumentFilterScheme& lhs, const NotebookDocumentFilterScheme& rhs) {
+    if (lhs.notebook_type != rhs.notebook_type) {
+        return false;
+    }
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentFilterScheme& lhs, const NotebookDocumentFilterScheme& rhs) {
+    return !(lhs == rhs);
+}
+
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterScheme& out) {
     if (v.Has("notebookType")) {
@@ -20816,6 +26723,25 @@ Result<const json::Value*> Encode([[maybe_unused]] const NotebookDocumentFilterS
     }
 
     return b.Object(members);
+}
+
+bool operator==(const NotebookDocumentFilterPattern& lhs,
+                const NotebookDocumentFilterPattern& rhs) {
+    if (lhs.notebook_type != rhs.notebook_type) {
+        return false;
+    }
+    if (lhs.scheme != rhs.scheme) {
+        return false;
+    }
+    if (lhs.pattern != rhs.pattern) {
+        return false;
+    }
+    return true;
+}
+
+bool operator!=(const NotebookDocumentFilterPattern& lhs,
+                const NotebookDocumentFilterPattern& rhs) {
+    return !(lhs == rhs);
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,

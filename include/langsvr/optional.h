@@ -29,7 +29,7 @@
 #define LANGSVR_OPTIONAL_H_
 
 #include <cassert>
-#include <memory>
+#include <type_traits>
 #include <utility>
 
 namespace langsvr {
@@ -113,20 +113,23 @@ struct Optional {
     T& operator*() { return Get(); }
     const T& operator*() const { return Get(); }
 
+    /// Equality operator
     template <typename V>
     bool operator==(V&& value) const {
-        if (!ptr) {
-            return false;
+        if constexpr (std::is_same_v<Optional, std::decay_t<V>>) {
+            return (!*this && !value) || (*this && value && (Get() == value.Get()));
+        } else {
+            if (!ptr) {
+                return false;
+            }
+            return Get() == std::forward<V>(value);
         }
-        return Get() == std::forward<V>(value);
     }
 
+    /// Inequality operator
     template <typename V>
     bool operator!=(V&& value) const {
-        if (!ptr) {
-            return true;
-        }
-        return Get() != std::forward<V>(value);
+        return !(*this == std::forward<V>(value));
     }
 
   private:

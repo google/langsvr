@@ -25,34 +25,32 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef LANGSVR_LSP_PRIMITIVES_H_
-#define LANGSVR_LSP_PRIMITIVES_H_
+#ifndef LANGSVR_LSP_PRINTER_H_
+#define LANGSVR_LSP_PRINTER_H_
 
-#include <stdint.h>
-#include <string>
+#include <ostream>
+#include <type_traits>
+
+#include "langsvr/json/builder.h"
+#include "langsvr/lsp/lsp.h"
+#include "langsvr/result.h"
+#include "langsvr/traits.h"
 
 namespace langsvr::lsp {
 
-using Boolean = bool;
-using Decimal = double;
-using DocumentUri = std::string;
-using Integer = int64_t;
-using String = std::string;
-using Uinteger = uint64_t;
-using Uri = std::string;
-
-struct Null {};
-
-/// Equality operator for Null
-inline bool operator==(Null, Null) {
-    return true;
-}
-
-/// Inequality operator for Null
-inline bool operator!=(Null, Null) {
-    return false;
+/// ostream operator << for LSP types, using a temporary JSON encoder.
+template <typename T,
+          typename = std::enable_if_t<!HasOperatorShiftLeft<std::ostream&, T>>,
+          typename = decltype(Encode(std::declval<T>(), std::declval<json::Builder&>()))>
+std::ostream& operator<<(std::ostream& stream, const T& object) {
+    auto builder = json::Builder::Create();
+    if (auto res = Encode(object, *builder); res == Success) {
+        return stream << res.Get()->Json();
+    } else {
+        return stream << res.Failure();
+    }
 }
 
 }  // namespace langsvr::lsp
 
-#endif  // LANGSVR_LSP_PRIMITIVES_H_
+#endif  // LANGSVR_LSP_PRINTER_H_

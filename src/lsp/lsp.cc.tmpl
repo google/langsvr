@@ -99,7 +99,26 @@ Result<const json::Value*> Encode({{.Name}} in, json::Builder& b) {
 {{- /* ------------------------------------------------------------------ */ -}}
 {{-                            define "Structure"                            -}}
 {{- /* ------------------------------------------------------------------ */ -}}
-Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] {{Join $.NestedNames "::"}}& out) {
+{{$name := Join $.NestedNames "::"}}
+bool operator==(const {{$name}}& lhs, const {{$name}}& rhs) {
+{{-   range .Properties}}
+  if (lhs.{{.CppName}} != rhs.{{.CppName}}) {
+    return false;
+  }
+{{-   end}}
+{{-   range .Extends}}
+  if (static_cast<const {{.Name}}&>(lhs) != static_cast<const {{.Name}}&>(rhs)) {
+    return false;
+  }
+{{-   end}}
+  return true;
+}
+
+bool operator!=(const {{$name}}& lhs, const {{$name}}& rhs) {
+  return !(lhs == rhs);
+}
+
+Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] {{$name}}& out) {
 {{-   if .Kind}}
   if (auto res = MatchKind(v, "{{.Kind}}"); res != Success) {
     return res.Failure();
@@ -141,7 +160,7 @@ Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] {{Join $.Nest
   return Success;
 }
 
-Result<const json::Value*> Encode([[maybe_unused]] const {{Join $.NestedNames "::"}}& in, [[maybe_unused]] json::Builder& b) {
+Result<const json::Value*> Encode([[maybe_unused]] const {{$name}}& in, [[maybe_unused]] json::Builder& b) {
   std::vector<json::Builder::Member> members;
 {{-   if .Kind}}
   members.reserve({{Sum 1 (len .Properties)}});
