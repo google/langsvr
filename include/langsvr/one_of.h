@@ -29,6 +29,7 @@
 #define LANGSVR_ONE_OF_H_
 
 #include <memory>
+#include <type_traits>
 #include <utility>
 
 #include "langsvr/traits.h"
@@ -88,6 +89,20 @@ struct OneOf {
         Set(std::forward<T>(value));
         return *this;
     }
+
+    /// Equality operator
+    bool operator==(const OneOf& other) const {
+        return Visit([&](const auto& value) {
+            using T = std::decay_t<decltype(value)>;
+            if (auto* other_value = other.Get<T>()) {
+                return value == *other_value;
+            }
+            return false;
+        });
+    }
+
+    /// Inequality operator
+    bool operator!=(const OneOf& other) const { return *this != other; }
 
     /// Reset clears the value of the OneOf
     void Reset() {

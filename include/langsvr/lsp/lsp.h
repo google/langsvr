@@ -6208,1153 +6208,2121 @@ struct NotebookDocumentFilterPattern {
 // Structure methods
 ////////////////////////////////////////////////////////////////////////////////
 
+bool operator==(const TextDocumentIdentifier& lhs, const TextDocumentIdentifier& rhs);
+bool operator!=(const TextDocumentIdentifier& lhs, const TextDocumentIdentifier& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentIdentifier& out);
 Result<const json::Value*> Encode(const TextDocumentIdentifier& in, json::Builder& b);
 
+bool operator==(const Position& lhs, const Position& rhs);
+bool operator!=(const Position& lhs, const Position& rhs);
 Result<SuccessType> Decode(const json::Value& v, Position& out);
 Result<const json::Value*> Encode(const Position& in, json::Builder& b);
 
+bool operator==(const TextDocumentPositionParams& lhs, const TextDocumentPositionParams& rhs);
+bool operator!=(const TextDocumentPositionParams& lhs, const TextDocumentPositionParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentPositionParams& out);
 Result<const json::Value*> Encode(const TextDocumentPositionParams& in, json::Builder& b);
 
+bool operator==(const ImplementationParams& lhs, const ImplementationParams& rhs);
+bool operator!=(const ImplementationParams& lhs, const ImplementationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ImplementationParams& out);
 Result<const json::Value*> Encode(const ImplementationParams& in, json::Builder& b);
 
+bool operator==(const Range& lhs, const Range& rhs);
+bool operator!=(const Range& lhs, const Range& rhs);
 Result<SuccessType> Decode(const json::Value& v, Range& out);
 Result<const json::Value*> Encode(const Range& in, json::Builder& b);
 
+bool operator==(const Location& lhs, const Location& rhs);
+bool operator!=(const Location& lhs, const Location& rhs);
 Result<SuccessType> Decode(const json::Value& v, Location& out);
 Result<const json::Value*> Encode(const Location& in, json::Builder& b);
 
+bool operator==(const TextDocumentRegistrationOptions& lhs,
+                const TextDocumentRegistrationOptions& rhs);
+bool operator!=(const TextDocumentRegistrationOptions& lhs,
+                const TextDocumentRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentRegistrationOptions& out);
 Result<const json::Value*> Encode(const TextDocumentRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const ImplementationOptions& lhs, const ImplementationOptions& rhs);
+bool operator!=(const ImplementationOptions& lhs, const ImplementationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ImplementationOptions& out);
 Result<const json::Value*> Encode(const ImplementationOptions& in, json::Builder& b);
 
+bool operator==(const ImplementationRegistrationOptions& lhs,
+                const ImplementationRegistrationOptions& rhs);
+bool operator!=(const ImplementationRegistrationOptions& lhs,
+                const ImplementationRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ImplementationRegistrationOptions& out);
 Result<const json::Value*> Encode(const ImplementationRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const TypeDefinitionParams& lhs, const TypeDefinitionParams& rhs);
+bool operator!=(const TypeDefinitionParams& lhs, const TypeDefinitionParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeDefinitionParams& out);
 Result<const json::Value*> Encode(const TypeDefinitionParams& in, json::Builder& b);
 
+bool operator==(const TypeDefinitionOptions& lhs, const TypeDefinitionOptions& rhs);
+bool operator!=(const TypeDefinitionOptions& lhs, const TypeDefinitionOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeDefinitionOptions& out);
 Result<const json::Value*> Encode(const TypeDefinitionOptions& in, json::Builder& b);
 
+bool operator==(const TypeDefinitionRegistrationOptions& lhs,
+                const TypeDefinitionRegistrationOptions& rhs);
+bool operator!=(const TypeDefinitionRegistrationOptions& lhs,
+                const TypeDefinitionRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeDefinitionRegistrationOptions& out);
 Result<const json::Value*> Encode(const TypeDefinitionRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceFolder& lhs, const WorkspaceFolder& rhs);
+bool operator!=(const WorkspaceFolder& lhs, const WorkspaceFolder& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceFolder& out);
 Result<const json::Value*> Encode(const WorkspaceFolder& in, json::Builder& b);
 
+bool operator==(const WorkspaceFoldersChangeEvent& lhs, const WorkspaceFoldersChangeEvent& rhs);
+bool operator!=(const WorkspaceFoldersChangeEvent& lhs, const WorkspaceFoldersChangeEvent& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceFoldersChangeEvent& out);
 Result<const json::Value*> Encode(const WorkspaceFoldersChangeEvent& in, json::Builder& b);
 
+bool operator==(const DidChangeWorkspaceFoldersParams& lhs,
+                const DidChangeWorkspaceFoldersParams& rhs);
+bool operator!=(const DidChangeWorkspaceFoldersParams& lhs,
+                const DidChangeWorkspaceFoldersParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeWorkspaceFoldersParams& out);
 Result<const json::Value*> Encode(const DidChangeWorkspaceFoldersParams& in, json::Builder& b);
 
+bool operator==(const ConfigurationItem& lhs, const ConfigurationItem& rhs);
+bool operator!=(const ConfigurationItem& lhs, const ConfigurationItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, ConfigurationItem& out);
 Result<const json::Value*> Encode(const ConfigurationItem& in, json::Builder& b);
 
+bool operator==(const ConfigurationParams& lhs, const ConfigurationParams& rhs);
+bool operator!=(const ConfigurationParams& lhs, const ConfigurationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ConfigurationParams& out);
 Result<const json::Value*> Encode(const ConfigurationParams& in, json::Builder& b);
 
+bool operator==(const DocumentColorParams& lhs, const DocumentColorParams& rhs);
+bool operator!=(const DocumentColorParams& lhs, const DocumentColorParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentColorParams& out);
 Result<const json::Value*> Encode(const DocumentColorParams& in, json::Builder& b);
 
+bool operator==(const Color& lhs, const Color& rhs);
+bool operator!=(const Color& lhs, const Color& rhs);
 Result<SuccessType> Decode(const json::Value& v, Color& out);
 Result<const json::Value*> Encode(const Color& in, json::Builder& b);
 
+bool operator==(const ColorInformation& lhs, const ColorInformation& rhs);
+bool operator!=(const ColorInformation& lhs, const ColorInformation& rhs);
 Result<SuccessType> Decode(const json::Value& v, ColorInformation& out);
 Result<const json::Value*> Encode(const ColorInformation& in, json::Builder& b);
 
+bool operator==(const DocumentColorOptions& lhs, const DocumentColorOptions& rhs);
+bool operator!=(const DocumentColorOptions& lhs, const DocumentColorOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentColorOptions& out);
 Result<const json::Value*> Encode(const DocumentColorOptions& in, json::Builder& b);
 
+bool operator==(const DocumentColorRegistrationOptions& lhs,
+                const DocumentColorRegistrationOptions& rhs);
+bool operator!=(const DocumentColorRegistrationOptions& lhs,
+                const DocumentColorRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentColorRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentColorRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const ColorPresentationParams& lhs, const ColorPresentationParams& rhs);
+bool operator!=(const ColorPresentationParams& lhs, const ColorPresentationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ColorPresentationParams& out);
 Result<const json::Value*> Encode(const ColorPresentationParams& in, json::Builder& b);
 
+bool operator==(const TextEdit& lhs, const TextEdit& rhs);
+bool operator!=(const TextEdit& lhs, const TextEdit& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextEdit& out);
 Result<const json::Value*> Encode(const TextEdit& in, json::Builder& b);
 
+bool operator==(const ColorPresentation& lhs, const ColorPresentation& rhs);
+bool operator!=(const ColorPresentation& lhs, const ColorPresentation& rhs);
 Result<SuccessType> Decode(const json::Value& v, ColorPresentation& out);
 Result<const json::Value*> Encode(const ColorPresentation& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressOptions& lhs, const WorkDoneProgressOptions& rhs);
+bool operator!=(const WorkDoneProgressOptions& lhs, const WorkDoneProgressOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressOptions& out);
 Result<const json::Value*> Encode(const WorkDoneProgressOptions& in, json::Builder& b);
 
+bool operator==(const FoldingRangeParams& lhs, const FoldingRangeParams& rhs);
+bool operator!=(const FoldingRangeParams& lhs, const FoldingRangeParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, FoldingRangeParams& out);
 Result<const json::Value*> Encode(const FoldingRangeParams& in, json::Builder& b);
 
+bool operator==(const FoldingRange& lhs, const FoldingRange& rhs);
+bool operator!=(const FoldingRange& lhs, const FoldingRange& rhs);
 Result<SuccessType> Decode(const json::Value& v, FoldingRange& out);
 Result<const json::Value*> Encode(const FoldingRange& in, json::Builder& b);
 
+bool operator==(const FoldingRangeOptions& lhs, const FoldingRangeOptions& rhs);
+bool operator!=(const FoldingRangeOptions& lhs, const FoldingRangeOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, FoldingRangeOptions& out);
 Result<const json::Value*> Encode(const FoldingRangeOptions& in, json::Builder& b);
 
+bool operator==(const FoldingRangeRegistrationOptions& lhs,
+                const FoldingRangeRegistrationOptions& rhs);
+bool operator!=(const FoldingRangeRegistrationOptions& lhs,
+                const FoldingRangeRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, FoldingRangeRegistrationOptions& out);
 Result<const json::Value*> Encode(const FoldingRangeRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const DeclarationParams& lhs, const DeclarationParams& rhs);
+bool operator!=(const DeclarationParams& lhs, const DeclarationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeclarationParams& out);
 Result<const json::Value*> Encode(const DeclarationParams& in, json::Builder& b);
 
+bool operator==(const DeclarationOptions& lhs, const DeclarationOptions& rhs);
+bool operator!=(const DeclarationOptions& lhs, const DeclarationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeclarationOptions& out);
 Result<const json::Value*> Encode(const DeclarationOptions& in, json::Builder& b);
 
+bool operator==(const DeclarationRegistrationOptions& lhs,
+                const DeclarationRegistrationOptions& rhs);
+bool operator!=(const DeclarationRegistrationOptions& lhs,
+                const DeclarationRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeclarationRegistrationOptions& out);
 Result<const json::Value*> Encode(const DeclarationRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const SelectionRangeParams& lhs, const SelectionRangeParams& rhs);
+bool operator!=(const SelectionRangeParams& lhs, const SelectionRangeParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, SelectionRangeParams& out);
 Result<const json::Value*> Encode(const SelectionRangeParams& in, json::Builder& b);
 
+bool operator==(const SelectionRange& lhs, const SelectionRange& rhs);
+bool operator!=(const SelectionRange& lhs, const SelectionRange& rhs);
 Result<SuccessType> Decode(const json::Value& v, SelectionRange& out);
 Result<const json::Value*> Encode(const SelectionRange& in, json::Builder& b);
 
+bool operator==(const SelectionRangeOptions& lhs, const SelectionRangeOptions& rhs);
+bool operator!=(const SelectionRangeOptions& lhs, const SelectionRangeOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SelectionRangeOptions& out);
 Result<const json::Value*> Encode(const SelectionRangeOptions& in, json::Builder& b);
 
+bool operator==(const SelectionRangeRegistrationOptions& lhs,
+                const SelectionRangeRegistrationOptions& rhs);
+bool operator!=(const SelectionRangeRegistrationOptions& lhs,
+                const SelectionRangeRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SelectionRangeRegistrationOptions& out);
 Result<const json::Value*> Encode(const SelectionRangeRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressCreateParams& lhs, const WorkDoneProgressCreateParams& rhs);
+bool operator!=(const WorkDoneProgressCreateParams& lhs, const WorkDoneProgressCreateParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressCreateParams& out);
 Result<const json::Value*> Encode(const WorkDoneProgressCreateParams& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressCancelParams& lhs, const WorkDoneProgressCancelParams& rhs);
+bool operator!=(const WorkDoneProgressCancelParams& lhs, const WorkDoneProgressCancelParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressCancelParams& out);
 Result<const json::Value*> Encode(const WorkDoneProgressCancelParams& in, json::Builder& b);
 
+bool operator==(const CallHierarchyPrepareParams& lhs, const CallHierarchyPrepareParams& rhs);
+bool operator!=(const CallHierarchyPrepareParams& lhs, const CallHierarchyPrepareParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyPrepareParams& out);
 Result<const json::Value*> Encode(const CallHierarchyPrepareParams& in, json::Builder& b);
 
+bool operator==(const CallHierarchyItem& lhs, const CallHierarchyItem& rhs);
+bool operator!=(const CallHierarchyItem& lhs, const CallHierarchyItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyItem& out);
 Result<const json::Value*> Encode(const CallHierarchyItem& in, json::Builder& b);
 
+bool operator==(const CallHierarchyOptions& lhs, const CallHierarchyOptions& rhs);
+bool operator!=(const CallHierarchyOptions& lhs, const CallHierarchyOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyOptions& out);
 Result<const json::Value*> Encode(const CallHierarchyOptions& in, json::Builder& b);
 
+bool operator==(const CallHierarchyRegistrationOptions& lhs,
+                const CallHierarchyRegistrationOptions& rhs);
+bool operator!=(const CallHierarchyRegistrationOptions& lhs,
+                const CallHierarchyRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyRegistrationOptions& out);
 Result<const json::Value*> Encode(const CallHierarchyRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const CallHierarchyIncomingCallsParams& lhs,
+                const CallHierarchyIncomingCallsParams& rhs);
+bool operator!=(const CallHierarchyIncomingCallsParams& lhs,
+                const CallHierarchyIncomingCallsParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyIncomingCallsParams& out);
 Result<const json::Value*> Encode(const CallHierarchyIncomingCallsParams& in, json::Builder& b);
 
+bool operator==(const CallHierarchyIncomingCall& lhs, const CallHierarchyIncomingCall& rhs);
+bool operator!=(const CallHierarchyIncomingCall& lhs, const CallHierarchyIncomingCall& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyIncomingCall& out);
 Result<const json::Value*> Encode(const CallHierarchyIncomingCall& in, json::Builder& b);
 
+bool operator==(const CallHierarchyOutgoingCallsParams& lhs,
+                const CallHierarchyOutgoingCallsParams& rhs);
+bool operator!=(const CallHierarchyOutgoingCallsParams& lhs,
+                const CallHierarchyOutgoingCallsParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyOutgoingCallsParams& out);
 Result<const json::Value*> Encode(const CallHierarchyOutgoingCallsParams& in, json::Builder& b);
 
+bool operator==(const CallHierarchyOutgoingCall& lhs, const CallHierarchyOutgoingCall& rhs);
+bool operator!=(const CallHierarchyOutgoingCall& lhs, const CallHierarchyOutgoingCall& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyOutgoingCall& out);
 Result<const json::Value*> Encode(const CallHierarchyOutgoingCall& in, json::Builder& b);
 
+bool operator==(const SemanticTokensParams& lhs, const SemanticTokensParams& rhs);
+bool operator!=(const SemanticTokensParams& lhs, const SemanticTokensParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensParams& out);
 Result<const json::Value*> Encode(const SemanticTokensParams& in, json::Builder& b);
 
+bool operator==(const SemanticTokens& lhs, const SemanticTokens& rhs);
+bool operator!=(const SemanticTokens& lhs, const SemanticTokens& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokens& out);
 Result<const json::Value*> Encode(const SemanticTokens& in, json::Builder& b);
 
+bool operator==(const SemanticTokensPartialResult& lhs, const SemanticTokensPartialResult& rhs);
+bool operator!=(const SemanticTokensPartialResult& lhs, const SemanticTokensPartialResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensPartialResult& out);
 Result<const json::Value*> Encode(const SemanticTokensPartialResult& in, json::Builder& b);
 
+bool operator==(const SemanticTokensLegend& lhs, const SemanticTokensLegend& rhs);
+bool operator!=(const SemanticTokensLegend& lhs, const SemanticTokensLegend& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensLegend& out);
 Result<const json::Value*> Encode(const SemanticTokensLegend& in, json::Builder& b);
 
+bool operator==(const SemanticTokensFullDelta& lhs, const SemanticTokensFullDelta& rhs);
+bool operator!=(const SemanticTokensFullDelta& lhs, const SemanticTokensFullDelta& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensFullDelta& out);
 Result<const json::Value*> Encode(const SemanticTokensFullDelta& in, json::Builder& b);
 
+bool operator==(const SemanticTokensOptions& lhs, const SemanticTokensOptions& rhs);
+bool operator!=(const SemanticTokensOptions& lhs, const SemanticTokensOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensOptions& out);
 Result<const json::Value*> Encode(const SemanticTokensOptions& in, json::Builder& b);
+bool operator==(const SemanticTokensOptions::Range& lhs, const SemanticTokensOptions::Range& rhs);
+bool operator!=(const SemanticTokensOptions::Range& lhs, const SemanticTokensOptions::Range& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensOptions::Range& out);
 Result<const json::Value*> Encode(const SemanticTokensOptions::Range& in, json::Builder& b);
 
+bool operator==(const SemanticTokensRegistrationOptions& lhs,
+                const SemanticTokensRegistrationOptions& rhs);
+bool operator!=(const SemanticTokensRegistrationOptions& lhs,
+                const SemanticTokensRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensRegistrationOptions& out);
 Result<const json::Value*> Encode(const SemanticTokensRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const SemanticTokensDeltaParams& lhs, const SemanticTokensDeltaParams& rhs);
+bool operator!=(const SemanticTokensDeltaParams& lhs, const SemanticTokensDeltaParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensDeltaParams& out);
 Result<const json::Value*> Encode(const SemanticTokensDeltaParams& in, json::Builder& b);
 
+bool operator==(const SemanticTokensEdit& lhs, const SemanticTokensEdit& rhs);
+bool operator!=(const SemanticTokensEdit& lhs, const SemanticTokensEdit& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensEdit& out);
 Result<const json::Value*> Encode(const SemanticTokensEdit& in, json::Builder& b);
 
+bool operator==(const SemanticTokensDelta& lhs, const SemanticTokensDelta& rhs);
+bool operator!=(const SemanticTokensDelta& lhs, const SemanticTokensDelta& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensDelta& out);
 Result<const json::Value*> Encode(const SemanticTokensDelta& in, json::Builder& b);
 
+bool operator==(const SemanticTokensDeltaPartialResult& lhs,
+                const SemanticTokensDeltaPartialResult& rhs);
+bool operator!=(const SemanticTokensDeltaPartialResult& lhs,
+                const SemanticTokensDeltaPartialResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensDeltaPartialResult& out);
 Result<const json::Value*> Encode(const SemanticTokensDeltaPartialResult& in, json::Builder& b);
 
+bool operator==(const SemanticTokensRangeParams& lhs, const SemanticTokensRangeParams& rhs);
+bool operator!=(const SemanticTokensRangeParams& lhs, const SemanticTokensRangeParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensRangeParams& out);
 Result<const json::Value*> Encode(const SemanticTokensRangeParams& in, json::Builder& b);
 
+bool operator==(const ShowDocumentParams& lhs, const ShowDocumentParams& rhs);
+bool operator!=(const ShowDocumentParams& lhs, const ShowDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ShowDocumentParams& out);
 Result<const json::Value*> Encode(const ShowDocumentParams& in, json::Builder& b);
 
+bool operator==(const ShowDocumentResult& lhs, const ShowDocumentResult& rhs);
+bool operator!=(const ShowDocumentResult& lhs, const ShowDocumentResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, ShowDocumentResult& out);
 Result<const json::Value*> Encode(const ShowDocumentResult& in, json::Builder& b);
 
+bool operator==(const LinkedEditingRangeParams& lhs, const LinkedEditingRangeParams& rhs);
+bool operator!=(const LinkedEditingRangeParams& lhs, const LinkedEditingRangeParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, LinkedEditingRangeParams& out);
 Result<const json::Value*> Encode(const LinkedEditingRangeParams& in, json::Builder& b);
 
+bool operator==(const LinkedEditingRanges& lhs, const LinkedEditingRanges& rhs);
+bool operator!=(const LinkedEditingRanges& lhs, const LinkedEditingRanges& rhs);
 Result<SuccessType> Decode(const json::Value& v, LinkedEditingRanges& out);
 Result<const json::Value*> Encode(const LinkedEditingRanges& in, json::Builder& b);
 
+bool operator==(const LinkedEditingRangeOptions& lhs, const LinkedEditingRangeOptions& rhs);
+bool operator!=(const LinkedEditingRangeOptions& lhs, const LinkedEditingRangeOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, LinkedEditingRangeOptions& out);
 Result<const json::Value*> Encode(const LinkedEditingRangeOptions& in, json::Builder& b);
 
+bool operator==(const LinkedEditingRangeRegistrationOptions& lhs,
+                const LinkedEditingRangeRegistrationOptions& rhs);
+bool operator!=(const LinkedEditingRangeRegistrationOptions& lhs,
+                const LinkedEditingRangeRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, LinkedEditingRangeRegistrationOptions& out);
 Result<const json::Value*> Encode(const LinkedEditingRangeRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const FileCreate& lhs, const FileCreate& rhs);
+bool operator!=(const FileCreate& lhs, const FileCreate& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileCreate& out);
 Result<const json::Value*> Encode(const FileCreate& in, json::Builder& b);
 
+bool operator==(const CreateFilesParams& lhs, const CreateFilesParams& rhs);
+bool operator!=(const CreateFilesParams& lhs, const CreateFilesParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CreateFilesParams& out);
 Result<const json::Value*> Encode(const CreateFilesParams& in, json::Builder& b);
 
+bool operator==(const ResourceOperation& lhs, const ResourceOperation& rhs);
+bool operator!=(const ResourceOperation& lhs, const ResourceOperation& rhs);
 Result<SuccessType> Decode(const json::Value& v, ResourceOperation& out);
 Result<const json::Value*> Encode(const ResourceOperation& in, json::Builder& b);
 
+bool operator==(const DeleteFileOptions& lhs, const DeleteFileOptions& rhs);
+bool operator!=(const DeleteFileOptions& lhs, const DeleteFileOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeleteFileOptions& out);
 Result<const json::Value*> Encode(const DeleteFileOptions& in, json::Builder& b);
 
+bool operator==(const DeleteFile& lhs, const DeleteFile& rhs);
+bool operator!=(const DeleteFile& lhs, const DeleteFile& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeleteFile& out);
 Result<const json::Value*> Encode(const DeleteFile& in, json::Builder& b);
 
+bool operator==(const RenameFileOptions& lhs, const RenameFileOptions& rhs);
+bool operator!=(const RenameFileOptions& lhs, const RenameFileOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameFileOptions& out);
 Result<const json::Value*> Encode(const RenameFileOptions& in, json::Builder& b);
 
+bool operator==(const RenameFile& lhs, const RenameFile& rhs);
+bool operator!=(const RenameFile& lhs, const RenameFile& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameFile& out);
 Result<const json::Value*> Encode(const RenameFile& in, json::Builder& b);
 
+bool operator==(const CreateFileOptions& lhs, const CreateFileOptions& rhs);
+bool operator!=(const CreateFileOptions& lhs, const CreateFileOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CreateFileOptions& out);
 Result<const json::Value*> Encode(const CreateFileOptions& in, json::Builder& b);
 
+bool operator==(const CreateFile& lhs, const CreateFile& rhs);
+bool operator!=(const CreateFile& lhs, const CreateFile& rhs);
 Result<SuccessType> Decode(const json::Value& v, CreateFile& out);
 Result<const json::Value*> Encode(const CreateFile& in, json::Builder& b);
 
+bool operator==(const OptionalVersionedTextDocumentIdentifier& lhs,
+                const OptionalVersionedTextDocumentIdentifier& rhs);
+bool operator!=(const OptionalVersionedTextDocumentIdentifier& lhs,
+                const OptionalVersionedTextDocumentIdentifier& rhs);
 Result<SuccessType> Decode(const json::Value& v, OptionalVersionedTextDocumentIdentifier& out);
 Result<const json::Value*> Encode(const OptionalVersionedTextDocumentIdentifier& in,
                                   json::Builder& b);
 
+bool operator==(const AnnotatedTextEdit& lhs, const AnnotatedTextEdit& rhs);
+bool operator!=(const AnnotatedTextEdit& lhs, const AnnotatedTextEdit& rhs);
 Result<SuccessType> Decode(const json::Value& v, AnnotatedTextEdit& out);
 Result<const json::Value*> Encode(const AnnotatedTextEdit& in, json::Builder& b);
 
+bool operator==(const TextDocumentEdit& lhs, const TextDocumentEdit& rhs);
+bool operator!=(const TextDocumentEdit& lhs, const TextDocumentEdit& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentEdit& out);
 Result<const json::Value*> Encode(const TextDocumentEdit& in, json::Builder& b);
 
+bool operator==(const ChangeAnnotation& lhs, const ChangeAnnotation& rhs);
+bool operator!=(const ChangeAnnotation& lhs, const ChangeAnnotation& rhs);
 Result<SuccessType> Decode(const json::Value& v, ChangeAnnotation& out);
 Result<const json::Value*> Encode(const ChangeAnnotation& in, json::Builder& b);
 
+bool operator==(const WorkspaceEdit& lhs, const WorkspaceEdit& rhs);
+bool operator!=(const WorkspaceEdit& lhs, const WorkspaceEdit& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceEdit& out);
 Result<const json::Value*> Encode(const WorkspaceEdit& in, json::Builder& b);
 
+bool operator==(const FileOperationPatternOptions& lhs, const FileOperationPatternOptions& rhs);
+bool operator!=(const FileOperationPatternOptions& lhs, const FileOperationPatternOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileOperationPatternOptions& out);
 Result<const json::Value*> Encode(const FileOperationPatternOptions& in, json::Builder& b);
 
+bool operator==(const FileOperationPattern& lhs, const FileOperationPattern& rhs);
+bool operator!=(const FileOperationPattern& lhs, const FileOperationPattern& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileOperationPattern& out);
 Result<const json::Value*> Encode(const FileOperationPattern& in, json::Builder& b);
 
+bool operator==(const FileOperationFilter& lhs, const FileOperationFilter& rhs);
+bool operator!=(const FileOperationFilter& lhs, const FileOperationFilter& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileOperationFilter& out);
 Result<const json::Value*> Encode(const FileOperationFilter& in, json::Builder& b);
 
+bool operator==(const FileOperationRegistrationOptions& lhs,
+                const FileOperationRegistrationOptions& rhs);
+bool operator!=(const FileOperationRegistrationOptions& lhs,
+                const FileOperationRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileOperationRegistrationOptions& out);
 Result<const json::Value*> Encode(const FileOperationRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const FileRename& lhs, const FileRename& rhs);
+bool operator!=(const FileRename& lhs, const FileRename& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileRename& out);
 Result<const json::Value*> Encode(const FileRename& in, json::Builder& b);
 
+bool operator==(const RenameFilesParams& lhs, const RenameFilesParams& rhs);
+bool operator!=(const RenameFilesParams& lhs, const RenameFilesParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameFilesParams& out);
 Result<const json::Value*> Encode(const RenameFilesParams& in, json::Builder& b);
 
+bool operator==(const FileDelete& lhs, const FileDelete& rhs);
+bool operator!=(const FileDelete& lhs, const FileDelete& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileDelete& out);
 Result<const json::Value*> Encode(const FileDelete& in, json::Builder& b);
 
+bool operator==(const DeleteFilesParams& lhs, const DeleteFilesParams& rhs);
+bool operator!=(const DeleteFilesParams& lhs, const DeleteFilesParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeleteFilesParams& out);
 Result<const json::Value*> Encode(const DeleteFilesParams& in, json::Builder& b);
 
+bool operator==(const MonikerParams& lhs, const MonikerParams& rhs);
+bool operator!=(const MonikerParams& lhs, const MonikerParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, MonikerParams& out);
 Result<const json::Value*> Encode(const MonikerParams& in, json::Builder& b);
 
+bool operator==(const Moniker& lhs, const Moniker& rhs);
+bool operator!=(const Moniker& lhs, const Moniker& rhs);
 Result<SuccessType> Decode(const json::Value& v, Moniker& out);
 Result<const json::Value*> Encode(const Moniker& in, json::Builder& b);
 
+bool operator==(const MonikerOptions& lhs, const MonikerOptions& rhs);
+bool operator!=(const MonikerOptions& lhs, const MonikerOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, MonikerOptions& out);
 Result<const json::Value*> Encode(const MonikerOptions& in, json::Builder& b);
 
+bool operator==(const MonikerRegistrationOptions& lhs, const MonikerRegistrationOptions& rhs);
+bool operator!=(const MonikerRegistrationOptions& lhs, const MonikerRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, MonikerRegistrationOptions& out);
 Result<const json::Value*> Encode(const MonikerRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const TypeHierarchyPrepareParams& lhs, const TypeHierarchyPrepareParams& rhs);
+bool operator!=(const TypeHierarchyPrepareParams& lhs, const TypeHierarchyPrepareParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchyPrepareParams& out);
 Result<const json::Value*> Encode(const TypeHierarchyPrepareParams& in, json::Builder& b);
 
+bool operator==(const TypeHierarchyItem& lhs, const TypeHierarchyItem& rhs);
+bool operator!=(const TypeHierarchyItem& lhs, const TypeHierarchyItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchyItem& out);
 Result<const json::Value*> Encode(const TypeHierarchyItem& in, json::Builder& b);
 
+bool operator==(const TypeHierarchyOptions& lhs, const TypeHierarchyOptions& rhs);
+bool operator!=(const TypeHierarchyOptions& lhs, const TypeHierarchyOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchyOptions& out);
 Result<const json::Value*> Encode(const TypeHierarchyOptions& in, json::Builder& b);
 
+bool operator==(const TypeHierarchyRegistrationOptions& lhs,
+                const TypeHierarchyRegistrationOptions& rhs);
+bool operator!=(const TypeHierarchyRegistrationOptions& lhs,
+                const TypeHierarchyRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchyRegistrationOptions& out);
 Result<const json::Value*> Encode(const TypeHierarchyRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const TypeHierarchySupertypesParams& lhs, const TypeHierarchySupertypesParams& rhs);
+bool operator!=(const TypeHierarchySupertypesParams& lhs, const TypeHierarchySupertypesParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchySupertypesParams& out);
 Result<const json::Value*> Encode(const TypeHierarchySupertypesParams& in, json::Builder& b);
 
+bool operator==(const TypeHierarchySubtypesParams& lhs, const TypeHierarchySubtypesParams& rhs);
+bool operator!=(const TypeHierarchySubtypesParams& lhs, const TypeHierarchySubtypesParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchySubtypesParams& out);
 Result<const json::Value*> Encode(const TypeHierarchySubtypesParams& in, json::Builder& b);
 
+bool operator==(const InlineValueContext& lhs, const InlineValueContext& rhs);
+bool operator!=(const InlineValueContext& lhs, const InlineValueContext& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueContext& out);
 Result<const json::Value*> Encode(const InlineValueContext& in, json::Builder& b);
 
+bool operator==(const InlineValueParams& lhs, const InlineValueParams& rhs);
+bool operator!=(const InlineValueParams& lhs, const InlineValueParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueParams& out);
 Result<const json::Value*> Encode(const InlineValueParams& in, json::Builder& b);
 
+bool operator==(const InlineValueOptions& lhs, const InlineValueOptions& rhs);
+bool operator!=(const InlineValueOptions& lhs, const InlineValueOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueOptions& out);
 Result<const json::Value*> Encode(const InlineValueOptions& in, json::Builder& b);
 
+bool operator==(const InlineValueRegistrationOptions& lhs,
+                const InlineValueRegistrationOptions& rhs);
+bool operator!=(const InlineValueRegistrationOptions& lhs,
+                const InlineValueRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueRegistrationOptions& out);
 Result<const json::Value*> Encode(const InlineValueRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const InlayHintParams& lhs, const InlayHintParams& rhs);
+bool operator!=(const InlayHintParams& lhs, const InlayHintParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHintParams& out);
 Result<const json::Value*> Encode(const InlayHintParams& in, json::Builder& b);
 
+bool operator==(const MarkupContent& lhs, const MarkupContent& rhs);
+bool operator!=(const MarkupContent& lhs, const MarkupContent& rhs);
 Result<SuccessType> Decode(const json::Value& v, MarkupContent& out);
 Result<const json::Value*> Encode(const MarkupContent& in, json::Builder& b);
 
+bool operator==(const Command& lhs, const Command& rhs);
+bool operator!=(const Command& lhs, const Command& rhs);
 Result<SuccessType> Decode(const json::Value& v, Command& out);
 Result<const json::Value*> Encode(const Command& in, json::Builder& b);
 
+bool operator==(const InlayHintLabelPart& lhs, const InlayHintLabelPart& rhs);
+bool operator!=(const InlayHintLabelPart& lhs, const InlayHintLabelPart& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHintLabelPart& out);
 Result<const json::Value*> Encode(const InlayHintLabelPart& in, json::Builder& b);
 
+bool operator==(const InlayHint& lhs, const InlayHint& rhs);
+bool operator!=(const InlayHint& lhs, const InlayHint& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHint& out);
 Result<const json::Value*> Encode(const InlayHint& in, json::Builder& b);
 
+bool operator==(const InlayHintOptions& lhs, const InlayHintOptions& rhs);
+bool operator!=(const InlayHintOptions& lhs, const InlayHintOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHintOptions& out);
 Result<const json::Value*> Encode(const InlayHintOptions& in, json::Builder& b);
 
+bool operator==(const InlayHintRegistrationOptions& lhs, const InlayHintRegistrationOptions& rhs);
+bool operator!=(const InlayHintRegistrationOptions& lhs, const InlayHintRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHintRegistrationOptions& out);
 Result<const json::Value*> Encode(const InlayHintRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const DocumentDiagnosticParams& lhs, const DocumentDiagnosticParams& rhs);
+bool operator!=(const DocumentDiagnosticParams& lhs, const DocumentDiagnosticParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentDiagnosticParams& out);
 Result<const json::Value*> Encode(const DocumentDiagnosticParams& in, json::Builder& b);
 
+bool operator==(const UnchangedDocumentDiagnosticReport& lhs,
+                const UnchangedDocumentDiagnosticReport& rhs);
+bool operator!=(const UnchangedDocumentDiagnosticReport& lhs,
+                const UnchangedDocumentDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, UnchangedDocumentDiagnosticReport& out);
 Result<const json::Value*> Encode(const UnchangedDocumentDiagnosticReport& in, json::Builder& b);
 
+bool operator==(const CodeDescription& lhs, const CodeDescription& rhs);
+bool operator!=(const CodeDescription& lhs, const CodeDescription& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeDescription& out);
 Result<const json::Value*> Encode(const CodeDescription& in, json::Builder& b);
 
+bool operator==(const DiagnosticRelatedInformation& lhs, const DiagnosticRelatedInformation& rhs);
+bool operator!=(const DiagnosticRelatedInformation& lhs, const DiagnosticRelatedInformation& rhs);
 Result<SuccessType> Decode(const json::Value& v, DiagnosticRelatedInformation& out);
 Result<const json::Value*> Encode(const DiagnosticRelatedInformation& in, json::Builder& b);
 
+bool operator==(const Diagnostic& lhs, const Diagnostic& rhs);
+bool operator!=(const Diagnostic& lhs, const Diagnostic& rhs);
 Result<SuccessType> Decode(const json::Value& v, Diagnostic& out);
 Result<const json::Value*> Encode(const Diagnostic& in, json::Builder& b);
 
+bool operator==(const FullDocumentDiagnosticReport& lhs, const FullDocumentDiagnosticReport& rhs);
+bool operator!=(const FullDocumentDiagnosticReport& lhs, const FullDocumentDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, FullDocumentDiagnosticReport& out);
 Result<const json::Value*> Encode(const FullDocumentDiagnosticReport& in, json::Builder& b);
 
+bool operator==(const DocumentDiagnosticReportPartialResult& lhs,
+                const DocumentDiagnosticReportPartialResult& rhs);
+bool operator!=(const DocumentDiagnosticReportPartialResult& lhs,
+                const DocumentDiagnosticReportPartialResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentDiagnosticReportPartialResult& out);
 Result<const json::Value*> Encode(const DocumentDiagnosticReportPartialResult& in,
                                   json::Builder& b);
 
+bool operator==(const DiagnosticServerCancellationData& lhs,
+                const DiagnosticServerCancellationData& rhs);
+bool operator!=(const DiagnosticServerCancellationData& lhs,
+                const DiagnosticServerCancellationData& rhs);
 Result<SuccessType> Decode(const json::Value& v, DiagnosticServerCancellationData& out);
 Result<const json::Value*> Encode(const DiagnosticServerCancellationData& in, json::Builder& b);
 
+bool operator==(const DiagnosticOptions& lhs, const DiagnosticOptions& rhs);
+bool operator!=(const DiagnosticOptions& lhs, const DiagnosticOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DiagnosticOptions& out);
 Result<const json::Value*> Encode(const DiagnosticOptions& in, json::Builder& b);
 
+bool operator==(const DiagnosticRegistrationOptions& lhs, const DiagnosticRegistrationOptions& rhs);
+bool operator!=(const DiagnosticRegistrationOptions& lhs, const DiagnosticRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DiagnosticRegistrationOptions& out);
 Result<const json::Value*> Encode(const DiagnosticRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const PreviousResultId& lhs, const PreviousResultId& rhs);
+bool operator!=(const PreviousResultId& lhs, const PreviousResultId& rhs);
 Result<SuccessType> Decode(const json::Value& v, PreviousResultId& out);
 Result<const json::Value*> Encode(const PreviousResultId& in, json::Builder& b);
 
+bool operator==(const WorkspaceDiagnosticParams& lhs, const WorkspaceDiagnosticParams& rhs);
+bool operator!=(const WorkspaceDiagnosticParams& lhs, const WorkspaceDiagnosticParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceDiagnosticParams& out);
 Result<const json::Value*> Encode(const WorkspaceDiagnosticParams& in, json::Builder& b);
 
+bool operator==(const WorkspaceDiagnosticReport& lhs, const WorkspaceDiagnosticReport& rhs);
+bool operator!=(const WorkspaceDiagnosticReport& lhs, const WorkspaceDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceDiagnosticReport& out);
 Result<const json::Value*> Encode(const WorkspaceDiagnosticReport& in, json::Builder& b);
 
+bool operator==(const WorkspaceDiagnosticReportPartialResult& lhs,
+                const WorkspaceDiagnosticReportPartialResult& rhs);
+bool operator!=(const WorkspaceDiagnosticReportPartialResult& lhs,
+                const WorkspaceDiagnosticReportPartialResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceDiagnosticReportPartialResult& out);
 Result<const json::Value*> Encode(const WorkspaceDiagnosticReportPartialResult& in,
                                   json::Builder& b);
 
+bool operator==(const ExecutionSummary& lhs, const ExecutionSummary& rhs);
+bool operator!=(const ExecutionSummary& lhs, const ExecutionSummary& rhs);
 Result<SuccessType> Decode(const json::Value& v, ExecutionSummary& out);
 Result<const json::Value*> Encode(const ExecutionSummary& in, json::Builder& b);
 
+bool operator==(const NotebookCell& lhs, const NotebookCell& rhs);
+bool operator!=(const NotebookCell& lhs, const NotebookCell& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookCell& out);
 Result<const json::Value*> Encode(const NotebookCell& in, json::Builder& b);
 
+bool operator==(const NotebookDocument& lhs, const NotebookDocument& rhs);
+bool operator!=(const NotebookDocument& lhs, const NotebookDocument& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocument& out);
 Result<const json::Value*> Encode(const NotebookDocument& in, json::Builder& b);
 
+bool operator==(const TextDocumentItem& lhs, const TextDocumentItem& rhs);
+bool operator!=(const TextDocumentItem& lhs, const TextDocumentItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentItem& out);
 Result<const json::Value*> Encode(const TextDocumentItem& in, json::Builder& b);
 
+bool operator==(const DidOpenNotebookDocumentParams& lhs, const DidOpenNotebookDocumentParams& rhs);
+bool operator!=(const DidOpenNotebookDocumentParams& lhs, const DidOpenNotebookDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidOpenNotebookDocumentParams& out);
 Result<const json::Value*> Encode(const DidOpenNotebookDocumentParams& in, json::Builder& b);
 
+bool operator==(const VersionedNotebookDocumentIdentifier& lhs,
+                const VersionedNotebookDocumentIdentifier& rhs);
+bool operator!=(const VersionedNotebookDocumentIdentifier& lhs,
+                const VersionedNotebookDocumentIdentifier& rhs);
 Result<SuccessType> Decode(const json::Value& v, VersionedNotebookDocumentIdentifier& out);
 Result<const json::Value*> Encode(const VersionedNotebookDocumentIdentifier& in, json::Builder& b);
 
+bool operator==(const NotebookCellArrayChange& lhs, const NotebookCellArrayChange& rhs);
+bool operator!=(const NotebookCellArrayChange& lhs, const NotebookCellArrayChange& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookCellArrayChange& out);
 Result<const json::Value*> Encode(const NotebookCellArrayChange& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentCellChangeStructure& lhs,
+                const NotebookDocumentCellChangeStructure& rhs);
+bool operator!=(const NotebookDocumentCellChangeStructure& lhs,
+                const NotebookDocumentCellChangeStructure& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentCellChangeStructure& out);
 Result<const json::Value*> Encode(const NotebookDocumentCellChangeStructure& in, json::Builder& b);
 
+bool operator==(const VersionedTextDocumentIdentifier& lhs,
+                const VersionedTextDocumentIdentifier& rhs);
+bool operator!=(const VersionedTextDocumentIdentifier& lhs,
+                const VersionedTextDocumentIdentifier& rhs);
 Result<SuccessType> Decode(const json::Value& v, VersionedTextDocumentIdentifier& out);
 Result<const json::Value*> Encode(const VersionedTextDocumentIdentifier& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentCellContentChanges& lhs,
+                const NotebookDocumentCellContentChanges& rhs);
+bool operator!=(const NotebookDocumentCellContentChanges& lhs,
+                const NotebookDocumentCellContentChanges& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentCellContentChanges& out);
 Result<const json::Value*> Encode(const NotebookDocumentCellContentChanges& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentCellChanges& lhs, const NotebookDocumentCellChanges& rhs);
+bool operator!=(const NotebookDocumentCellChanges& lhs, const NotebookDocumentCellChanges& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentCellChanges& out);
 Result<const json::Value*> Encode(const NotebookDocumentCellChanges& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentChangeEvent& lhs, const NotebookDocumentChangeEvent& rhs);
+bool operator!=(const NotebookDocumentChangeEvent& lhs, const NotebookDocumentChangeEvent& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentChangeEvent& out);
 Result<const json::Value*> Encode(const NotebookDocumentChangeEvent& in, json::Builder& b);
 
+bool operator==(const DidChangeNotebookDocumentParams& lhs,
+                const DidChangeNotebookDocumentParams& rhs);
+bool operator!=(const DidChangeNotebookDocumentParams& lhs,
+                const DidChangeNotebookDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeNotebookDocumentParams& out);
 Result<const json::Value*> Encode(const DidChangeNotebookDocumentParams& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentIdentifier& lhs, const NotebookDocumentIdentifier& rhs);
+bool operator!=(const NotebookDocumentIdentifier& lhs, const NotebookDocumentIdentifier& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentIdentifier& out);
 Result<const json::Value*> Encode(const NotebookDocumentIdentifier& in, json::Builder& b);
 
+bool operator==(const DidSaveNotebookDocumentParams& lhs, const DidSaveNotebookDocumentParams& rhs);
+bool operator!=(const DidSaveNotebookDocumentParams& lhs, const DidSaveNotebookDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidSaveNotebookDocumentParams& out);
 Result<const json::Value*> Encode(const DidSaveNotebookDocumentParams& in, json::Builder& b);
 
+bool operator==(const DidCloseNotebookDocumentParams& lhs,
+                const DidCloseNotebookDocumentParams& rhs);
+bool operator!=(const DidCloseNotebookDocumentParams& lhs,
+                const DidCloseNotebookDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidCloseNotebookDocumentParams& out);
 Result<const json::Value*> Encode(const DidCloseNotebookDocumentParams& in, json::Builder& b);
 
+bool operator==(const SelectedCompletionInfo& lhs, const SelectedCompletionInfo& rhs);
+bool operator!=(const SelectedCompletionInfo& lhs, const SelectedCompletionInfo& rhs);
 Result<SuccessType> Decode(const json::Value& v, SelectedCompletionInfo& out);
 Result<const json::Value*> Encode(const SelectedCompletionInfo& in, json::Builder& b);
 
+bool operator==(const InlineCompletionContext& lhs, const InlineCompletionContext& rhs);
+bool operator!=(const InlineCompletionContext& lhs, const InlineCompletionContext& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionContext& out);
 Result<const json::Value*> Encode(const InlineCompletionContext& in, json::Builder& b);
 
+bool operator==(const InlineCompletionParams& lhs, const InlineCompletionParams& rhs);
+bool operator!=(const InlineCompletionParams& lhs, const InlineCompletionParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionParams& out);
 Result<const json::Value*> Encode(const InlineCompletionParams& in, json::Builder& b);
 
+bool operator==(const StringValue& lhs, const StringValue& rhs);
+bool operator!=(const StringValue& lhs, const StringValue& rhs);
 Result<SuccessType> Decode(const json::Value& v, StringValue& out);
 Result<const json::Value*> Encode(const StringValue& in, json::Builder& b);
 
+bool operator==(const InlineCompletionItem& lhs, const InlineCompletionItem& rhs);
+bool operator!=(const InlineCompletionItem& lhs, const InlineCompletionItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionItem& out);
 Result<const json::Value*> Encode(const InlineCompletionItem& in, json::Builder& b);
 
+bool operator==(const InlineCompletionList& lhs, const InlineCompletionList& rhs);
+bool operator!=(const InlineCompletionList& lhs, const InlineCompletionList& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionList& out);
 Result<const json::Value*> Encode(const InlineCompletionList& in, json::Builder& b);
 
+bool operator==(const InlineCompletionOptions& lhs, const InlineCompletionOptions& rhs);
+bool operator!=(const InlineCompletionOptions& lhs, const InlineCompletionOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionOptions& out);
 Result<const json::Value*> Encode(const InlineCompletionOptions& in, json::Builder& b);
 
+bool operator==(const InlineCompletionRegistrationOptions& lhs,
+                const InlineCompletionRegistrationOptions& rhs);
+bool operator!=(const InlineCompletionRegistrationOptions& lhs,
+                const InlineCompletionRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionRegistrationOptions& out);
 Result<const json::Value*> Encode(const InlineCompletionRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const Registration& lhs, const Registration& rhs);
+bool operator!=(const Registration& lhs, const Registration& rhs);
 Result<SuccessType> Decode(const json::Value& v, Registration& out);
 Result<const json::Value*> Encode(const Registration& in, json::Builder& b);
 
+bool operator==(const RegistrationParams& lhs, const RegistrationParams& rhs);
+bool operator!=(const RegistrationParams& lhs, const RegistrationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, RegistrationParams& out);
 Result<const json::Value*> Encode(const RegistrationParams& in, json::Builder& b);
 
+bool operator==(const Unregistration& lhs, const Unregistration& rhs);
+bool operator!=(const Unregistration& lhs, const Unregistration& rhs);
 Result<SuccessType> Decode(const json::Value& v, Unregistration& out);
 Result<const json::Value*> Encode(const Unregistration& in, json::Builder& b);
 
+bool operator==(const UnregistrationParams& lhs, const UnregistrationParams& rhs);
+bool operator!=(const UnregistrationParams& lhs, const UnregistrationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, UnregistrationParams& out);
 Result<const json::Value*> Encode(const UnregistrationParams& in, json::Builder& b);
 
+bool operator==(const ClientInfo& lhs, const ClientInfo& rhs);
+bool operator!=(const ClientInfo& lhs, const ClientInfo& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientInfo& out);
 Result<const json::Value*> Encode(const ClientInfo& in, json::Builder& b);
 
+bool operator==(const ChangeAnnotationsSupportOptions& lhs,
+                const ChangeAnnotationsSupportOptions& rhs);
+bool operator!=(const ChangeAnnotationsSupportOptions& lhs,
+                const ChangeAnnotationsSupportOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ChangeAnnotationsSupportOptions& out);
 Result<const json::Value*> Encode(const ChangeAnnotationsSupportOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceEditClientCapabilities& lhs,
+                const WorkspaceEditClientCapabilities& rhs);
+bool operator!=(const WorkspaceEditClientCapabilities& lhs,
+                const WorkspaceEditClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceEditClientCapabilities& out);
 Result<const json::Value*> Encode(const WorkspaceEditClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DidChangeConfigurationClientCapabilities& lhs,
+                const DidChangeConfigurationClientCapabilities& rhs);
+bool operator!=(const DidChangeConfigurationClientCapabilities& lhs,
+                const DidChangeConfigurationClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeConfigurationClientCapabilities& out);
 Result<const json::Value*> Encode(const DidChangeConfigurationClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const DidChangeWatchedFilesClientCapabilities& lhs,
+                const DidChangeWatchedFilesClientCapabilities& rhs);
+bool operator!=(const DidChangeWatchedFilesClientCapabilities& lhs,
+                const DidChangeWatchedFilesClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeWatchedFilesClientCapabilities& out);
 Result<const json::Value*> Encode(const DidChangeWatchedFilesClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const ClientSymbolKindOptions& lhs, const ClientSymbolKindOptions& rhs);
+bool operator!=(const ClientSymbolKindOptions& lhs, const ClientSymbolKindOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSymbolKindOptions& out);
 Result<const json::Value*> Encode(const ClientSymbolKindOptions& in, json::Builder& b);
 
+bool operator==(const ClientSymbolTagOptions& lhs, const ClientSymbolTagOptions& rhs);
+bool operator!=(const ClientSymbolTagOptions& lhs, const ClientSymbolTagOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSymbolTagOptions& out);
 Result<const json::Value*> Encode(const ClientSymbolTagOptions& in, json::Builder& b);
 
+bool operator==(const ClientSymbolResolveOptions& lhs, const ClientSymbolResolveOptions& rhs);
+bool operator!=(const ClientSymbolResolveOptions& lhs, const ClientSymbolResolveOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSymbolResolveOptions& out);
 Result<const json::Value*> Encode(const ClientSymbolResolveOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceSymbolClientCapabilities& lhs,
+                const WorkspaceSymbolClientCapabilities& rhs);
+bool operator!=(const WorkspaceSymbolClientCapabilities& lhs,
+                const WorkspaceSymbolClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceSymbolClientCapabilities& out);
 Result<const json::Value*> Encode(const WorkspaceSymbolClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ExecuteCommandClientCapabilities& lhs,
+                const ExecuteCommandClientCapabilities& rhs);
+bool operator!=(const ExecuteCommandClientCapabilities& lhs,
+                const ExecuteCommandClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ExecuteCommandClientCapabilities& out);
 Result<const json::Value*> Encode(const ExecuteCommandClientCapabilities& in, json::Builder& b);
 
+bool operator==(const SemanticTokensWorkspaceClientCapabilities& lhs,
+                const SemanticTokensWorkspaceClientCapabilities& rhs);
+bool operator!=(const SemanticTokensWorkspaceClientCapabilities& lhs,
+                const SemanticTokensWorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensWorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const SemanticTokensWorkspaceClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const CodeLensWorkspaceClientCapabilities& lhs,
+                const CodeLensWorkspaceClientCapabilities& rhs);
+bool operator!=(const CodeLensWorkspaceClientCapabilities& lhs,
+                const CodeLensWorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeLensWorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const CodeLensWorkspaceClientCapabilities& in, json::Builder& b);
 
+bool operator==(const FileOperationClientCapabilities& lhs,
+                const FileOperationClientCapabilities& rhs);
+bool operator!=(const FileOperationClientCapabilities& lhs,
+                const FileOperationClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileOperationClientCapabilities& out);
 Result<const json::Value*> Encode(const FileOperationClientCapabilities& in, json::Builder& b);
 
+bool operator==(const InlineValueWorkspaceClientCapabilities& lhs,
+                const InlineValueWorkspaceClientCapabilities& rhs);
+bool operator!=(const InlineValueWorkspaceClientCapabilities& lhs,
+                const InlineValueWorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueWorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const InlineValueWorkspaceClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const InlayHintWorkspaceClientCapabilities& lhs,
+                const InlayHintWorkspaceClientCapabilities& rhs);
+bool operator!=(const InlayHintWorkspaceClientCapabilities& lhs,
+                const InlayHintWorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHintWorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const InlayHintWorkspaceClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DiagnosticWorkspaceClientCapabilities& lhs,
+                const DiagnosticWorkspaceClientCapabilities& rhs);
+bool operator!=(const DiagnosticWorkspaceClientCapabilities& lhs,
+                const DiagnosticWorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DiagnosticWorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const DiagnosticWorkspaceClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const FoldingRangeWorkspaceClientCapabilities& lhs,
+                const FoldingRangeWorkspaceClientCapabilities& rhs);
+bool operator!=(const FoldingRangeWorkspaceClientCapabilities& lhs,
+                const FoldingRangeWorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, FoldingRangeWorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const FoldingRangeWorkspaceClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const WorkspaceClientCapabilities& lhs, const WorkspaceClientCapabilities& rhs);
+bool operator!=(const WorkspaceClientCapabilities& lhs, const WorkspaceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceClientCapabilities& out);
 Result<const json::Value*> Encode(const WorkspaceClientCapabilities& in, json::Builder& b);
 
+bool operator==(const TextDocumentSyncClientCapabilities& lhs,
+                const TextDocumentSyncClientCapabilities& rhs);
+bool operator!=(const TextDocumentSyncClientCapabilities& lhs,
+                const TextDocumentSyncClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentSyncClientCapabilities& out);
 Result<const json::Value*> Encode(const TextDocumentSyncClientCapabilities& in, json::Builder& b);
 
+bool operator==(const CompletionItemTagOptions& lhs, const CompletionItemTagOptions& rhs);
+bool operator!=(const CompletionItemTagOptions& lhs, const CompletionItemTagOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionItemTagOptions& out);
 Result<const json::Value*> Encode(const CompletionItemTagOptions& in, json::Builder& b);
 
+bool operator==(const ClientCompletionItemResolveOptions& lhs,
+                const ClientCompletionItemResolveOptions& rhs);
+bool operator!=(const ClientCompletionItemResolveOptions& lhs,
+                const ClientCompletionItemResolveOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCompletionItemResolveOptions& out);
 Result<const json::Value*> Encode(const ClientCompletionItemResolveOptions& in, json::Builder& b);
 
+bool operator==(const ClientCompletionItemInsertTextModeOptions& lhs,
+                const ClientCompletionItemInsertTextModeOptions& rhs);
+bool operator!=(const ClientCompletionItemInsertTextModeOptions& lhs,
+                const ClientCompletionItemInsertTextModeOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCompletionItemInsertTextModeOptions& out);
 Result<const json::Value*> Encode(const ClientCompletionItemInsertTextModeOptions& in,
                                   json::Builder& b);
 
+bool operator==(const ClientCompletionItemOptions& lhs, const ClientCompletionItemOptions& rhs);
+bool operator!=(const ClientCompletionItemOptions& lhs, const ClientCompletionItemOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCompletionItemOptions& out);
 Result<const json::Value*> Encode(const ClientCompletionItemOptions& in, json::Builder& b);
 
+bool operator==(const ClientCompletionItemOptionsKind& lhs,
+                const ClientCompletionItemOptionsKind& rhs);
+bool operator!=(const ClientCompletionItemOptionsKind& lhs,
+                const ClientCompletionItemOptionsKind& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCompletionItemOptionsKind& out);
 Result<const json::Value*> Encode(const ClientCompletionItemOptionsKind& in, json::Builder& b);
 
+bool operator==(const CompletionListCapabilities& lhs, const CompletionListCapabilities& rhs);
+bool operator!=(const CompletionListCapabilities& lhs, const CompletionListCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionListCapabilities& out);
 Result<const json::Value*> Encode(const CompletionListCapabilities& in, json::Builder& b);
 
+bool operator==(const CompletionClientCapabilities& lhs, const CompletionClientCapabilities& rhs);
+bool operator!=(const CompletionClientCapabilities& lhs, const CompletionClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionClientCapabilities& out);
 Result<const json::Value*> Encode(const CompletionClientCapabilities& in, json::Builder& b);
 
+bool operator==(const HoverClientCapabilities& lhs, const HoverClientCapabilities& rhs);
+bool operator!=(const HoverClientCapabilities& lhs, const HoverClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, HoverClientCapabilities& out);
 Result<const json::Value*> Encode(const HoverClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientSignatureParameterInformationOptions& lhs,
+                const ClientSignatureParameterInformationOptions& rhs);
+bool operator!=(const ClientSignatureParameterInformationOptions& lhs,
+                const ClientSignatureParameterInformationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSignatureParameterInformationOptions& out);
 Result<const json::Value*> Encode(const ClientSignatureParameterInformationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const ClientSignatureInformationOptions& lhs,
+                const ClientSignatureInformationOptions& rhs);
+bool operator!=(const ClientSignatureInformationOptions& lhs,
+                const ClientSignatureInformationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSignatureInformationOptions& out);
 Result<const json::Value*> Encode(const ClientSignatureInformationOptions& in, json::Builder& b);
 
+bool operator==(const SignatureHelpClientCapabilities& lhs,
+                const SignatureHelpClientCapabilities& rhs);
+bool operator!=(const SignatureHelpClientCapabilities& lhs,
+                const SignatureHelpClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureHelpClientCapabilities& out);
 Result<const json::Value*> Encode(const SignatureHelpClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DeclarationClientCapabilities& lhs, const DeclarationClientCapabilities& rhs);
+bool operator!=(const DeclarationClientCapabilities& lhs, const DeclarationClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DeclarationClientCapabilities& out);
 Result<const json::Value*> Encode(const DeclarationClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DefinitionClientCapabilities& lhs, const DefinitionClientCapabilities& rhs);
+bool operator!=(const DefinitionClientCapabilities& lhs, const DefinitionClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DefinitionClientCapabilities& out);
 Result<const json::Value*> Encode(const DefinitionClientCapabilities& in, json::Builder& b);
 
+bool operator==(const TypeDefinitionClientCapabilities& lhs,
+                const TypeDefinitionClientCapabilities& rhs);
+bool operator!=(const TypeDefinitionClientCapabilities& lhs,
+                const TypeDefinitionClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeDefinitionClientCapabilities& out);
 Result<const json::Value*> Encode(const TypeDefinitionClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ImplementationClientCapabilities& lhs,
+                const ImplementationClientCapabilities& rhs);
+bool operator!=(const ImplementationClientCapabilities& lhs,
+                const ImplementationClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ImplementationClientCapabilities& out);
 Result<const json::Value*> Encode(const ImplementationClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ReferenceClientCapabilities& lhs, const ReferenceClientCapabilities& rhs);
+bool operator!=(const ReferenceClientCapabilities& lhs, const ReferenceClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ReferenceClientCapabilities& out);
 Result<const json::Value*> Encode(const ReferenceClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DocumentHighlightClientCapabilities& lhs,
+                const DocumentHighlightClientCapabilities& rhs);
+bool operator!=(const DocumentHighlightClientCapabilities& lhs,
+                const DocumentHighlightClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentHighlightClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentHighlightClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DocumentSymbolClientCapabilities& lhs,
+                const DocumentSymbolClientCapabilities& rhs);
+bool operator!=(const DocumentSymbolClientCapabilities& lhs,
+                const DocumentSymbolClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentSymbolClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentSymbolClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientCodeActionKindOptions& lhs, const ClientCodeActionKindOptions& rhs);
+bool operator!=(const ClientCodeActionKindOptions& lhs, const ClientCodeActionKindOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCodeActionKindOptions& out);
 Result<const json::Value*> Encode(const ClientCodeActionKindOptions& in, json::Builder& b);
 
+bool operator==(const ClientCodeActionLiteralOptions& lhs,
+                const ClientCodeActionLiteralOptions& rhs);
+bool operator!=(const ClientCodeActionLiteralOptions& lhs,
+                const ClientCodeActionLiteralOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCodeActionLiteralOptions& out);
 Result<const json::Value*> Encode(const ClientCodeActionLiteralOptions& in, json::Builder& b);
 
+bool operator==(const ClientCodeActionResolveOptions& lhs,
+                const ClientCodeActionResolveOptions& rhs);
+bool operator!=(const ClientCodeActionResolveOptions& lhs,
+                const ClientCodeActionResolveOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCodeActionResolveOptions& out);
 Result<const json::Value*> Encode(const ClientCodeActionResolveOptions& in, json::Builder& b);
 
+bool operator==(const CodeActionClientCapabilities& lhs, const CodeActionClientCapabilities& rhs);
+bool operator!=(const CodeActionClientCapabilities& lhs, const CodeActionClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeActionClientCapabilities& out);
 Result<const json::Value*> Encode(const CodeActionClientCapabilities& in, json::Builder& b);
 
+bool operator==(const CodeLensClientCapabilities& lhs, const CodeLensClientCapabilities& rhs);
+bool operator!=(const CodeLensClientCapabilities& lhs, const CodeLensClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeLensClientCapabilities& out);
 Result<const json::Value*> Encode(const CodeLensClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DocumentLinkClientCapabilities& lhs,
+                const DocumentLinkClientCapabilities& rhs);
+bool operator!=(const DocumentLinkClientCapabilities& lhs,
+                const DocumentLinkClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentLinkClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentLinkClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DocumentColorClientCapabilities& lhs,
+                const DocumentColorClientCapabilities& rhs);
+bool operator!=(const DocumentColorClientCapabilities& lhs,
+                const DocumentColorClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentColorClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentColorClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DocumentFormattingClientCapabilities& lhs,
+                const DocumentFormattingClientCapabilities& rhs);
+bool operator!=(const DocumentFormattingClientCapabilities& lhs,
+                const DocumentFormattingClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentFormattingClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentFormattingClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DocumentRangeFormattingClientCapabilities& lhs,
+                const DocumentRangeFormattingClientCapabilities& rhs);
+bool operator!=(const DocumentRangeFormattingClientCapabilities& lhs,
+                const DocumentRangeFormattingClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentRangeFormattingClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentRangeFormattingClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const DocumentOnTypeFormattingClientCapabilities& lhs,
+                const DocumentOnTypeFormattingClientCapabilities& rhs);
+bool operator!=(const DocumentOnTypeFormattingClientCapabilities& lhs,
+                const DocumentOnTypeFormattingClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentOnTypeFormattingClientCapabilities& out);
 Result<const json::Value*> Encode(const DocumentOnTypeFormattingClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const RenameClientCapabilities& lhs, const RenameClientCapabilities& rhs);
+bool operator!=(const RenameClientCapabilities& lhs, const RenameClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameClientCapabilities& out);
 Result<const json::Value*> Encode(const RenameClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientFoldingRangeKindOptions& lhs, const ClientFoldingRangeKindOptions& rhs);
+bool operator!=(const ClientFoldingRangeKindOptions& lhs, const ClientFoldingRangeKindOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientFoldingRangeKindOptions& out);
 Result<const json::Value*> Encode(const ClientFoldingRangeKindOptions& in, json::Builder& b);
 
+bool operator==(const ClientFoldingRangeOptions& lhs, const ClientFoldingRangeOptions& rhs);
+bool operator!=(const ClientFoldingRangeOptions& lhs, const ClientFoldingRangeOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientFoldingRangeOptions& out);
 Result<const json::Value*> Encode(const ClientFoldingRangeOptions& in, json::Builder& b);
 
+bool operator==(const FoldingRangeClientCapabilities& lhs,
+                const FoldingRangeClientCapabilities& rhs);
+bool operator!=(const FoldingRangeClientCapabilities& lhs,
+                const FoldingRangeClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, FoldingRangeClientCapabilities& out);
 Result<const json::Value*> Encode(const FoldingRangeClientCapabilities& in, json::Builder& b);
 
+bool operator==(const SelectionRangeClientCapabilities& lhs,
+                const SelectionRangeClientCapabilities& rhs);
+bool operator!=(const SelectionRangeClientCapabilities& lhs,
+                const SelectionRangeClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, SelectionRangeClientCapabilities& out);
 Result<const json::Value*> Encode(const SelectionRangeClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientDiagnosticsTagOptions& lhs, const ClientDiagnosticsTagOptions& rhs);
+bool operator!=(const ClientDiagnosticsTagOptions& lhs, const ClientDiagnosticsTagOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientDiagnosticsTagOptions& out);
 Result<const json::Value*> Encode(const ClientDiagnosticsTagOptions& in, json::Builder& b);
 
+bool operator==(const PublishDiagnosticsClientCapabilities& lhs,
+                const PublishDiagnosticsClientCapabilities& rhs);
+bool operator!=(const PublishDiagnosticsClientCapabilities& lhs,
+                const PublishDiagnosticsClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, PublishDiagnosticsClientCapabilities& out);
 Result<const json::Value*> Encode(const PublishDiagnosticsClientCapabilities& in, json::Builder& b);
 
+bool operator==(const CallHierarchyClientCapabilities& lhs,
+                const CallHierarchyClientCapabilities& rhs);
+bool operator!=(const CallHierarchyClientCapabilities& lhs,
+                const CallHierarchyClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, CallHierarchyClientCapabilities& out);
 Result<const json::Value*> Encode(const CallHierarchyClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientSemanticTokensRequestFullDelta& lhs,
+                const ClientSemanticTokensRequestFullDelta& rhs);
+bool operator!=(const ClientSemanticTokensRequestFullDelta& lhs,
+                const ClientSemanticTokensRequestFullDelta& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSemanticTokensRequestFullDelta& out);
 Result<const json::Value*> Encode(const ClientSemanticTokensRequestFullDelta& in, json::Builder& b);
 
+bool operator==(const ClientSemanticTokensRequestOptions& lhs,
+                const ClientSemanticTokensRequestOptions& rhs);
+bool operator!=(const ClientSemanticTokensRequestOptions& lhs,
+                const ClientSemanticTokensRequestOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSemanticTokensRequestOptions& out);
 Result<const json::Value*> Encode(const ClientSemanticTokensRequestOptions& in, json::Builder& b);
+bool operator==(const ClientSemanticTokensRequestOptions::Range& lhs,
+                const ClientSemanticTokensRequestOptions::Range& rhs);
+bool operator!=(const ClientSemanticTokensRequestOptions::Range& lhs,
+                const ClientSemanticTokensRequestOptions::Range& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientSemanticTokensRequestOptions::Range& out);
 Result<const json::Value*> Encode(const ClientSemanticTokensRequestOptions::Range& in,
                                   json::Builder& b);
 
+bool operator==(const SemanticTokensClientCapabilities& lhs,
+                const SemanticTokensClientCapabilities& rhs);
+bool operator!=(const SemanticTokensClientCapabilities& lhs,
+                const SemanticTokensClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, SemanticTokensClientCapabilities& out);
 Result<const json::Value*> Encode(const SemanticTokensClientCapabilities& in, json::Builder& b);
 
+bool operator==(const LinkedEditingRangeClientCapabilities& lhs,
+                const LinkedEditingRangeClientCapabilities& rhs);
+bool operator!=(const LinkedEditingRangeClientCapabilities& lhs,
+                const LinkedEditingRangeClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, LinkedEditingRangeClientCapabilities& out);
 Result<const json::Value*> Encode(const LinkedEditingRangeClientCapabilities& in, json::Builder& b);
 
+bool operator==(const MonikerClientCapabilities& lhs, const MonikerClientCapabilities& rhs);
+bool operator!=(const MonikerClientCapabilities& lhs, const MonikerClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, MonikerClientCapabilities& out);
 Result<const json::Value*> Encode(const MonikerClientCapabilities& in, json::Builder& b);
 
+bool operator==(const TypeHierarchyClientCapabilities& lhs,
+                const TypeHierarchyClientCapabilities& rhs);
+bool operator!=(const TypeHierarchyClientCapabilities& lhs,
+                const TypeHierarchyClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, TypeHierarchyClientCapabilities& out);
 Result<const json::Value*> Encode(const TypeHierarchyClientCapabilities& in, json::Builder& b);
 
+bool operator==(const InlineValueClientCapabilities& lhs, const InlineValueClientCapabilities& rhs);
+bool operator!=(const InlineValueClientCapabilities& lhs, const InlineValueClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueClientCapabilities& out);
 Result<const json::Value*> Encode(const InlineValueClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientInlayHintResolveOptions& lhs, const ClientInlayHintResolveOptions& rhs);
+bool operator!=(const ClientInlayHintResolveOptions& lhs, const ClientInlayHintResolveOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientInlayHintResolveOptions& out);
 Result<const json::Value*> Encode(const ClientInlayHintResolveOptions& in, json::Builder& b);
 
+bool operator==(const InlayHintClientCapabilities& lhs, const InlayHintClientCapabilities& rhs);
+bool operator!=(const InlayHintClientCapabilities& lhs, const InlayHintClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlayHintClientCapabilities& out);
 Result<const json::Value*> Encode(const InlayHintClientCapabilities& in, json::Builder& b);
 
+bool operator==(const DiagnosticClientCapabilities& lhs, const DiagnosticClientCapabilities& rhs);
+bool operator!=(const DiagnosticClientCapabilities& lhs, const DiagnosticClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, DiagnosticClientCapabilities& out);
 Result<const json::Value*> Encode(const DiagnosticClientCapabilities& in, json::Builder& b);
 
+bool operator==(const InlineCompletionClientCapabilities& lhs,
+                const InlineCompletionClientCapabilities& rhs);
+bool operator!=(const InlineCompletionClientCapabilities& lhs,
+                const InlineCompletionClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineCompletionClientCapabilities& out);
 Result<const json::Value*> Encode(const InlineCompletionClientCapabilities& in, json::Builder& b);
 
+bool operator==(const TextDocumentClientCapabilities& lhs,
+                const TextDocumentClientCapabilities& rhs);
+bool operator!=(const TextDocumentClientCapabilities& lhs,
+                const TextDocumentClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentClientCapabilities& out);
 Result<const json::Value*> Encode(const TextDocumentClientCapabilities& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentSyncClientCapabilities& lhs,
+                const NotebookDocumentSyncClientCapabilities& rhs);
+bool operator!=(const NotebookDocumentSyncClientCapabilities& lhs,
+                const NotebookDocumentSyncClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentSyncClientCapabilities& out);
 Result<const json::Value*> Encode(const NotebookDocumentSyncClientCapabilities& in,
                                   json::Builder& b);
 
+bool operator==(const NotebookDocumentClientCapabilities& lhs,
+                const NotebookDocumentClientCapabilities& rhs);
+bool operator!=(const NotebookDocumentClientCapabilities& lhs,
+                const NotebookDocumentClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentClientCapabilities& out);
 Result<const json::Value*> Encode(const NotebookDocumentClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientShowMessageActionItemOptions& lhs,
+                const ClientShowMessageActionItemOptions& rhs);
+bool operator!=(const ClientShowMessageActionItemOptions& lhs,
+                const ClientShowMessageActionItemOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientShowMessageActionItemOptions& out);
 Result<const json::Value*> Encode(const ClientShowMessageActionItemOptions& in, json::Builder& b);
 
+bool operator==(const ShowMessageRequestClientCapabilities& lhs,
+                const ShowMessageRequestClientCapabilities& rhs);
+bool operator!=(const ShowMessageRequestClientCapabilities& lhs,
+                const ShowMessageRequestClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ShowMessageRequestClientCapabilities& out);
 Result<const json::Value*> Encode(const ShowMessageRequestClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ShowDocumentClientCapabilities& lhs,
+                const ShowDocumentClientCapabilities& rhs);
+bool operator!=(const ShowDocumentClientCapabilities& lhs,
+                const ShowDocumentClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ShowDocumentClientCapabilities& out);
 Result<const json::Value*> Encode(const ShowDocumentClientCapabilities& in, json::Builder& b);
 
+bool operator==(const WindowClientCapabilities& lhs, const WindowClientCapabilities& rhs);
+bool operator!=(const WindowClientCapabilities& lhs, const WindowClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, WindowClientCapabilities& out);
 Result<const json::Value*> Encode(const WindowClientCapabilities& in, json::Builder& b);
 
+bool operator==(const StaleRequestSupportOptions& lhs, const StaleRequestSupportOptions& rhs);
+bool operator!=(const StaleRequestSupportOptions& lhs, const StaleRequestSupportOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, StaleRequestSupportOptions& out);
 Result<const json::Value*> Encode(const StaleRequestSupportOptions& in, json::Builder& b);
 
+bool operator==(const RegularExpressionsClientCapabilities& lhs,
+                const RegularExpressionsClientCapabilities& rhs);
+bool operator!=(const RegularExpressionsClientCapabilities& lhs,
+                const RegularExpressionsClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, RegularExpressionsClientCapabilities& out);
 Result<const json::Value*> Encode(const RegularExpressionsClientCapabilities& in, json::Builder& b);
 
+bool operator==(const MarkdownClientCapabilities& lhs, const MarkdownClientCapabilities& rhs);
+bool operator!=(const MarkdownClientCapabilities& lhs, const MarkdownClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, MarkdownClientCapabilities& out);
 Result<const json::Value*> Encode(const MarkdownClientCapabilities& in, json::Builder& b);
 
+bool operator==(const GeneralClientCapabilities& lhs, const GeneralClientCapabilities& rhs);
+bool operator!=(const GeneralClientCapabilities& lhs, const GeneralClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, GeneralClientCapabilities& out);
 Result<const json::Value*> Encode(const GeneralClientCapabilities& in, json::Builder& b);
 
+bool operator==(const ClientCapabilities& lhs, const ClientCapabilities& rhs);
+bool operator!=(const ClientCapabilities& lhs, const ClientCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ClientCapabilities& out);
 Result<const json::Value*> Encode(const ClientCapabilities& in, json::Builder& b);
 
+bool operator==(const InitializeParamsBase& lhs, const InitializeParamsBase& rhs);
+bool operator!=(const InitializeParamsBase& lhs, const InitializeParamsBase& rhs);
 Result<SuccessType> Decode(const json::Value& v, InitializeParamsBase& out);
 Result<const json::Value*> Encode(const InitializeParamsBase& in, json::Builder& b);
 
+bool operator==(const WorkspaceFoldersInitializeParams& lhs,
+                const WorkspaceFoldersInitializeParams& rhs);
+bool operator!=(const WorkspaceFoldersInitializeParams& lhs,
+                const WorkspaceFoldersInitializeParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceFoldersInitializeParams& out);
 Result<const json::Value*> Encode(const WorkspaceFoldersInitializeParams& in, json::Builder& b);
 
+bool operator==(const InitializeParams& lhs, const InitializeParams& rhs);
+bool operator!=(const InitializeParams& lhs, const InitializeParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, InitializeParams& out);
 Result<const json::Value*> Encode(const InitializeParams& in, json::Builder& b);
 
+bool operator==(const SaveOptions& lhs, const SaveOptions& rhs);
+bool operator!=(const SaveOptions& lhs, const SaveOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SaveOptions& out);
 Result<const json::Value*> Encode(const SaveOptions& in, json::Builder& b);
 
+bool operator==(const TextDocumentSyncOptions& lhs, const TextDocumentSyncOptions& rhs);
+bool operator!=(const TextDocumentSyncOptions& lhs, const TextDocumentSyncOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentSyncOptions& out);
 Result<const json::Value*> Encode(const TextDocumentSyncOptions& in, json::Builder& b);
 
+bool operator==(const NotebookCellLanguage& lhs, const NotebookCellLanguage& rhs);
+bool operator!=(const NotebookCellLanguage& lhs, const NotebookCellLanguage& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookCellLanguage& out);
 Result<const json::Value*> Encode(const NotebookCellLanguage& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentFilterWithCells& lhs,
+                const NotebookDocumentFilterWithCells& rhs);
+bool operator!=(const NotebookDocumentFilterWithCells& lhs,
+                const NotebookDocumentFilterWithCells& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentFilterWithCells& out);
 Result<const json::Value*> Encode(const NotebookDocumentFilterWithCells& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentFilterWithNotebook& lhs,
+                const NotebookDocumentFilterWithNotebook& rhs);
+bool operator!=(const NotebookDocumentFilterWithNotebook& lhs,
+                const NotebookDocumentFilterWithNotebook& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentFilterWithNotebook& out);
 Result<const json::Value*> Encode(const NotebookDocumentFilterWithNotebook& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentSyncOptions& lhs, const NotebookDocumentSyncOptions& rhs);
+bool operator!=(const NotebookDocumentSyncOptions& lhs, const NotebookDocumentSyncOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentSyncOptions& out);
 Result<const json::Value*> Encode(const NotebookDocumentSyncOptions& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentSyncRegistrationOptions& lhs,
+                const NotebookDocumentSyncRegistrationOptions& rhs);
+bool operator!=(const NotebookDocumentSyncRegistrationOptions& lhs,
+                const NotebookDocumentSyncRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentSyncRegistrationOptions& out);
 Result<const json::Value*> Encode(const NotebookDocumentSyncRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const ServerCompletionItemOptions& lhs, const ServerCompletionItemOptions& rhs);
+bool operator!=(const ServerCompletionItemOptions& lhs, const ServerCompletionItemOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ServerCompletionItemOptions& out);
 Result<const json::Value*> Encode(const ServerCompletionItemOptions& in, json::Builder& b);
 
+bool operator==(const CompletionOptions& lhs, const CompletionOptions& rhs);
+bool operator!=(const CompletionOptions& lhs, const CompletionOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionOptions& out);
 Result<const json::Value*> Encode(const CompletionOptions& in, json::Builder& b);
 
+bool operator==(const HoverOptions& lhs, const HoverOptions& rhs);
+bool operator!=(const HoverOptions& lhs, const HoverOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, HoverOptions& out);
 Result<const json::Value*> Encode(const HoverOptions& in, json::Builder& b);
 
+bool operator==(const SignatureHelpOptions& lhs, const SignatureHelpOptions& rhs);
+bool operator!=(const SignatureHelpOptions& lhs, const SignatureHelpOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureHelpOptions& out);
 Result<const json::Value*> Encode(const SignatureHelpOptions& in, json::Builder& b);
 
+bool operator==(const DefinitionOptions& lhs, const DefinitionOptions& rhs);
+bool operator!=(const DefinitionOptions& lhs, const DefinitionOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DefinitionOptions& out);
 Result<const json::Value*> Encode(const DefinitionOptions& in, json::Builder& b);
 
+bool operator==(const ReferenceOptions& lhs, const ReferenceOptions& rhs);
+bool operator!=(const ReferenceOptions& lhs, const ReferenceOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ReferenceOptions& out);
 Result<const json::Value*> Encode(const ReferenceOptions& in, json::Builder& b);
 
+bool operator==(const DocumentHighlightOptions& lhs, const DocumentHighlightOptions& rhs);
+bool operator!=(const DocumentHighlightOptions& lhs, const DocumentHighlightOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentHighlightOptions& out);
 Result<const json::Value*> Encode(const DocumentHighlightOptions& in, json::Builder& b);
 
+bool operator==(const DocumentSymbolOptions& lhs, const DocumentSymbolOptions& rhs);
+bool operator!=(const DocumentSymbolOptions& lhs, const DocumentSymbolOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentSymbolOptions& out);
 Result<const json::Value*> Encode(const DocumentSymbolOptions& in, json::Builder& b);
 
+bool operator==(const CodeActionOptions& lhs, const CodeActionOptions& rhs);
+bool operator!=(const CodeActionOptions& lhs, const CodeActionOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeActionOptions& out);
 Result<const json::Value*> Encode(const CodeActionOptions& in, json::Builder& b);
 
+bool operator==(const CodeLensOptions& lhs, const CodeLensOptions& rhs);
+bool operator!=(const CodeLensOptions& lhs, const CodeLensOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeLensOptions& out);
 Result<const json::Value*> Encode(const CodeLensOptions& in, json::Builder& b);
 
+bool operator==(const DocumentLinkOptions& lhs, const DocumentLinkOptions& rhs);
+bool operator!=(const DocumentLinkOptions& lhs, const DocumentLinkOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentLinkOptions& out);
 Result<const json::Value*> Encode(const DocumentLinkOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceSymbolOptions& lhs, const WorkspaceSymbolOptions& rhs);
+bool operator!=(const WorkspaceSymbolOptions& lhs, const WorkspaceSymbolOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceSymbolOptions& out);
 Result<const json::Value*> Encode(const WorkspaceSymbolOptions& in, json::Builder& b);
 
+bool operator==(const DocumentFormattingOptions& lhs, const DocumentFormattingOptions& rhs);
+bool operator!=(const DocumentFormattingOptions& lhs, const DocumentFormattingOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentFormattingOptions& out);
 Result<const json::Value*> Encode(const DocumentFormattingOptions& in, json::Builder& b);
 
+bool operator==(const DocumentRangeFormattingOptions& lhs,
+                const DocumentRangeFormattingOptions& rhs);
+bool operator!=(const DocumentRangeFormattingOptions& lhs,
+                const DocumentRangeFormattingOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentRangeFormattingOptions& out);
 Result<const json::Value*> Encode(const DocumentRangeFormattingOptions& in, json::Builder& b);
 
+bool operator==(const DocumentOnTypeFormattingOptions& lhs,
+                const DocumentOnTypeFormattingOptions& rhs);
+bool operator!=(const DocumentOnTypeFormattingOptions& lhs,
+                const DocumentOnTypeFormattingOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentOnTypeFormattingOptions& out);
 Result<const json::Value*> Encode(const DocumentOnTypeFormattingOptions& in, json::Builder& b);
 
+bool operator==(const RenameOptions& lhs, const RenameOptions& rhs);
+bool operator!=(const RenameOptions& lhs, const RenameOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameOptions& out);
 Result<const json::Value*> Encode(const RenameOptions& in, json::Builder& b);
 
+bool operator==(const ExecuteCommandOptions& lhs, const ExecuteCommandOptions& rhs);
+bool operator!=(const ExecuteCommandOptions& lhs, const ExecuteCommandOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ExecuteCommandOptions& out);
 Result<const json::Value*> Encode(const ExecuteCommandOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceFoldersServerCapabilities& lhs,
+                const WorkspaceFoldersServerCapabilities& rhs);
+bool operator!=(const WorkspaceFoldersServerCapabilities& lhs,
+                const WorkspaceFoldersServerCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceFoldersServerCapabilities& out);
 Result<const json::Value*> Encode(const WorkspaceFoldersServerCapabilities& in, json::Builder& b);
 
+bool operator==(const FileOperationOptions& lhs, const FileOperationOptions& rhs);
+bool operator!=(const FileOperationOptions& lhs, const FileOperationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileOperationOptions& out);
 Result<const json::Value*> Encode(const FileOperationOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceOptions& lhs, const WorkspaceOptions& rhs);
+bool operator!=(const WorkspaceOptions& lhs, const WorkspaceOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceOptions& out);
 Result<const json::Value*> Encode(const WorkspaceOptions& in, json::Builder& b);
 
+bool operator==(const ServerCapabilities& lhs, const ServerCapabilities& rhs);
+bool operator!=(const ServerCapabilities& lhs, const ServerCapabilities& rhs);
 Result<SuccessType> Decode(const json::Value& v, ServerCapabilities& out);
 Result<const json::Value*> Encode(const ServerCapabilities& in, json::Builder& b);
 
+bool operator==(const ServerInfo& lhs, const ServerInfo& rhs);
+bool operator!=(const ServerInfo& lhs, const ServerInfo& rhs);
 Result<SuccessType> Decode(const json::Value& v, ServerInfo& out);
 Result<const json::Value*> Encode(const ServerInfo& in, json::Builder& b);
 
+bool operator==(const InitializeResult& lhs, const InitializeResult& rhs);
+bool operator!=(const InitializeResult& lhs, const InitializeResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, InitializeResult& out);
 Result<const json::Value*> Encode(const InitializeResult& in, json::Builder& b);
 
+bool operator==(const InitializeError& lhs, const InitializeError& rhs);
+bool operator!=(const InitializeError& lhs, const InitializeError& rhs);
 Result<SuccessType> Decode(const json::Value& v, InitializeError& out);
 Result<const json::Value*> Encode(const InitializeError& in, json::Builder& b);
 
+bool operator==(const InitializedParams& lhs, const InitializedParams& rhs);
+bool operator!=(const InitializedParams& lhs, const InitializedParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, InitializedParams& out);
 Result<const json::Value*> Encode(const InitializedParams& in, json::Builder& b);
 
+bool operator==(const DidChangeConfigurationParams& lhs, const DidChangeConfigurationParams& rhs);
+bool operator!=(const DidChangeConfigurationParams& lhs, const DidChangeConfigurationParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeConfigurationParams& out);
 Result<const json::Value*> Encode(const DidChangeConfigurationParams& in, json::Builder& b);
 
+bool operator==(const DidChangeConfigurationRegistrationOptions& lhs,
+                const DidChangeConfigurationRegistrationOptions& rhs);
+bool operator!=(const DidChangeConfigurationRegistrationOptions& lhs,
+                const DidChangeConfigurationRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeConfigurationRegistrationOptions& out);
 Result<const json::Value*> Encode(const DidChangeConfigurationRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const ShowMessageParams& lhs, const ShowMessageParams& rhs);
+bool operator!=(const ShowMessageParams& lhs, const ShowMessageParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ShowMessageParams& out);
 Result<const json::Value*> Encode(const ShowMessageParams& in, json::Builder& b);
 
+bool operator==(const MessageActionItem& lhs, const MessageActionItem& rhs);
+bool operator!=(const MessageActionItem& lhs, const MessageActionItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, MessageActionItem& out);
 Result<const json::Value*> Encode(const MessageActionItem& in, json::Builder& b);
 
+bool operator==(const ShowMessageRequestParams& lhs, const ShowMessageRequestParams& rhs);
+bool operator!=(const ShowMessageRequestParams& lhs, const ShowMessageRequestParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ShowMessageRequestParams& out);
 Result<const json::Value*> Encode(const ShowMessageRequestParams& in, json::Builder& b);
 
+bool operator==(const LogMessageParams& lhs, const LogMessageParams& rhs);
+bool operator!=(const LogMessageParams& lhs, const LogMessageParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, LogMessageParams& out);
 Result<const json::Value*> Encode(const LogMessageParams& in, json::Builder& b);
 
+bool operator==(const DidOpenTextDocumentParams& lhs, const DidOpenTextDocumentParams& rhs);
+bool operator!=(const DidOpenTextDocumentParams& lhs, const DidOpenTextDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidOpenTextDocumentParams& out);
 Result<const json::Value*> Encode(const DidOpenTextDocumentParams& in, json::Builder& b);
 
+bool operator==(const DidChangeTextDocumentParams& lhs, const DidChangeTextDocumentParams& rhs);
+bool operator!=(const DidChangeTextDocumentParams& lhs, const DidChangeTextDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeTextDocumentParams& out);
 Result<const json::Value*> Encode(const DidChangeTextDocumentParams& in, json::Builder& b);
 
+bool operator==(const TextDocumentChangeRegistrationOptions& lhs,
+                const TextDocumentChangeRegistrationOptions& rhs);
+bool operator!=(const TextDocumentChangeRegistrationOptions& lhs,
+                const TextDocumentChangeRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentChangeRegistrationOptions& out);
 Result<const json::Value*> Encode(const TextDocumentChangeRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const DidCloseTextDocumentParams& lhs, const DidCloseTextDocumentParams& rhs);
+bool operator!=(const DidCloseTextDocumentParams& lhs, const DidCloseTextDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidCloseTextDocumentParams& out);
 Result<const json::Value*> Encode(const DidCloseTextDocumentParams& in, json::Builder& b);
 
+bool operator==(const DidSaveTextDocumentParams& lhs, const DidSaveTextDocumentParams& rhs);
+bool operator!=(const DidSaveTextDocumentParams& lhs, const DidSaveTextDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidSaveTextDocumentParams& out);
 Result<const json::Value*> Encode(const DidSaveTextDocumentParams& in, json::Builder& b);
 
+bool operator==(const TextDocumentSaveRegistrationOptions& lhs,
+                const TextDocumentSaveRegistrationOptions& rhs);
+bool operator!=(const TextDocumentSaveRegistrationOptions& lhs,
+                const TextDocumentSaveRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentSaveRegistrationOptions& out);
 Result<const json::Value*> Encode(const TextDocumentSaveRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const WillSaveTextDocumentParams& lhs, const WillSaveTextDocumentParams& rhs);
+bool operator!=(const WillSaveTextDocumentParams& lhs, const WillSaveTextDocumentParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WillSaveTextDocumentParams& out);
 Result<const json::Value*> Encode(const WillSaveTextDocumentParams& in, json::Builder& b);
 
+bool operator==(const FileEvent& lhs, const FileEvent& rhs);
+bool operator!=(const FileEvent& lhs, const FileEvent& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileEvent& out);
 Result<const json::Value*> Encode(const FileEvent& in, json::Builder& b);
 
+bool operator==(const DidChangeWatchedFilesParams& lhs, const DidChangeWatchedFilesParams& rhs);
+bool operator!=(const DidChangeWatchedFilesParams& lhs, const DidChangeWatchedFilesParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeWatchedFilesParams& out);
 Result<const json::Value*> Encode(const DidChangeWatchedFilesParams& in, json::Builder& b);
 
+bool operator==(const FileSystemWatcher& lhs, const FileSystemWatcher& rhs);
+bool operator!=(const FileSystemWatcher& lhs, const FileSystemWatcher& rhs);
 Result<SuccessType> Decode(const json::Value& v, FileSystemWatcher& out);
 Result<const json::Value*> Encode(const FileSystemWatcher& in, json::Builder& b);
 
+bool operator==(const DidChangeWatchedFilesRegistrationOptions& lhs,
+                const DidChangeWatchedFilesRegistrationOptions& rhs);
+bool operator!=(const DidChangeWatchedFilesRegistrationOptions& lhs,
+                const DidChangeWatchedFilesRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DidChangeWatchedFilesRegistrationOptions& out);
 Result<const json::Value*> Encode(const DidChangeWatchedFilesRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const PublishDiagnosticsParams& lhs, const PublishDiagnosticsParams& rhs);
+bool operator!=(const PublishDiagnosticsParams& lhs, const PublishDiagnosticsParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, PublishDiagnosticsParams& out);
 Result<const json::Value*> Encode(const PublishDiagnosticsParams& in, json::Builder& b);
 
+bool operator==(const CompletionContext& lhs, const CompletionContext& rhs);
+bool operator!=(const CompletionContext& lhs, const CompletionContext& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionContext& out);
 Result<const json::Value*> Encode(const CompletionContext& in, json::Builder& b);
 
+bool operator==(const CompletionParams& lhs, const CompletionParams& rhs);
+bool operator!=(const CompletionParams& lhs, const CompletionParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionParams& out);
 Result<const json::Value*> Encode(const CompletionParams& in, json::Builder& b);
 
+bool operator==(const CompletionItemLabelDetails& lhs, const CompletionItemLabelDetails& rhs);
+bool operator!=(const CompletionItemLabelDetails& lhs, const CompletionItemLabelDetails& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionItemLabelDetails& out);
 Result<const json::Value*> Encode(const CompletionItemLabelDetails& in, json::Builder& b);
 
+bool operator==(const InsertReplaceEdit& lhs, const InsertReplaceEdit& rhs);
+bool operator!=(const InsertReplaceEdit& lhs, const InsertReplaceEdit& rhs);
 Result<SuccessType> Decode(const json::Value& v, InsertReplaceEdit& out);
 Result<const json::Value*> Encode(const InsertReplaceEdit& in, json::Builder& b);
 
+bool operator==(const CompletionItem& lhs, const CompletionItem& rhs);
+bool operator!=(const CompletionItem& lhs, const CompletionItem& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionItem& out);
 Result<const json::Value*> Encode(const CompletionItem& in, json::Builder& b);
 
+bool operator==(const EditRangeWithInsertReplace& lhs, const EditRangeWithInsertReplace& rhs);
+bool operator!=(const EditRangeWithInsertReplace& lhs, const EditRangeWithInsertReplace& rhs);
 Result<SuccessType> Decode(const json::Value& v, EditRangeWithInsertReplace& out);
 Result<const json::Value*> Encode(const EditRangeWithInsertReplace& in, json::Builder& b);
 
+bool operator==(const CompletionItemDefaults& lhs, const CompletionItemDefaults& rhs);
+bool operator!=(const CompletionItemDefaults& lhs, const CompletionItemDefaults& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionItemDefaults& out);
 Result<const json::Value*> Encode(const CompletionItemDefaults& in, json::Builder& b);
 
+bool operator==(const CompletionList& lhs, const CompletionList& rhs);
+bool operator!=(const CompletionList& lhs, const CompletionList& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionList& out);
 Result<const json::Value*> Encode(const CompletionList& in, json::Builder& b);
 
+bool operator==(const CompletionRegistrationOptions& lhs, const CompletionRegistrationOptions& rhs);
+bool operator!=(const CompletionRegistrationOptions& lhs, const CompletionRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CompletionRegistrationOptions& out);
 Result<const json::Value*> Encode(const CompletionRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const HoverParams& lhs, const HoverParams& rhs);
+bool operator!=(const HoverParams& lhs, const HoverParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, HoverParams& out);
 Result<const json::Value*> Encode(const HoverParams& in, json::Builder& b);
 
+bool operator==(const Hover& lhs, const Hover& rhs);
+bool operator!=(const Hover& lhs, const Hover& rhs);
 Result<SuccessType> Decode(const json::Value& v, Hover& out);
 Result<const json::Value*> Encode(const Hover& in, json::Builder& b);
 
+bool operator==(const HoverRegistrationOptions& lhs, const HoverRegistrationOptions& rhs);
+bool operator!=(const HoverRegistrationOptions& lhs, const HoverRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, HoverRegistrationOptions& out);
 Result<const json::Value*> Encode(const HoverRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const ParameterInformation& lhs, const ParameterInformation& rhs);
+bool operator!=(const ParameterInformation& lhs, const ParameterInformation& rhs);
 Result<SuccessType> Decode(const json::Value& v, ParameterInformation& out);
 Result<const json::Value*> Encode(const ParameterInformation& in, json::Builder& b);
 
+bool operator==(const SignatureInformation& lhs, const SignatureInformation& rhs);
+bool operator!=(const SignatureInformation& lhs, const SignatureInformation& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureInformation& out);
 Result<const json::Value*> Encode(const SignatureInformation& in, json::Builder& b);
 
+bool operator==(const SignatureHelp& lhs, const SignatureHelp& rhs);
+bool operator!=(const SignatureHelp& lhs, const SignatureHelp& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureHelp& out);
 Result<const json::Value*> Encode(const SignatureHelp& in, json::Builder& b);
 
+bool operator==(const SignatureHelpContext& lhs, const SignatureHelpContext& rhs);
+bool operator!=(const SignatureHelpContext& lhs, const SignatureHelpContext& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureHelpContext& out);
 Result<const json::Value*> Encode(const SignatureHelpContext& in, json::Builder& b);
 
+bool operator==(const SignatureHelpParams& lhs, const SignatureHelpParams& rhs);
+bool operator!=(const SignatureHelpParams& lhs, const SignatureHelpParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureHelpParams& out);
 Result<const json::Value*> Encode(const SignatureHelpParams& in, json::Builder& b);
 
+bool operator==(const SignatureHelpRegistrationOptions& lhs,
+                const SignatureHelpRegistrationOptions& rhs);
+bool operator!=(const SignatureHelpRegistrationOptions& lhs,
+                const SignatureHelpRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, SignatureHelpRegistrationOptions& out);
 Result<const json::Value*> Encode(const SignatureHelpRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const DefinitionParams& lhs, const DefinitionParams& rhs);
+bool operator!=(const DefinitionParams& lhs, const DefinitionParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DefinitionParams& out);
 Result<const json::Value*> Encode(const DefinitionParams& in, json::Builder& b);
 
+bool operator==(const DefinitionRegistrationOptions& lhs, const DefinitionRegistrationOptions& rhs);
+bool operator!=(const DefinitionRegistrationOptions& lhs, const DefinitionRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DefinitionRegistrationOptions& out);
 Result<const json::Value*> Encode(const DefinitionRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const ReferenceContext& lhs, const ReferenceContext& rhs);
+bool operator!=(const ReferenceContext& lhs, const ReferenceContext& rhs);
 Result<SuccessType> Decode(const json::Value& v, ReferenceContext& out);
 Result<const json::Value*> Encode(const ReferenceContext& in, json::Builder& b);
 
+bool operator==(const ReferenceParams& lhs, const ReferenceParams& rhs);
+bool operator!=(const ReferenceParams& lhs, const ReferenceParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ReferenceParams& out);
 Result<const json::Value*> Encode(const ReferenceParams& in, json::Builder& b);
 
+bool operator==(const ReferenceRegistrationOptions& lhs, const ReferenceRegistrationOptions& rhs);
+bool operator!=(const ReferenceRegistrationOptions& lhs, const ReferenceRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ReferenceRegistrationOptions& out);
 Result<const json::Value*> Encode(const ReferenceRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const DocumentHighlightParams& lhs, const DocumentHighlightParams& rhs);
+bool operator!=(const DocumentHighlightParams& lhs, const DocumentHighlightParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentHighlightParams& out);
 Result<const json::Value*> Encode(const DocumentHighlightParams& in, json::Builder& b);
 
+bool operator==(const DocumentHighlight& lhs, const DocumentHighlight& rhs);
+bool operator!=(const DocumentHighlight& lhs, const DocumentHighlight& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentHighlight& out);
 Result<const json::Value*> Encode(const DocumentHighlight& in, json::Builder& b);
 
+bool operator==(const DocumentHighlightRegistrationOptions& lhs,
+                const DocumentHighlightRegistrationOptions& rhs);
+bool operator!=(const DocumentHighlightRegistrationOptions& lhs,
+                const DocumentHighlightRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentHighlightRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentHighlightRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const DocumentSymbolParams& lhs, const DocumentSymbolParams& rhs);
+bool operator!=(const DocumentSymbolParams& lhs, const DocumentSymbolParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentSymbolParams& out);
 Result<const json::Value*> Encode(const DocumentSymbolParams& in, json::Builder& b);
 
+bool operator==(const BaseSymbolInformation& lhs, const BaseSymbolInformation& rhs);
+bool operator!=(const BaseSymbolInformation& lhs, const BaseSymbolInformation& rhs);
 Result<SuccessType> Decode(const json::Value& v, BaseSymbolInformation& out);
 Result<const json::Value*> Encode(const BaseSymbolInformation& in, json::Builder& b);
 
+bool operator==(const SymbolInformation& lhs, const SymbolInformation& rhs);
+bool operator!=(const SymbolInformation& lhs, const SymbolInformation& rhs);
 Result<SuccessType> Decode(const json::Value& v, SymbolInformation& out);
 Result<const json::Value*> Encode(const SymbolInformation& in, json::Builder& b);
 
+bool operator==(const DocumentSymbol& lhs, const DocumentSymbol& rhs);
+bool operator!=(const DocumentSymbol& lhs, const DocumentSymbol& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentSymbol& out);
 Result<const json::Value*> Encode(const DocumentSymbol& in, json::Builder& b);
 
+bool operator==(const DocumentSymbolRegistrationOptions& lhs,
+                const DocumentSymbolRegistrationOptions& rhs);
+bool operator!=(const DocumentSymbolRegistrationOptions& lhs,
+                const DocumentSymbolRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentSymbolRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentSymbolRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const CodeActionContext& lhs, const CodeActionContext& rhs);
+bool operator!=(const CodeActionContext& lhs, const CodeActionContext& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeActionContext& out);
 Result<const json::Value*> Encode(const CodeActionContext& in, json::Builder& b);
 
+bool operator==(const CodeActionParams& lhs, const CodeActionParams& rhs);
+bool operator!=(const CodeActionParams& lhs, const CodeActionParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeActionParams& out);
 Result<const json::Value*> Encode(const CodeActionParams& in, json::Builder& b);
 
+bool operator==(const CodeActionDisabled& lhs, const CodeActionDisabled& rhs);
+bool operator!=(const CodeActionDisabled& lhs, const CodeActionDisabled& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeActionDisabled& out);
 Result<const json::Value*> Encode(const CodeActionDisabled& in, json::Builder& b);
 
+bool operator==(const CodeAction& lhs, const CodeAction& rhs);
+bool operator!=(const CodeAction& lhs, const CodeAction& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeAction& out);
 Result<const json::Value*> Encode(const CodeAction& in, json::Builder& b);
 
+bool operator==(const CodeActionRegistrationOptions& lhs, const CodeActionRegistrationOptions& rhs);
+bool operator!=(const CodeActionRegistrationOptions& lhs, const CodeActionRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeActionRegistrationOptions& out);
 Result<const json::Value*> Encode(const CodeActionRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const WorkspaceSymbolParams& lhs, const WorkspaceSymbolParams& rhs);
+bool operator!=(const WorkspaceSymbolParams& lhs, const WorkspaceSymbolParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceSymbolParams& out);
 Result<const json::Value*> Encode(const WorkspaceSymbolParams& in, json::Builder& b);
 
+bool operator==(const LocationUriOnly& lhs, const LocationUriOnly& rhs);
+bool operator!=(const LocationUriOnly& lhs, const LocationUriOnly& rhs);
 Result<SuccessType> Decode(const json::Value& v, LocationUriOnly& out);
 Result<const json::Value*> Encode(const LocationUriOnly& in, json::Builder& b);
 
+bool operator==(const WorkspaceSymbol& lhs, const WorkspaceSymbol& rhs);
+bool operator!=(const WorkspaceSymbol& lhs, const WorkspaceSymbol& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceSymbol& out);
 Result<const json::Value*> Encode(const WorkspaceSymbol& in, json::Builder& b);
 
+bool operator==(const WorkspaceSymbolRegistrationOptions& lhs,
+                const WorkspaceSymbolRegistrationOptions& rhs);
+bool operator!=(const WorkspaceSymbolRegistrationOptions& lhs,
+                const WorkspaceSymbolRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceSymbolRegistrationOptions& out);
 Result<const json::Value*> Encode(const WorkspaceSymbolRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const CodeLensParams& lhs, const CodeLensParams& rhs);
+bool operator!=(const CodeLensParams& lhs, const CodeLensParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeLensParams& out);
 Result<const json::Value*> Encode(const CodeLensParams& in, json::Builder& b);
 
+bool operator==(const CodeLens& lhs, const CodeLens& rhs);
+bool operator!=(const CodeLens& lhs, const CodeLens& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeLens& out);
 Result<const json::Value*> Encode(const CodeLens& in, json::Builder& b);
 
+bool operator==(const CodeLensRegistrationOptions& lhs, const CodeLensRegistrationOptions& rhs);
+bool operator!=(const CodeLensRegistrationOptions& lhs, const CodeLensRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, CodeLensRegistrationOptions& out);
 Result<const json::Value*> Encode(const CodeLensRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const DocumentLinkParams& lhs, const DocumentLinkParams& rhs);
+bool operator!=(const DocumentLinkParams& lhs, const DocumentLinkParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentLinkParams& out);
 Result<const json::Value*> Encode(const DocumentLinkParams& in, json::Builder& b);
 
+bool operator==(const DocumentLink& lhs, const DocumentLink& rhs);
+bool operator!=(const DocumentLink& lhs, const DocumentLink& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentLink& out);
 Result<const json::Value*> Encode(const DocumentLink& in, json::Builder& b);
 
+bool operator==(const DocumentLinkRegistrationOptions& lhs,
+                const DocumentLinkRegistrationOptions& rhs);
+bool operator!=(const DocumentLinkRegistrationOptions& lhs,
+                const DocumentLinkRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentLinkRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentLinkRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const FormattingOptions& lhs, const FormattingOptions& rhs);
+bool operator!=(const FormattingOptions& lhs, const FormattingOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, FormattingOptions& out);
 Result<const json::Value*> Encode(const FormattingOptions& in, json::Builder& b);
 
+bool operator==(const DocumentFormattingParams& lhs, const DocumentFormattingParams& rhs);
+bool operator!=(const DocumentFormattingParams& lhs, const DocumentFormattingParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentFormattingParams& out);
 Result<const json::Value*> Encode(const DocumentFormattingParams& in, json::Builder& b);
 
+bool operator==(const DocumentFormattingRegistrationOptions& lhs,
+                const DocumentFormattingRegistrationOptions& rhs);
+bool operator!=(const DocumentFormattingRegistrationOptions& lhs,
+                const DocumentFormattingRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentFormattingRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentFormattingRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const DocumentRangeFormattingParams& lhs, const DocumentRangeFormattingParams& rhs);
+bool operator!=(const DocumentRangeFormattingParams& lhs, const DocumentRangeFormattingParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentRangeFormattingParams& out);
 Result<const json::Value*> Encode(const DocumentRangeFormattingParams& in, json::Builder& b);
 
+bool operator==(const DocumentRangeFormattingRegistrationOptions& lhs,
+                const DocumentRangeFormattingRegistrationOptions& rhs);
+bool operator!=(const DocumentRangeFormattingRegistrationOptions& lhs,
+                const DocumentRangeFormattingRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentRangeFormattingRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentRangeFormattingRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const DocumentRangesFormattingParams& lhs,
+                const DocumentRangesFormattingParams& rhs);
+bool operator!=(const DocumentRangesFormattingParams& lhs,
+                const DocumentRangesFormattingParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentRangesFormattingParams& out);
 Result<const json::Value*> Encode(const DocumentRangesFormattingParams& in, json::Builder& b);
 
+bool operator==(const DocumentOnTypeFormattingParams& lhs,
+                const DocumentOnTypeFormattingParams& rhs);
+bool operator!=(const DocumentOnTypeFormattingParams& lhs,
+                const DocumentOnTypeFormattingParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentOnTypeFormattingParams& out);
 Result<const json::Value*> Encode(const DocumentOnTypeFormattingParams& in, json::Builder& b);
 
+bool operator==(const DocumentOnTypeFormattingRegistrationOptions& lhs,
+                const DocumentOnTypeFormattingRegistrationOptions& rhs);
+bool operator!=(const DocumentOnTypeFormattingRegistrationOptions& lhs,
+                const DocumentOnTypeFormattingRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, DocumentOnTypeFormattingRegistrationOptions& out);
 Result<const json::Value*> Encode(const DocumentOnTypeFormattingRegistrationOptions& in,
                                   json::Builder& b);
 
+bool operator==(const RenameParams& lhs, const RenameParams& rhs);
+bool operator!=(const RenameParams& lhs, const RenameParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameParams& out);
 Result<const json::Value*> Encode(const RenameParams& in, json::Builder& b);
 
+bool operator==(const RenameRegistrationOptions& lhs, const RenameRegistrationOptions& rhs);
+bool operator!=(const RenameRegistrationOptions& lhs, const RenameRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, RenameRegistrationOptions& out);
 Result<const json::Value*> Encode(const RenameRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const PrepareRenameParams& lhs, const PrepareRenameParams& rhs);
+bool operator!=(const PrepareRenameParams& lhs, const PrepareRenameParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, PrepareRenameParams& out);
 Result<const json::Value*> Encode(const PrepareRenameParams& in, json::Builder& b);
 
+bool operator==(const ExecuteCommandParams& lhs, const ExecuteCommandParams& rhs);
+bool operator!=(const ExecuteCommandParams& lhs, const ExecuteCommandParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ExecuteCommandParams& out);
 Result<const json::Value*> Encode(const ExecuteCommandParams& in, json::Builder& b);
 
+bool operator==(const ExecuteCommandRegistrationOptions& lhs,
+                const ExecuteCommandRegistrationOptions& rhs);
+bool operator!=(const ExecuteCommandRegistrationOptions& lhs,
+                const ExecuteCommandRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, ExecuteCommandRegistrationOptions& out);
 Result<const json::Value*> Encode(const ExecuteCommandRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const ApplyWorkspaceEditParams& lhs, const ApplyWorkspaceEditParams& rhs);
+bool operator!=(const ApplyWorkspaceEditParams& lhs, const ApplyWorkspaceEditParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ApplyWorkspaceEditParams& out);
 Result<const json::Value*> Encode(const ApplyWorkspaceEditParams& in, json::Builder& b);
 
+bool operator==(const ApplyWorkspaceEditResult& lhs, const ApplyWorkspaceEditResult& rhs);
+bool operator!=(const ApplyWorkspaceEditResult& lhs, const ApplyWorkspaceEditResult& rhs);
 Result<SuccessType> Decode(const json::Value& v, ApplyWorkspaceEditResult& out);
 Result<const json::Value*> Encode(const ApplyWorkspaceEditResult& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressBegin& lhs, const WorkDoneProgressBegin& rhs);
+bool operator!=(const WorkDoneProgressBegin& lhs, const WorkDoneProgressBegin& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressBegin& out);
 Result<const json::Value*> Encode(const WorkDoneProgressBegin& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressReport& lhs, const WorkDoneProgressReport& rhs);
+bool operator!=(const WorkDoneProgressReport& lhs, const WorkDoneProgressReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressReport& out);
 Result<const json::Value*> Encode(const WorkDoneProgressReport& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressEnd& lhs, const WorkDoneProgressEnd& rhs);
+bool operator!=(const WorkDoneProgressEnd& lhs, const WorkDoneProgressEnd& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressEnd& out);
 Result<const json::Value*> Encode(const WorkDoneProgressEnd& in, json::Builder& b);
 
+bool operator==(const SetTraceParams& lhs, const SetTraceParams& rhs);
+bool operator!=(const SetTraceParams& lhs, const SetTraceParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, SetTraceParams& out);
 Result<const json::Value*> Encode(const SetTraceParams& in, json::Builder& b);
 
+bool operator==(const LogTraceParams& lhs, const LogTraceParams& rhs);
+bool operator!=(const LogTraceParams& lhs, const LogTraceParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, LogTraceParams& out);
 Result<const json::Value*> Encode(const LogTraceParams& in, json::Builder& b);
 
+bool operator==(const CancelParams& lhs, const CancelParams& rhs);
+bool operator!=(const CancelParams& lhs, const CancelParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, CancelParams& out);
 Result<const json::Value*> Encode(const CancelParams& in, json::Builder& b);
 
+bool operator==(const ProgressParams& lhs, const ProgressParams& rhs);
+bool operator!=(const ProgressParams& lhs, const ProgressParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, ProgressParams& out);
 Result<const json::Value*> Encode(const ProgressParams& in, json::Builder& b);
 
+bool operator==(const WorkDoneProgressParams& lhs, const WorkDoneProgressParams& rhs);
+bool operator!=(const WorkDoneProgressParams& lhs, const WorkDoneProgressParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkDoneProgressParams& out);
 Result<const json::Value*> Encode(const WorkDoneProgressParams& in, json::Builder& b);
 
+bool operator==(const PartialResultParams& lhs, const PartialResultParams& rhs);
+bool operator!=(const PartialResultParams& lhs, const PartialResultParams& rhs);
 Result<SuccessType> Decode(const json::Value& v, PartialResultParams& out);
 Result<const json::Value*> Encode(const PartialResultParams& in, json::Builder& b);
 
+bool operator==(const LocationLink& lhs, const LocationLink& rhs);
+bool operator!=(const LocationLink& lhs, const LocationLink& rhs);
 Result<SuccessType> Decode(const json::Value& v, LocationLink& out);
 Result<const json::Value*> Encode(const LocationLink& in, json::Builder& b);
 
+bool operator==(const StaticRegistrationOptions& lhs, const StaticRegistrationOptions& rhs);
+bool operator!=(const StaticRegistrationOptions& lhs, const StaticRegistrationOptions& rhs);
 Result<SuccessType> Decode(const json::Value& v, StaticRegistrationOptions& out);
 Result<const json::Value*> Encode(const StaticRegistrationOptions& in, json::Builder& b);
 
+bool operator==(const InlineValueText& lhs, const InlineValueText& rhs);
+bool operator!=(const InlineValueText& lhs, const InlineValueText& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueText& out);
 Result<const json::Value*> Encode(const InlineValueText& in, json::Builder& b);
 
+bool operator==(const InlineValueVariableLookup& lhs, const InlineValueVariableLookup& rhs);
+bool operator!=(const InlineValueVariableLookup& lhs, const InlineValueVariableLookup& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueVariableLookup& out);
 Result<const json::Value*> Encode(const InlineValueVariableLookup& in, json::Builder& b);
 
+bool operator==(const InlineValueEvaluatableExpression& lhs,
+                const InlineValueEvaluatableExpression& rhs);
+bool operator!=(const InlineValueEvaluatableExpression& lhs,
+                const InlineValueEvaluatableExpression& rhs);
 Result<SuccessType> Decode(const json::Value& v, InlineValueEvaluatableExpression& out);
 Result<const json::Value*> Encode(const InlineValueEvaluatableExpression& in, json::Builder& b);
 
+bool operator==(const RelatedFullDocumentDiagnosticReport& lhs,
+                const RelatedFullDocumentDiagnosticReport& rhs);
+bool operator!=(const RelatedFullDocumentDiagnosticReport& lhs,
+                const RelatedFullDocumentDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, RelatedFullDocumentDiagnosticReport& out);
 Result<const json::Value*> Encode(const RelatedFullDocumentDiagnosticReport& in, json::Builder& b);
 
+bool operator==(const RelatedUnchangedDocumentDiagnosticReport& lhs,
+                const RelatedUnchangedDocumentDiagnosticReport& rhs);
+bool operator!=(const RelatedUnchangedDocumentDiagnosticReport& lhs,
+                const RelatedUnchangedDocumentDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, RelatedUnchangedDocumentDiagnosticReport& out);
 Result<const json::Value*> Encode(const RelatedUnchangedDocumentDiagnosticReport& in,
                                   json::Builder& b);
 
+bool operator==(const PrepareRenamePlaceholder& lhs, const PrepareRenamePlaceholder& rhs);
+bool operator!=(const PrepareRenamePlaceholder& lhs, const PrepareRenamePlaceholder& rhs);
 Result<SuccessType> Decode(const json::Value& v, PrepareRenamePlaceholder& out);
 Result<const json::Value*> Encode(const PrepareRenamePlaceholder& in, json::Builder& b);
 
+bool operator==(const PrepareRenameDefaultBehavior& lhs, const PrepareRenameDefaultBehavior& rhs);
+bool operator!=(const PrepareRenameDefaultBehavior& lhs, const PrepareRenameDefaultBehavior& rhs);
 Result<SuccessType> Decode(const json::Value& v, PrepareRenameDefaultBehavior& out);
 Result<const json::Value*> Encode(const PrepareRenameDefaultBehavior& in, json::Builder& b);
 
+bool operator==(const WorkspaceFullDocumentDiagnosticReport& lhs,
+                const WorkspaceFullDocumentDiagnosticReport& rhs);
+bool operator!=(const WorkspaceFullDocumentDiagnosticReport& lhs,
+                const WorkspaceFullDocumentDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceFullDocumentDiagnosticReport& out);
 Result<const json::Value*> Encode(const WorkspaceFullDocumentDiagnosticReport& in,
                                   json::Builder& b);
 
+bool operator==(const WorkspaceUnchangedDocumentDiagnosticReport& lhs,
+                const WorkspaceUnchangedDocumentDiagnosticReport& rhs);
+bool operator!=(const WorkspaceUnchangedDocumentDiagnosticReport& lhs,
+                const WorkspaceUnchangedDocumentDiagnosticReport& rhs);
 Result<SuccessType> Decode(const json::Value& v, WorkspaceUnchangedDocumentDiagnosticReport& out);
 Result<const json::Value*> Encode(const WorkspaceUnchangedDocumentDiagnosticReport& in,
                                   json::Builder& b);
 
+bool operator==(const TextDocumentContentChangePartial& lhs,
+                const TextDocumentContentChangePartial& rhs);
+bool operator!=(const TextDocumentContentChangePartial& lhs,
+                const TextDocumentContentChangePartial& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentContentChangePartial& out);
 Result<const json::Value*> Encode(const TextDocumentContentChangePartial& in, json::Builder& b);
 
+bool operator==(const TextDocumentContentChangeWholeDocument& lhs,
+                const TextDocumentContentChangeWholeDocument& rhs);
+bool operator!=(const TextDocumentContentChangeWholeDocument& lhs,
+                const TextDocumentContentChangeWholeDocument& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentContentChangeWholeDocument& out);
 Result<const json::Value*> Encode(const TextDocumentContentChangeWholeDocument& in,
                                   json::Builder& b);
 
+bool operator==(const MarkedStringWithLanguage& lhs, const MarkedStringWithLanguage& rhs);
+bool operator!=(const MarkedStringWithLanguage& lhs, const MarkedStringWithLanguage& rhs);
 Result<SuccessType> Decode(const json::Value& v, MarkedStringWithLanguage& out);
 Result<const json::Value*> Encode(const MarkedStringWithLanguage& in, json::Builder& b);
 
+bool operator==(const NotebookCellTextDocumentFilter& lhs,
+                const NotebookCellTextDocumentFilter& rhs);
+bool operator!=(const NotebookCellTextDocumentFilter& lhs,
+                const NotebookCellTextDocumentFilter& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookCellTextDocumentFilter& out);
 Result<const json::Value*> Encode(const NotebookCellTextDocumentFilter& in, json::Builder& b);
 
+bool operator==(const RelativePattern& lhs, const RelativePattern& rhs);
+bool operator!=(const RelativePattern& lhs, const RelativePattern& rhs);
 Result<SuccessType> Decode(const json::Value& v, RelativePattern& out);
 Result<const json::Value*> Encode(const RelativePattern& in, json::Builder& b);
 
+bool operator==(const TextDocumentFilterLanguage& lhs, const TextDocumentFilterLanguage& rhs);
+bool operator!=(const TextDocumentFilterLanguage& lhs, const TextDocumentFilterLanguage& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentFilterLanguage& out);
 Result<const json::Value*> Encode(const TextDocumentFilterLanguage& in, json::Builder& b);
 
+bool operator==(const TextDocumentFilterScheme& lhs, const TextDocumentFilterScheme& rhs);
+bool operator!=(const TextDocumentFilterScheme& lhs, const TextDocumentFilterScheme& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentFilterScheme& out);
 Result<const json::Value*> Encode(const TextDocumentFilterScheme& in, json::Builder& b);
 
+bool operator==(const TextDocumentFilterPattern& lhs, const TextDocumentFilterPattern& rhs);
+bool operator!=(const TextDocumentFilterPattern& lhs, const TextDocumentFilterPattern& rhs);
 Result<SuccessType> Decode(const json::Value& v, TextDocumentFilterPattern& out);
 Result<const json::Value*> Encode(const TextDocumentFilterPattern& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentFilterNotebookType& lhs,
+                const NotebookDocumentFilterNotebookType& rhs);
+bool operator!=(const NotebookDocumentFilterNotebookType& lhs,
+                const NotebookDocumentFilterNotebookType& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentFilterNotebookType& out);
 Result<const json::Value*> Encode(const NotebookDocumentFilterNotebookType& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentFilterScheme& lhs, const NotebookDocumentFilterScheme& rhs);
+bool operator!=(const NotebookDocumentFilterScheme& lhs, const NotebookDocumentFilterScheme& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentFilterScheme& out);
 Result<const json::Value*> Encode(const NotebookDocumentFilterScheme& in, json::Builder& b);
 
+bool operator==(const NotebookDocumentFilterPattern& lhs, const NotebookDocumentFilterPattern& rhs);
+bool operator!=(const NotebookDocumentFilterPattern& lhs, const NotebookDocumentFilterPattern& rhs);
 Result<SuccessType> Decode(const json::Value& v, NotebookDocumentFilterPattern& out);
 Result<const json::Value*> Encode(const NotebookDocumentFilterPattern& in, json::Builder& b);
 
