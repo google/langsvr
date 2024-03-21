@@ -37,7 +37,9 @@
 
 #include <utility>
 
+#include "langsvr/json/types.h"
 #include "langsvr/lsp/decode.h"
+#include "langsvr/result.h"
 
 namespace langsvr::lsp {
 
@@ -1900,6 +1902,9 @@ bool operator!=(const TextDocumentIdentifier& lhs, const TextDocumentIdentifier&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentIdentifier& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -1952,6 +1957,9 @@ bool operator!=(const Position& lhs, const Position& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Position& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("line");
         if (member != Success) {
@@ -2021,6 +2029,9 @@ bool operator!=(const TextDocumentPositionParams& lhs, const TextDocumentPositio
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentPositionParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -2087,6 +2098,9 @@ bool operator!=(const ImplementationParams& lhs, const ImplementationParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ImplementationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -2130,6 +2144,9 @@ bool operator!=(const Range& lhs, const Range& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Range& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("start");
         if (member != Success) {
@@ -2198,6 +2215,9 @@ bool operator!=(const Location& lhs, const Location& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Location& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -2266,6 +2286,9 @@ bool operator!=(const TextDocumentRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("documentSelector");
         if (member != Success) {
@@ -2312,6 +2335,10 @@ bool operator!=(const ImplementationOptions& lhs, const ImplementationOptions& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ImplementationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -2352,6 +2379,9 @@ bool operator!=(const ImplementationRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ImplementationRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -2401,6 +2431,9 @@ bool operator!=(const TypeDefinitionParams& lhs, const TypeDefinitionParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeDefinitionParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -2438,6 +2471,10 @@ bool operator!=(const TypeDefinitionOptions& lhs, const TypeDefinitionOptions& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeDefinitionOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -2478,6 +2515,9 @@ bool operator!=(const TypeDefinitionRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeDefinitionRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -2529,6 +2569,9 @@ bool operator!=(const WorkspaceFolder& lhs, const WorkspaceFolder& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceFolder& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -2598,6 +2641,9 @@ bool operator!=(const WorkspaceFoldersChangeEvent& lhs, const WorkspaceFoldersCh
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceFoldersChangeEvent& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("added");
         if (member != Success) {
@@ -2666,6 +2712,9 @@ bool operator!=(const DidChangeWorkspaceFoldersParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWorkspaceFoldersParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("event");
         if (member != Success) {
@@ -2718,6 +2767,9 @@ bool operator!=(const ConfigurationItem& lhs, const ConfigurationItem& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ConfigurationItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("scopeUri")) {
         Uri val;
         auto member = v.Get("scopeUri");
@@ -2787,6 +2839,9 @@ bool operator!=(const ConfigurationParams& lhs, const ConfigurationParams& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ConfigurationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("items");
         if (member != Success) {
@@ -2836,6 +2891,9 @@ bool operator!=(const DocumentColorParams& lhs, const DocumentColorParams& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentColorParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -2894,6 +2952,9 @@ bool operator!=(const Color& lhs, const Color& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Color& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("red");
         if (member != Success) {
@@ -2994,6 +3055,9 @@ bool operator!=(const ColorInformation& lhs, const ColorInformation& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorInformation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -3056,6 +3120,10 @@ bool operator!=(const DocumentColorOptions& lhs, const DocumentColorOptions& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentColorOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -3096,6 +3164,9 @@ bool operator!=(const DocumentColorRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentColorRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -3150,6 +3221,9 @@ bool operator!=(const ColorPresentationParams& lhs, const ColorPresentationParam
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorPresentationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -3234,6 +3308,9 @@ bool operator!=(const TextEdit& lhs, const TextEdit& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextEdit& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -3305,6 +3382,9 @@ bool operator!=(const ColorPresentation& lhs, const ColorPresentation& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ColorPresentation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("label");
         if (member != Success) {
@@ -3390,6 +3470,9 @@ bool operator!=(const WorkDoneProgressOptions& lhs, const WorkDoneProgressOption
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("workDoneProgress")) {
         Boolean val;
         auto member = v.Get("workDoneProgress");
@@ -3441,6 +3524,9 @@ bool operator!=(const FoldingRangeParams& lhs, const FoldingRangeParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRangeParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -3505,6 +3591,9 @@ bool operator!=(const FoldingRange& lhs, const FoldingRange& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRange& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("startLine");
         if (member != Success) {
@@ -3639,6 +3728,10 @@ bool operator!=(const FoldingRangeOptions& lhs, const FoldingRangeOptions& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FoldingRangeOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -3679,6 +3772,9 @@ bool operator!=(const FoldingRangeRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FoldingRangeRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -3728,6 +3824,9 @@ bool operator!=(const DeclarationParams& lhs, const DeclarationParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeclarationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -3765,6 +3864,10 @@ bool operator!=(const DeclarationOptions& lhs, const DeclarationOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeclarationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -3805,6 +3908,9 @@ bool operator!=(const DeclarationRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DeclarationRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<DeclarationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -3856,6 +3962,9 @@ bool operator!=(const SelectionRangeParams& lhs, const SelectionRangeParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRangeParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -3924,6 +4033,9 @@ bool operator!=(const SelectionRange& lhs, const SelectionRange& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRange& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -3988,6 +4100,10 @@ bool operator!=(const SelectionRangeOptions& lhs, const SelectionRangeOptions& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectionRangeOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -4028,6 +4144,9 @@ bool operator!=(const SelectionRangeRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SelectionRangeRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<SelectionRangeOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -4077,6 +4196,9 @@ bool operator!=(const WorkDoneProgressCreateParams& lhs, const WorkDoneProgressC
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkDoneProgressCreateParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("token");
         if (member != Success) {
@@ -4127,6 +4249,9 @@ bool operator!=(const WorkDoneProgressCancelParams& lhs, const WorkDoneProgressC
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkDoneProgressCancelParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("token");
         if (member != Success) {
@@ -4178,6 +4303,9 @@ bool operator!=(const CallHierarchyPrepareParams& lhs, const CallHierarchyPrepar
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyPrepareParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -4239,6 +4367,9 @@ bool operator!=(const CallHierarchyItem& lhs, const CallHierarchyItem& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("name");
         if (member != Success) {
@@ -4403,6 +4534,10 @@ bool operator!=(const CallHierarchyOptions& lhs, const CallHierarchyOptions& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -4443,6 +4578,9 @@ bool operator!=(const CallHierarchyRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -4494,6 +4632,9 @@ bool operator!=(const CallHierarchyIncomingCallsParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyIncomingCallsParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("item");
         if (member != Success) {
@@ -4546,6 +4687,9 @@ bool operator!=(const CallHierarchyIncomingCall& lhs, const CallHierarchyIncomin
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyIncomingCall& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("from");
         if (member != Success) {
@@ -4614,6 +4758,9 @@ bool operator!=(const CallHierarchyOutgoingCallsParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyOutgoingCallsParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("item");
         if (member != Success) {
@@ -4666,6 +4813,9 @@ bool operator!=(const CallHierarchyOutgoingCall& lhs, const CallHierarchyOutgoin
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CallHierarchyOutgoingCall& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("to");
         if (member != Success) {
@@ -4731,6 +4881,9 @@ bool operator!=(const SemanticTokensParams& lhs, const SemanticTokensParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -4783,6 +4936,9 @@ bool operator!=(const SemanticTokens& lhs, const SemanticTokens& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokens& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("resultId")) {
         String val;
         auto member = v.Get("resultId");
@@ -4851,6 +5007,9 @@ bool operator!=(const SemanticTokensPartialResult& lhs, const SemanticTokensPart
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensPartialResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("data");
         if (member != Success) {
@@ -4903,6 +5062,9 @@ bool operator!=(const SemanticTokensLegend& lhs, const SemanticTokensLegend& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensLegend& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("tokenTypes");
         if (member != Success) {
@@ -4968,6 +5130,9 @@ bool operator!=(const SemanticTokensFullDelta& lhs, const SemanticTokensFullDelt
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensFullDelta& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("delta")) {
         Boolean val;
         auto member = v.Get("delta");
@@ -5025,6 +5190,9 @@ bool operator!=(const SemanticTokensOptions& lhs, const SemanticTokensOptions& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("legend");
         if (member != Success) {
@@ -5107,6 +5275,10 @@ bool operator!=(const SemanticTokensOptions::Range& lhs, const SemanticTokensOpt
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensOptions::Range& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -5147,6 +5319,9 @@ bool operator!=(const SemanticTokensRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -5198,6 +5373,9 @@ bool operator!=(const SemanticTokensDeltaParams& lhs, const SemanticTokensDeltaP
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensDeltaParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -5269,6 +5447,9 @@ bool operator!=(const SemanticTokensEdit& lhs, const SemanticTokensEdit& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensEdit& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("start");
         if (member != Success) {
@@ -5355,6 +5536,9 @@ bool operator!=(const SemanticTokensDelta& lhs, const SemanticTokensDelta& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensDelta& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("resultId")) {
         String val;
         auto member = v.Get("resultId");
@@ -5425,6 +5609,9 @@ bool operator!=(const SemanticTokensDeltaPartialResult& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensDeltaPartialResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("edits");
         if (member != Success) {
@@ -5477,6 +5664,9 @@ bool operator!=(const SemanticTokensRangeParams& lhs, const SemanticTokensRangeP
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SemanticTokensRangeParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -5551,6 +5741,9 @@ bool operator!=(const ShowDocumentParams& lhs, const ShowDocumentParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -5654,6 +5847,9 @@ bool operator!=(const ShowDocumentResult& lhs, const ShowDocumentResult& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowDocumentResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("success");
         if (member != Success) {
@@ -5704,6 +5900,9 @@ bool operator!=(const LinkedEditingRangeParams& lhs, const LinkedEditingRangePar
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditingRangeParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -5747,6 +5946,9 @@ bool operator!=(const LinkedEditingRanges& lhs, const LinkedEditingRanges& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditingRanges& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("ranges");
         if (member != Success) {
@@ -5811,6 +6013,10 @@ bool operator!=(const LinkedEditingRangeOptions& lhs, const LinkedEditingRangeOp
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LinkedEditingRangeOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -5851,6 +6057,9 @@ bool operator!=(const LinkedEditingRangeRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] LinkedEditingRangeRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -5899,6 +6108,9 @@ bool operator!=(const FileCreate& lhs, const FileCreate& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileCreate& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -5948,6 +6160,9 @@ bool operator!=(const CreateFilesParams& lhs, const CreateFilesParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFilesParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("files");
         if (member != Success) {
@@ -6000,6 +6215,9 @@ bool operator!=(const ResourceOperation& lhs, const ResourceOperation& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ResourceOperation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("kind");
         if (member != Success) {
@@ -6070,6 +6288,9 @@ bool operator!=(const DeleteFileOptions& lhs, const DeleteFileOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFileOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("recursive")) {
         Boolean val;
         auto member = v.Get("recursive");
@@ -6145,6 +6366,9 @@ bool operator!=(const DeleteFile& lhs, const DeleteFile& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFile& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "delete"); res != Success) {
         return res.Failure();
     }
@@ -6226,6 +6450,9 @@ bool operator!=(const RenameFileOptions& lhs, const RenameFileOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFileOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("overwrite")) {
         Boolean val;
         auto member = v.Get("overwrite");
@@ -6304,6 +6531,9 @@ bool operator!=(const RenameFile& lhs, const RenameFile& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFile& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "rename"); res != Success) {
         return res.Failure();
     }
@@ -6401,6 +6631,9 @@ bool operator!=(const CreateFileOptions& lhs, const CreateFileOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFileOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("overwrite")) {
         Boolean val;
         auto member = v.Get("overwrite");
@@ -6476,6 +6709,9 @@ bool operator!=(const CreateFile& lhs, const CreateFile& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CreateFile& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "create"); res != Success) {
         return res.Failure();
     }
@@ -6561,6 +6797,9 @@ bool operator!=(const OptionalVersionedTextDocumentIdentifier& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] OptionalVersionedTextDocumentIdentifier& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("version");
         if (member != Success) {
@@ -6621,6 +6860,9 @@ bool operator!=(const AnnotatedTextEdit& lhs, const AnnotatedTextEdit& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] AnnotatedTextEdit& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("annotationId");
         if (member != Success) {
@@ -6679,6 +6921,9 @@ bool operator!=(const TextDocumentEdit& lhs, const TextDocumentEdit& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentEdit& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -6750,6 +6995,9 @@ bool operator!=(const ChangeAnnotation& lhs, const ChangeAnnotation& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ChangeAnnotation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("label");
         if (member != Success) {
@@ -6841,6 +7089,9 @@ bool operator!=(const WorkspaceEdit& lhs, const WorkspaceEdit& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceEdit& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("changes")) {
         std::unordered_map<DocumentUri, std::vector<lsp::TextEdit>> val;
         auto member = v.Get("changes");
@@ -6930,6 +7181,9 @@ bool operator!=(const FileOperationPatternOptions& lhs, const FileOperationPatte
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FileOperationPatternOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("ignoreCase")) {
         Boolean val;
         auto member = v.Get("ignoreCase");
@@ -6987,6 +7241,9 @@ bool operator!=(const FileOperationPattern& lhs, const FileOperationPattern& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperationPattern& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("glob");
         if (member != Success) {
@@ -7075,6 +7332,9 @@ bool operator!=(const FileOperationFilter& lhs, const FileOperationFilter& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperationFilter& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("scheme")) {
         String val;
         auto member = v.Get("scheme");
@@ -7145,6 +7405,9 @@ bool operator!=(const FileOperationRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FileOperationRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("filters");
         if (member != Success) {
@@ -7197,6 +7460,9 @@ bool operator!=(const FileRename& lhs, const FileRename& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileRename& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("oldUri");
         if (member != Success) {
@@ -7262,6 +7528,9 @@ bool operator!=(const RenameFilesParams& lhs, const RenameFilesParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameFilesParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("files");
         if (member != Success) {
@@ -7311,6 +7580,9 @@ bool operator!=(const FileDelete& lhs, const FileDelete& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileDelete& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -7360,6 +7632,9 @@ bool operator!=(const DeleteFilesParams& lhs, const DeleteFilesParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DeleteFilesParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("files");
         if (member != Success) {
@@ -7410,6 +7685,9 @@ bool operator!=(const MonikerParams& lhs, const MonikerParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -7459,6 +7737,9 @@ bool operator!=(const Moniker& lhs, const Moniker& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Moniker& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("scheme");
         if (member != Success) {
@@ -7555,6 +7836,10 @@ bool operator!=(const MonikerOptions& lhs, const MonikerOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -7592,6 +7877,9 @@ bool operator!=(const MonikerRegistrationOptions& lhs, const MonikerRegistration
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] MonikerRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -7642,6 +7930,9 @@ bool operator!=(const TypeHierarchyPrepareParams& lhs, const TypeHierarchyPrepar
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchyPrepareParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -7703,6 +7994,9 @@ bool operator!=(const TypeHierarchyItem& lhs, const TypeHierarchyItem& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeHierarchyItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("name");
         if (member != Success) {
@@ -7867,6 +8161,10 @@ bool operator!=(const TypeHierarchyOptions& lhs, const TypeHierarchyOptions& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TypeHierarchyOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -7907,6 +8205,9 @@ bool operator!=(const TypeHierarchyRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchyRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -7958,6 +8259,9 @@ bool operator!=(const TypeHierarchySupertypesParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchySupertypesParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("item");
         if (member != Success) {
@@ -8008,6 +8312,9 @@ bool operator!=(const TypeHierarchySubtypesParams& lhs, const TypeHierarchySubty
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchySubtypesParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("item");
         if (member != Success) {
@@ -8060,6 +8367,9 @@ bool operator!=(const InlineValueContext& lhs, const InlineValueContext& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueContext& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("frameId");
         if (member != Success) {
@@ -8131,6 +8441,9 @@ bool operator!=(const InlineValueParams& lhs, const InlineValueParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -8209,6 +8522,10 @@ bool operator!=(const InlineValueOptions& lhs, const InlineValueOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -8249,6 +8566,9 @@ bool operator!=(const InlineValueRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<InlineValueOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -8300,6 +8620,9 @@ bool operator!=(const InlayHintParams& lhs, const InlayHintParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -8368,6 +8691,9 @@ bool operator!=(const MarkupContent& lhs, const MarkupContent& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MarkupContent& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("kind");
         if (member != Success) {
@@ -8439,6 +8765,9 @@ bool operator!=(const Command& lhs, const Command& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Command& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("title");
         if (member != Success) {
@@ -8531,6 +8860,9 @@ bool operator!=(const InlayHintLabelPart& lhs, const InlayHintLabelPart& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintLabelPart& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("value");
         if (member != Success) {
@@ -8655,6 +8987,9 @@ bool operator!=(const InlayHint& lhs, const InlayHint& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHint& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("position");
         if (member != Success) {
@@ -8828,6 +9163,9 @@ bool operator!=(const InlayHintOptions& lhs, const InlayHintOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlayHintOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("resolveProvider")) {
         Boolean val;
         auto member = v.Get("resolveProvider");
@@ -8884,6 +9222,9 @@ bool operator!=(const InlayHintRegistrationOptions& lhs, const InlayHintRegistra
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlayHintRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<InlayHintOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -8938,6 +9279,9 @@ bool operator!=(const DocumentDiagnosticParams& lhs, const DocumentDiagnosticPar
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentDiagnosticParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -9026,6 +9370,9 @@ bool operator!=(const UnchangedDocumentDiagnosticReport& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] UnchangedDocumentDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "unchanged"); res != Success) {
         return res.Failure();
     }
@@ -9079,6 +9426,9 @@ bool operator!=(const CodeDescription& lhs, const CodeDescription& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeDescription& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("href");
         if (member != Success) {
@@ -9132,6 +9482,9 @@ bool operator!=(const DiagnosticRelatedInformation& lhs, const DiagnosticRelated
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticRelatedInformation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("location");
         if (member != Success) {
@@ -9221,6 +9574,9 @@ bool operator!=(const Diagnostic& lhs, const Diagnostic& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Diagnostic& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -9416,6 +9772,9 @@ bool operator!=(const FullDocumentDiagnosticReport& lhs, const FullDocumentDiagn
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FullDocumentDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "full"); res != Success) {
         return res.Failure();
     }
@@ -9490,6 +9849,9 @@ bool operator!=(const DocumentDiagnosticReportPartialResult& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentDiagnosticReportPartialResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("relatedDocuments");
         if (member != Success) {
@@ -9542,6 +9904,9 @@ bool operator!=(const DiagnosticServerCancellationData& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticServerCancellationData& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("retriggerRequest");
         if (member != Success) {
@@ -9597,6 +9962,9 @@ bool operator!=(const DiagnosticOptions& lhs, const DiagnosticOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DiagnosticOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("identifier")) {
         String val;
         auto member = v.Get("identifier");
@@ -9687,6 +10055,9 @@ bool operator!=(const DiagnosticRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -9738,6 +10109,9 @@ bool operator!=(const PreviousResultId& lhs, const PreviousResultId& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PreviousResultId& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -9806,6 +10180,9 @@ bool operator!=(const WorkspaceDiagnosticParams& lhs, const WorkspaceDiagnosticP
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceDiagnosticParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("identifier")) {
         String val;
         auto member = v.Get("identifier");
@@ -9873,6 +10250,9 @@ bool operator!=(const WorkspaceDiagnosticReport& lhs, const WorkspaceDiagnosticR
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("items");
         if (member != Success) {
@@ -9925,6 +10305,9 @@ bool operator!=(const WorkspaceDiagnosticReportPartialResult& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceDiagnosticReportPartialResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("items");
         if (member != Success) {
@@ -9977,6 +10360,9 @@ bool operator!=(const ExecutionSummary& lhs, const ExecutionSummary& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecutionSummary& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("executionOrder");
         if (member != Success) {
@@ -10053,6 +10439,9 @@ bool operator!=(const NotebookCell& lhs, const NotebookCell& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCell& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("kind");
         if (member != Success) {
@@ -10166,6 +10555,9 @@ bool operator!=(const NotebookDocument& lhs, const NotebookDocument& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookDocument& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -10290,6 +10682,9 @@ bool operator!=(const TextDocumentItem& lhs, const TextDocumentItem& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -10393,6 +10788,9 @@ bool operator!=(const DidOpenNotebookDocumentParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidOpenNotebookDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebookDocument");
         if (member != Success) {
@@ -10464,6 +10862,9 @@ bool operator!=(const VersionedNotebookDocumentIdentifier& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] VersionedNotebookDocumentIdentifier& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("version");
         if (member != Success) {
@@ -10535,6 +10936,9 @@ bool operator!=(const NotebookCellArrayChange& lhs, const NotebookCellArrayChang
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCellArrayChange& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("start");
         if (member != Success) {
@@ -10627,6 +11031,9 @@ bool operator!=(const NotebookDocumentCellChangeStructure& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentCellChangeStructure& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("array");
         if (member != Success) {
@@ -10719,6 +11126,9 @@ bool operator!=(const VersionedTextDocumentIdentifier& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] VersionedTextDocumentIdentifier& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("version");
         if (member != Success) {
@@ -10781,6 +11191,9 @@ bool operator!=(const NotebookDocumentCellContentChanges& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentCellContentChanges& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("document");
         if (member != Success) {
@@ -10853,6 +11266,9 @@ bool operator!=(const NotebookDocumentCellChanges& lhs, const NotebookDocumentCe
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentCellChanges& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("structure")) {
         lsp::NotebookDocumentCellChangeStructure val;
         auto member = v.Get("structure");
@@ -10944,6 +11360,9 @@ bool operator!=(const NotebookDocumentChangeEvent& lhs, const NotebookDocumentCh
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentChangeEvent& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("metadata")) {
         lsp::LSPObject val;
         auto member = v.Get("metadata");
@@ -11019,6 +11438,9 @@ bool operator!=(const DidChangeNotebookDocumentParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeNotebookDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebookDocument");
         if (member != Success) {
@@ -11085,6 +11507,9 @@ bool operator!=(const NotebookDocumentIdentifier& lhs, const NotebookDocumentIde
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentIdentifier& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -11137,6 +11562,9 @@ bool operator!=(const DidSaveNotebookDocumentParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidSaveNotebookDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebookDocument");
         if (member != Success) {
@@ -11192,6 +11620,9 @@ bool operator!=(const DidCloseNotebookDocumentParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidCloseNotebookDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebookDocument");
         if (member != Success) {
@@ -11260,6 +11691,9 @@ bool operator!=(const SelectedCompletionInfo& lhs, const SelectedCompletionInfo&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SelectedCompletionInfo& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -11328,6 +11762,9 @@ bool operator!=(const InlineCompletionContext& lhs, const InlineCompletionContex
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionContext& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("triggerKind");
         if (member != Success) {
@@ -11399,6 +11836,9 @@ bool operator!=(const InlineCompletionParams& lhs, const InlineCompletionParams&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("context");
         if (member != Success) {
@@ -11455,6 +11895,9 @@ bool operator!=(const StringValue& lhs, const StringValue& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] StringValue& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "snippet"); res != Success) {
         return res.Failure();
     }
@@ -11517,6 +11960,9 @@ bool operator!=(const InlineCompletionItem& lhs, const InlineCompletionItem& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("insertText");
         if (member != Success) {
@@ -11620,6 +12066,9 @@ bool operator!=(const InlineCompletionList& lhs, const InlineCompletionList& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionList& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("items");
         if (member != Success) {
@@ -11666,6 +12115,10 @@ bool operator!=(const InlineCompletionOptions& lhs, const InlineCompletionOption
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineCompletionOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -11706,6 +12159,9 @@ bool operator!=(const InlineCompletionRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineCompletionRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<InlineCompletionOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -11760,6 +12216,9 @@ bool operator!=(const Registration& lhs, const Registration& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Registration& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("id");
         if (member != Success) {
@@ -11843,6 +12302,9 @@ bool operator!=(const RegistrationParams& lhs, const RegistrationParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RegistrationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("registrations");
         if (member != Success) {
@@ -11895,6 +12357,9 @@ bool operator!=(const Unregistration& lhs, const Unregistration& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Unregistration& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("id");
         if (member != Success) {
@@ -11960,6 +12425,9 @@ bool operator!=(const UnregistrationParams& lhs, const UnregistrationParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] UnregistrationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("unregisterations");
         if (member != Success) {
@@ -12012,6 +12480,9 @@ bool operator!=(const ClientInfo& lhs, const ClientInfo& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientInfo& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("name");
         if (member != Success) {
@@ -12082,6 +12553,9 @@ bool operator!=(const ChangeAnnotationsSupportOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ChangeAnnotationsSupportOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("groupsOnLabel")) {
         Boolean val;
         auto member = v.Get("groupsOnLabel");
@@ -12148,6 +12622,9 @@ bool operator!=(const WorkspaceEditClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceEditClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("documentChanges")) {
         Boolean val;
         auto member = v.Get("documentChanges");
@@ -12274,6 +12751,9 @@ bool operator!=(const DidChangeConfigurationClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeConfigurationClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -12332,6 +12812,9 @@ bool operator!=(const DidChangeWatchedFilesClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWatchedFilesClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -12402,6 +12885,9 @@ bool operator!=(const ClientSymbolKindOptions& lhs, const ClientSymbolKindOption
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientSymbolKindOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("valueSet")) {
         std::vector<lsp::SymbolKind> val;
         auto member = v.Get("valueSet");
@@ -12453,6 +12939,9 @@ bool operator!=(const ClientSymbolTagOptions& lhs, const ClientSymbolTagOptions&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientSymbolTagOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("valueSet");
         if (member != Success) {
@@ -12503,6 +12992,9 @@ bool operator!=(const ClientSymbolResolveOptions& lhs, const ClientSymbolResolve
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSymbolResolveOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("properties");
         if (member != Success) {
@@ -12564,6 +13056,9 @@ bool operator!=(const WorkspaceSymbolClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceSymbolClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -12672,6 +13167,9 @@ bool operator!=(const ExecuteCommandClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ExecuteCommandClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -12726,6 +13224,9 @@ bool operator!=(const SemanticTokensWorkspaceClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensWorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("refreshSupport")) {
         Boolean val;
         auto member = v.Get("refreshSupport");
@@ -12781,6 +13282,9 @@ bool operator!=(const CodeLensWorkspaceClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeLensWorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("refreshSupport")) {
         Boolean val;
         auto member = v.Get("refreshSupport");
@@ -12853,6 +13357,9 @@ bool operator!=(const FileOperationClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FileOperationClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -13015,6 +13522,9 @@ bool operator!=(const InlineValueWorkspaceClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueWorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("refreshSupport")) {
         Boolean val;
         auto member = v.Get("refreshSupport");
@@ -13069,6 +13579,9 @@ bool operator!=(const InlayHintWorkspaceClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlayHintWorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("refreshSupport")) {
         Boolean val;
         auto member = v.Get("refreshSupport");
@@ -13123,6 +13636,9 @@ bool operator!=(const DiagnosticWorkspaceClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticWorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("refreshSupport")) {
         Boolean val;
         auto member = v.Get("refreshSupport");
@@ -13177,6 +13693,9 @@ bool operator!=(const FoldingRangeWorkspaceClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FoldingRangeWorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("refreshSupport")) {
         Boolean val;
         auto member = v.Get("refreshSupport");
@@ -13272,6 +13791,9 @@ bool operator!=(const WorkspaceClientCapabilities& lhs, const WorkspaceClientCap
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("applyEdit")) {
         Boolean val;
         auto member = v.Get("applyEdit");
@@ -13587,6 +14109,9 @@ bool operator!=(const TextDocumentSyncClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentSyncClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -13692,6 +14217,9 @@ bool operator!=(const CompletionItemTagOptions& lhs, const CompletionItemTagOpti
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionItemTagOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("valueSet");
         if (member != Success) {
@@ -13744,6 +14272,9 @@ bool operator!=(const ClientCompletionItemResolveOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCompletionItemResolveOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("properties");
         if (member != Success) {
@@ -13796,6 +14327,9 @@ bool operator!=(const ClientCompletionItemInsertTextModeOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCompletionItemInsertTextModeOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("valueSet");
         if (member != Success) {
@@ -13874,6 +14408,9 @@ bool operator!=(const ClientCompletionItemOptions& lhs, const ClientCompletionIt
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCompletionItemOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("snippetSupport")) {
         Boolean val;
         auto member = v.Get("snippetSupport");
@@ -14090,6 +14627,9 @@ bool operator!=(const ClientCompletionItemOptionsKind& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCompletionItemOptionsKind& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("valueSet")) {
         std::vector<lsp::CompletionItemKind> val;
         auto member = v.Get("valueSet");
@@ -14142,6 +14682,9 @@ bool operator!=(const CompletionListCapabilities& lhs, const CompletionListCapab
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CompletionListCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("itemDefaults")) {
         std::vector<String> val;
         auto member = v.Get("itemDefaults");
@@ -14209,6 +14752,9 @@ bool operator!=(const CompletionClientCapabilities& lhs, const CompletionClientC
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CompletionClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14353,6 +14899,9 @@ bool operator!=(const HoverClientCapabilities& lhs, const HoverClientCapabilitie
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14425,6 +14974,9 @@ bool operator!=(const ClientSignatureParameterInformationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSignatureParameterInformationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("labelOffsetSupport")) {
         Boolean val;
         auto member = v.Get("labelOffsetSupport");
@@ -14486,6 +15038,9 @@ bool operator!=(const ClientSignatureInformationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSignatureInformationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("documentationFormat")) {
         std::vector<lsp::MarkupKind> val;
         auto member = v.Get("documentationFormat");
@@ -14582,6 +15137,9 @@ bool operator!=(const SignatureHelpClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SignatureHelpClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14675,6 +15233,9 @@ bool operator!=(const DeclarationClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DeclarationClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14748,6 +15309,9 @@ bool operator!=(const DefinitionClientCapabilities& lhs, const DefinitionClientC
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DefinitionClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14823,6 +15387,9 @@ bool operator!=(const TypeDefinitionClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeDefinitionClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14898,6 +15465,9 @@ bool operator!=(const ImplementationClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ImplementationClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -14968,6 +15538,9 @@ bool operator!=(const ReferenceClientCapabilities& lhs, const ReferenceClientCap
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ReferenceClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15022,6 +15595,9 @@ bool operator!=(const DocumentHighlightClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentHighlightClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15088,6 +15664,9 @@ bool operator!=(const DocumentSymbolClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentSymbolClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15212,6 +15791,9 @@ bool operator!=(const ClientCodeActionKindOptions& lhs, const ClientCodeActionKi
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCodeActionKindOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("valueSet");
         if (member != Success) {
@@ -15264,6 +15846,9 @@ bool operator!=(const ClientCodeActionLiteralOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCodeActionLiteralOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("codeActionKind");
         if (member != Success) {
@@ -15316,6 +15901,9 @@ bool operator!=(const ClientCodeActionResolveOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientCodeActionResolveOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("properties");
         if (member != Success) {
@@ -15384,6 +15972,9 @@ bool operator!=(const CodeActionClientCapabilities& lhs, const CodeActionClientC
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeActionClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15544,6 +16135,9 @@ bool operator!=(const CodeLensClientCapabilities& lhs, const CodeLensClientCapab
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeLensClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15601,6 +16195,9 @@ bool operator!=(const DocumentLinkClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentLinkClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15673,6 +16270,9 @@ bool operator!=(const DocumentColorClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentColorClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15727,6 +16327,9 @@ bool operator!=(const DocumentFormattingClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentFormattingClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15784,6 +16387,9 @@ bool operator!=(const DocumentRangeFormattingClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentRangeFormattingClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15857,6 +16463,9 @@ bool operator!=(const DocumentOnTypeFormattingClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentOnTypeFormattingClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -15918,6 +16527,9 @@ bool operator!=(const RenameClientCapabilities& lhs, const RenameClientCapabilit
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -16026,6 +16638,9 @@ bool operator!=(const ClientFoldingRangeKindOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientFoldingRangeKindOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("valueSet")) {
         std::vector<lsp::FoldingRangeKind> val;
         auto member = v.Get("valueSet");
@@ -16077,6 +16692,9 @@ bool operator!=(const ClientFoldingRangeOptions& lhs, const ClientFoldingRangeOp
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientFoldingRangeOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("collapsedText")) {
         Boolean val;
         auto member = v.Get("collapsedText");
@@ -16143,6 +16761,9 @@ bool operator!=(const FoldingRangeClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] FoldingRangeClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -16269,6 +16890,9 @@ bool operator!=(const SelectionRangeClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SelectionRangeClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -16321,6 +16945,9 @@ bool operator!=(const ClientDiagnosticsTagOptions& lhs, const ClientDiagnosticsT
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientDiagnosticsTagOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("valueSet");
         if (member != Success) {
@@ -16385,6 +17012,9 @@ bool operator!=(const PublishDiagnosticsClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] PublishDiagnosticsClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("relatedInformation")) {
         Boolean val;
         auto member = v.Get("relatedInformation");
@@ -16511,6 +17141,9 @@ bool operator!=(const CallHierarchyClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CallHierarchyClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -16565,6 +17198,9 @@ bool operator!=(const ClientSemanticTokensRequestFullDelta& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSemanticTokensRequestFullDelta& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("delta")) {
         Boolean val;
         auto member = v.Get("delta");
@@ -16622,6 +17258,9 @@ bool operator!=(const ClientSemanticTokensRequestOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSemanticTokensRequestOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("range")) {
         OneOf<Boolean, lsp::ClientSemanticTokensRequestOptions::Range> val;
         auto member = v.Get("range");
@@ -16690,6 +17329,10 @@ bool operator!=(const ClientSemanticTokensRequestOptions::Range& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientSemanticTokensRequestOptions::Range& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -16750,6 +17393,9 @@ bool operator!=(const SemanticTokensClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SemanticTokensClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -16940,6 +17586,9 @@ bool operator!=(const LinkedEditingRangeClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] LinkedEditingRangeClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -16991,6 +17640,9 @@ bool operator!=(const MonikerClientCapabilities& lhs, const MonikerClientCapabil
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MonikerClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -17045,6 +17697,9 @@ bool operator!=(const TypeHierarchyClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TypeHierarchyClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -17099,6 +17754,9 @@ bool operator!=(const InlineValueClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -17153,6 +17811,9 @@ bool operator!=(const ClientInlayHintResolveOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientInlayHintResolveOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("properties");
         if (member != Success) {
@@ -17206,6 +17867,9 @@ bool operator!=(const InlayHintClientCapabilities& lhs, const InlayHintClientCap
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlayHintClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -17279,6 +17943,9 @@ bool operator!=(const DiagnosticClientCapabilities& lhs, const DiagnosticClientC
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DiagnosticClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -17351,6 +18018,9 @@ bool operator!=(const InlineCompletionClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineCompletionClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -17495,6 +18165,9 @@ bool operator!=(const TextDocumentClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("synchronization")) {
         lsp::TextDocumentSyncClientCapabilities val;
         auto member = v.Get("synchronization");
@@ -18092,6 +18765,9 @@ bool operator!=(const NotebookDocumentSyncClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentSyncClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("dynamicRegistration")) {
         Boolean val;
         auto member = v.Get("dynamicRegistration");
@@ -18164,6 +18840,9 @@ bool operator!=(const NotebookDocumentClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("synchronization");
         if (member != Success) {
@@ -18216,6 +18895,9 @@ bool operator!=(const ClientShowMessageActionItemOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ClientShowMessageActionItemOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("additionalPropertiesSupport")) {
         Boolean val;
         auto member = v.Get("additionalPropertiesSupport");
@@ -18270,6 +18952,9 @@ bool operator!=(const ShowMessageRequestClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ShowMessageRequestClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("messageActionItem")) {
         lsp::ClientShowMessageActionItemOptions val;
         auto member = v.Get("messageActionItem");
@@ -18324,6 +19009,9 @@ bool operator!=(const ShowDocumentClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ShowDocumentClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("support");
         if (member != Success) {
@@ -18379,6 +19067,9 @@ bool operator!=(const WindowClientCapabilities& lhs, const WindowClientCapabilit
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WindowClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("workDoneProgress")) {
         Boolean val;
         auto member = v.Get("workDoneProgress");
@@ -18470,6 +19161,9 @@ bool operator!=(const StaleRequestSupportOptions& lhs, const StaleRequestSupport
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] StaleRequestSupportOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("cancel");
         if (member != Success) {
@@ -18541,6 +19235,9 @@ bool operator!=(const RegularExpressionsClientCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] RegularExpressionsClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("engine");
         if (member != Success) {
@@ -18615,6 +19312,9 @@ bool operator!=(const MarkdownClientCapabilities& lhs, const MarkdownClientCapab
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] MarkdownClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("parser");
         if (member != Success) {
@@ -18709,6 +19409,9 @@ bool operator!=(const GeneralClientCapabilities& lhs, const GeneralClientCapabil
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] GeneralClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("staleRequestSupport")) {
         lsp::StaleRequestSupportOptions val;
         auto member = v.Get("staleRequestSupport");
@@ -18829,6 +19532,9 @@ bool operator!=(const ClientCapabilities& lhs, const ClientCapabilities& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ClientCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("workspace")) {
         lsp::WorkspaceClientCapabilities val;
         auto member = v.Get("workspace");
@@ -18991,6 +19697,9 @@ bool operator!=(const InitializeParamsBase& lhs, const InitializeParamsBase& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeParamsBase& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("processId");
         if (member != Success) {
@@ -19165,6 +19874,9 @@ bool operator!=(const WorkspaceFoldersInitializeParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceFoldersInitializeParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("workspaceFolders")) {
         OneOf<std::vector<lsp::WorkspaceFolder>, Null> val;
         auto member = v.Get("workspaceFolders");
@@ -19221,6 +19933,9 @@ bool operator!=(const InitializeParams& lhs, const InitializeParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<InitializeParamsBase&>(out)); res != Success) {
         return res.Failure();
     }
@@ -19269,6 +19984,9 @@ bool operator!=(const SaveOptions& lhs, const SaveOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SaveOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("includeText")) {
         Boolean val;
         auto member = v.Get("includeText");
@@ -19332,6 +20050,9 @@ bool operator!=(const TextDocumentSyncOptions& lhs, const TextDocumentSyncOption
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentSyncOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("openClose")) {
         Boolean val;
         auto member = v.Get("openClose");
@@ -19455,6 +20176,9 @@ bool operator!=(const NotebookCellLanguage& lhs, const NotebookCellLanguage& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] NotebookCellLanguage& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("language");
         if (member != Success) {
@@ -19510,6 +20234,9 @@ bool operator!=(const NotebookDocumentFilterWithCells& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterWithCells& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("notebook")) {
         OneOf<String, lsp::NotebookDocumentFilter> val;
         auto member = v.Get("notebook");
@@ -19583,6 +20310,9 @@ bool operator!=(const NotebookDocumentFilterWithNotebook& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterWithNotebook& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebook");
         if (member != Success) {
@@ -19654,6 +20384,9 @@ bool operator!=(const NotebookDocumentSyncOptions& lhs, const NotebookDocumentSy
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentSyncOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebookSelector");
         if (member != Success) {
@@ -19725,6 +20458,9 @@ bool operator!=(const NotebookDocumentSyncRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentSyncRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<NotebookDocumentSyncOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -19767,6 +20503,9 @@ bool operator!=(const ServerCompletionItemOptions& lhs, const ServerCompletionIt
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ServerCompletionItemOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("labelDetailsSupport")) {
         Boolean val;
         auto member = v.Get("labelDetailsSupport");
@@ -19827,6 +20566,9 @@ bool operator!=(const CompletionOptions& lhs, const CompletionOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("triggerCharacters")) {
         std::vector<String> val;
         auto member = v.Get("triggerCharacters");
@@ -19929,6 +20671,10 @@ bool operator!=(const HoverOptions& lhs, const HoverOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -19964,6 +20710,9 @@ bool operator!=(const SignatureHelpOptions& lhs, const SignatureHelpOptions& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelpOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("triggerCharacters")) {
         std::vector<String> val;
         auto member = v.Get("triggerCharacters");
@@ -20030,6 +20779,10 @@ bool operator!=(const DefinitionOptions& lhs, const DefinitionOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DefinitionOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -20059,6 +20812,10 @@ bool operator!=(const ReferenceOptions& lhs, const ReferenceOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -20088,6 +20845,10 @@ bool operator!=(const DocumentHighlightOptions& lhs, const DocumentHighlightOpti
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighlightOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -20120,6 +20881,9 @@ bool operator!=(const DocumentSymbolOptions& lhs, const DocumentSymbolOptions& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbolOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("label")) {
         String val;
         auto member = v.Get("label");
@@ -20174,6 +20938,9 @@ bool operator!=(const CodeActionOptions& lhs, const CodeActionOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("codeActionKinds")) {
         std::vector<lsp::CodeActionKind> val;
         auto member = v.Get("codeActionKinds");
@@ -20243,6 +21010,9 @@ bool operator!=(const CodeLensOptions& lhs, const CodeLensOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLensOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("resolveProvider")) {
         Boolean val;
         auto member = v.Get("resolveProvider");
@@ -20294,6 +21064,9 @@ bool operator!=(const DocumentLinkOptions& lhs, const DocumentLinkOptions& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLinkOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("resolveProvider")) {
         Boolean val;
         auto member = v.Get("resolveProvider");
@@ -20345,6 +21118,9 @@ bool operator!=(const WorkspaceSymbolOptions& lhs, const WorkspaceSymbolOptions&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymbolOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("resolveProvider")) {
         Boolean val;
         auto member = v.Get("resolveProvider");
@@ -20393,6 +21169,10 @@ bool operator!=(const DocumentFormattingOptions& lhs, const DocumentFormattingOp
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentFormattingOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -20428,6 +21208,9 @@ bool operator!=(const DocumentRangeFormattingOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentRangeFormattingOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("rangesSupport")) {
         Boolean val;
         auto member = v.Get("rangesSupport");
@@ -20485,6 +21268,9 @@ bool operator!=(const DocumentOnTypeFormattingOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentOnTypeFormattingOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("firstTriggerCharacter");
         if (member != Success) {
@@ -20552,6 +21338,9 @@ bool operator!=(const RenameOptions& lhs, const RenameOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("prepareProvider")) {
         Boolean val;
         auto member = v.Get("prepareProvider");
@@ -20603,6 +21392,9 @@ bool operator!=(const ExecuteCommandOptions& lhs, const ExecuteCommandOptions& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecuteCommandOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("commands");
         if (member != Success) {
@@ -20658,6 +21450,9 @@ bool operator!=(const WorkspaceFoldersServerCapabilities& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceFoldersServerCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("supported")) {
         Boolean val;
         auto member = v.Get("supported");
@@ -20742,6 +21537,9 @@ bool operator!=(const FileOperationOptions& lhs, const FileOperationOptions& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileOperationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("didCreate")) {
         lsp::FileOperationRegistrationOptions val;
         auto member = v.Get("didCreate");
@@ -20886,6 +21684,9 @@ bool operator!=(const WorkspaceOptions& lhs, const WorkspaceOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("workspaceFolders")) {
         lsp::WorkspaceFoldersServerCapabilities val;
         auto member = v.Get("workspaceFolders");
@@ -21060,6 +21861,9 @@ bool operator!=(const ServerCapabilities& lhs, const ServerCapabilities& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ServerCapabilities& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("positionEncoding")) {
         lsp::PositionEncodingKind val;
         auto member = v.Get("positionEncoding");
@@ -21745,6 +22549,9 @@ bool operator!=(const ServerInfo& lhs, const ServerInfo& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ServerInfo& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("name");
         if (member != Success) {
@@ -21815,6 +22622,9 @@ bool operator!=(const InitializeResult& lhs, const InitializeResult& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("capabilities");
         if (member != Success) {
@@ -21882,6 +22692,9 @@ bool operator!=(const InitializeError& lhs, const InitializeError& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializeError& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("retry");
         if (member != Success) {
@@ -21928,6 +22741,10 @@ bool operator!=(const InitializedParams& lhs, const InitializedParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InitializedParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
+
     return Success;
 }
 
@@ -21961,6 +22778,9 @@ bool operator!=(const DidChangeConfigurationParams& lhs, const DidChangeConfigur
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeConfigurationParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("settings");
         if (member != Success) {
@@ -22013,6 +22833,9 @@ bool operator!=(const DidChangeConfigurationRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeConfigurationRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("section")) {
         OneOf<String, std::vector<String>> val;
         auto member = v.Get("section");
@@ -22068,6 +22891,9 @@ bool operator!=(const ShowMessageParams& lhs, const ShowMessageParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowMessageParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("type");
         if (member != Success) {
@@ -22133,6 +22959,9 @@ bool operator!=(const MessageActionItem& lhs, const MessageActionItem& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MessageActionItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("title");
         if (member != Success) {
@@ -22188,6 +23017,9 @@ bool operator!=(const ShowMessageRequestParams& lhs, const ShowMessageRequestPar
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ShowMessageRequestParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("type");
         if (member != Success) {
@@ -22274,6 +23106,9 @@ bool operator!=(const LogMessageParams& lhs, const LogMessageParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LogMessageParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("type");
         if (member != Success) {
@@ -22339,6 +23174,9 @@ bool operator!=(const DidOpenTextDocumentParams& lhs, const DidOpenTextDocumentP
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DidOpenTextDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -22392,6 +23230,9 @@ bool operator!=(const DidChangeTextDocumentParams& lhs, const DidChangeTextDocum
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeTextDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -22464,6 +23305,9 @@ bool operator!=(const TextDocumentChangeRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentChangeRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("syncKind");
         if (member != Success) {
@@ -22522,6 +23366,9 @@ bool operator!=(const DidCloseTextDocumentParams& lhs, const DidCloseTextDocumen
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidCloseTextDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -22574,6 +23421,9 @@ bool operator!=(const DidSaveTextDocumentParams& lhs, const DidSaveTextDocumentP
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DidSaveTextDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -22648,6 +23498,9 @@ bool operator!=(const TextDocumentSaveRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentSaveRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -22699,6 +23552,9 @@ bool operator!=(const WillSaveTextDocumentParams& lhs, const WillSaveTextDocumen
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WillSaveTextDocumentParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -22767,6 +23623,9 @@ bool operator!=(const FileEvent& lhs, const FileEvent& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileEvent& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -22833,6 +23692,9 @@ bool operator!=(const DidChangeWatchedFilesParams& lhs, const DidChangeWatchedFi
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWatchedFilesParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("changes");
         if (member != Success) {
@@ -22885,6 +23747,9 @@ bool operator!=(const FileSystemWatcher& lhs, const FileSystemWatcher& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FileSystemWatcher& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("globPattern");
         if (member != Success) {
@@ -22955,6 +23820,9 @@ bool operator!=(const DidChangeWatchedFilesRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DidChangeWatchedFilesRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("watchers");
         if (member != Success) {
@@ -23011,6 +23879,9 @@ bool operator!=(const PublishDiagnosticsParams& lhs, const PublishDiagnosticsPar
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PublishDiagnosticsParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -23097,6 +23968,9 @@ bool operator!=(const CompletionContext& lhs, const CompletionContext& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionContext& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("triggerKind");
         if (member != Success) {
@@ -23168,6 +24042,9 @@ bool operator!=(const CompletionParams& lhs, const CompletionParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("context")) {
         lsp::CompletionContext val;
         auto member = v.Get("context");
@@ -23230,6 +24107,9 @@ bool operator!=(const CompletionItemLabelDetails& lhs, const CompletionItemLabel
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CompletionItemLabelDetails& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("detail")) {
         String val;
         auto member = v.Get("detail");
@@ -23305,6 +24185,9 @@ bool operator!=(const InsertReplaceEdit& lhs, const InsertReplaceEdit& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InsertReplaceEdit& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("newText");
         if (member != Success) {
@@ -23440,6 +24323,9 @@ bool operator!=(const CompletionItem& lhs, const CompletionItem& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionItem& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("label");
         if (member != Success) {
@@ -23817,6 +24703,9 @@ bool operator!=(const EditRangeWithInsertReplace& lhs, const EditRangeWithInsert
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] EditRangeWithInsertReplace& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("insert");
         if (member != Success) {
@@ -23894,6 +24783,9 @@ bool operator!=(const CompletionItemDefaults& lhs, const CompletionItemDefaults&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionItemDefaults& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("commitCharacters")) {
         std::vector<String> val;
         auto member = v.Get("commitCharacters");
@@ -24023,6 +24915,9 @@ bool operator!=(const CompletionList& lhs, const CompletionList& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CompletionList& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("isIncomplete");
         if (member != Success) {
@@ -24113,6 +25008,9 @@ bool operator!=(const CompletionRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CompletionRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -24162,6 +25060,9 @@ bool operator!=(const HoverParams& lhs, const HoverParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -24205,6 +25106,9 @@ bool operator!=(const Hover& lhs, const Hover& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] Hover& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("contents");
         if (member != Success) {
@@ -24276,6 +25180,9 @@ bool operator!=(const HoverRegistrationOptions& lhs, const HoverRegistrationOpti
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] HoverRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -24327,6 +25234,9 @@ bool operator!=(const ParameterInformation& lhs, const ParameterInformation& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ParameterInformation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("label");
         if (member != Success) {
@@ -24403,6 +25313,9 @@ bool operator!=(const SignatureInformation& lhs, const SignatureInformation& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureInformation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("label");
         if (member != Success) {
@@ -24512,6 +25425,9 @@ bool operator!=(const SignatureHelp& lhs, const SignatureHelp& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelp& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("signatures");
         if (member != Success) {
@@ -24606,6 +25522,9 @@ bool operator!=(const SignatureHelpContext& lhs, const SignatureHelpContext& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelpContext& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("triggerKind");
         if (member != Success) {
@@ -24711,6 +25630,9 @@ bool operator!=(const SignatureHelpParams& lhs, const SignatureHelpParams& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SignatureHelpParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("context")) {
         lsp::SignatureHelpContext val;
         auto member = v.Get("context");
@@ -24777,6 +25699,9 @@ bool operator!=(const SignatureHelpRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] SignatureHelpRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -24826,6 +25751,9 @@ bool operator!=(const DefinitionParams& lhs, const DefinitionParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DefinitionParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -24873,6 +25801,9 @@ bool operator!=(const DefinitionRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DefinitionRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -24921,6 +25852,9 @@ bool operator!=(const ReferenceContext& lhs, const ReferenceContext& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceContext& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("includeDeclaration");
         if (member != Success) {
@@ -24974,6 +25908,9 @@ bool operator!=(const ReferenceParams& lhs, const ReferenceParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ReferenceParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("context");
         if (member != Success) {
@@ -25035,6 +25972,9 @@ bool operator!=(const ReferenceRegistrationOptions& lhs, const ReferenceRegistra
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ReferenceRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -25084,6 +26024,9 @@ bool operator!=(const DocumentHighlightParams& lhs, const DocumentHighlightParam
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighlightParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -25127,6 +26070,9 @@ bool operator!=(const DocumentHighlight& lhs, const DocumentHighlight& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentHighlight& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -25202,6 +26148,9 @@ bool operator!=(const DocumentHighlightRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentHighlightRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -25250,6 +26199,9 @@ bool operator!=(const DocumentSymbolParams& lhs, const DocumentSymbolParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbolParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -25308,6 +26260,9 @@ bool operator!=(const BaseSymbolInformation& lhs, const BaseSymbolInformation& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] BaseSymbolInformation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("name");
         if (member != Success) {
@@ -25416,6 +26371,9 @@ bool operator!=(const SymbolInformation& lhs, const SymbolInformation& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SymbolInformation& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("deprecated")) {
         Boolean val;
         auto member = v.Get("deprecated");
@@ -25511,6 +26469,9 @@ bool operator!=(const DocumentSymbol& lhs, const DocumentSymbol& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentSymbol& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("name");
         if (member != Success) {
@@ -25688,6 +26649,9 @@ bool operator!=(const DocumentSymbolRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentSymbolRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -25742,6 +26706,9 @@ bool operator!=(const CodeActionContext& lhs, const CodeActionContext& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionContext& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("diagnostics");
         if (member != Success) {
@@ -25833,6 +26800,9 @@ bool operator!=(const CodeActionParams& lhs, const CodeActionParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -25914,6 +26884,9 @@ bool operator!=(const CodeActionDisabled& lhs, const CodeActionDisabled& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeActionDisabled& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("reason");
         if (member != Success) {
@@ -25984,6 +26957,9 @@ bool operator!=(const CodeAction& lhs, const CodeAction& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeAction& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("title");
         if (member != Success) {
@@ -26166,6 +27142,9 @@ bool operator!=(const CodeActionRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeActionRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -26214,6 +27193,9 @@ bool operator!=(const WorkspaceSymbolParams& lhs, const WorkspaceSymbolParams& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymbolParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("query");
         if (member != Success) {
@@ -26263,6 +27245,9 @@ bool operator!=(const LocationUriOnly& lhs, const LocationUriOnly& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LocationUriOnly& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -26319,6 +27304,9 @@ bool operator!=(const WorkspaceSymbol& lhs, const WorkspaceSymbol& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkspaceSymbol& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("location");
         if (member != Success) {
@@ -26397,6 +27385,9 @@ bool operator!=(const WorkspaceSymbolRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceSymbolRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<WorkspaceSymbolOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -26437,6 +27428,9 @@ bool operator!=(const CodeLensParams& lhs, const CodeLensParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLensParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -26492,6 +27486,9 @@ bool operator!=(const CodeLens& lhs, const CodeLens& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CodeLens& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -26582,6 +27579,9 @@ bool operator!=(const CodeLensRegistrationOptions& lhs, const CodeLensRegistrati
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] CodeLensRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -26630,6 +27630,9 @@ bool operator!=(const DocumentLinkParams& lhs, const DocumentLinkParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLinkParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -26688,6 +27691,9 @@ bool operator!=(const DocumentLink& lhs, const DocumentLink& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentLink& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -26799,6 +27805,9 @@ bool operator!=(const DocumentLinkRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentLinkRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -26859,6 +27868,9 @@ bool operator!=(const FormattingOptions& lhs, const FormattingOptions& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] FormattingOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("tabSize");
         if (member != Success) {
@@ -26981,6 +27993,9 @@ bool operator!=(const DocumentFormattingParams& lhs, const DocumentFormattingPar
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] DocumentFormattingParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -27054,6 +28069,9 @@ bool operator!=(const DocumentFormattingRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentFormattingRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -27111,6 +28129,9 @@ bool operator!=(const DocumentRangeFormattingParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentRangeFormattingParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -27200,6 +28221,9 @@ bool operator!=(const DocumentRangeFormattingRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentRangeFormattingRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -27259,6 +28283,9 @@ bool operator!=(const DocumentRangesFormattingParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentRangesFormattingParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -27352,6 +28379,9 @@ bool operator!=(const DocumentOnTypeFormattingParams& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentOnTypeFormattingParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -27457,6 +28487,9 @@ bool operator!=(const DocumentOnTypeFormattingRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] DocumentOnTypeFormattingRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -27513,6 +28546,9 @@ bool operator!=(const RenameParams& lhs, const RenameParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("textDocument");
         if (member != Success) {
@@ -27598,6 +28634,9 @@ bool operator!=(const RenameRegistrationOptions& lhs, const RenameRegistrationOp
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RenameRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentRegistrationOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -27647,6 +28686,9 @@ bool operator!=(const PrepareRenameParams& lhs, const PrepareRenameParams& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PrepareRenameParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<TextDocumentPositionParams&>(out)); res != Success) {
         return res.Failure();
     }
@@ -27690,6 +28732,9 @@ bool operator!=(const ExecuteCommandParams& lhs, const ExecuteCommandParams& rhs
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ExecuteCommandParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("command");
         if (member != Success) {
@@ -27761,6 +28806,9 @@ bool operator!=(const ExecuteCommandRegistrationOptions& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] ExecuteCommandRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = Decode(v, static_cast<ExecuteCommandOptions&>(out)); res != Success) {
         return res.Failure();
     }
@@ -27804,6 +28852,9 @@ bool operator!=(const ApplyWorkspaceEditParams& lhs, const ApplyWorkspaceEditPar
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ApplyWorkspaceEditParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("label")) {
         String val;
         auto member = v.Get("label");
@@ -27877,6 +28928,9 @@ bool operator!=(const ApplyWorkspaceEditResult& lhs, const ApplyWorkspaceEditRes
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ApplyWorkspaceEditResult& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("applied");
         if (member != Success) {
@@ -27971,6 +29025,9 @@ bool operator!=(const WorkDoneProgressBegin& lhs, const WorkDoneProgressBegin& r
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressBegin& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "begin"); res != Success) {
         return res.Failure();
     }
@@ -28084,6 +29141,9 @@ bool operator!=(const WorkDoneProgressReport& lhs, const WorkDoneProgressReport&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "report"); res != Success) {
         return res.Failure();
     }
@@ -28175,6 +29235,9 @@ bool operator!=(const WorkDoneProgressEnd& lhs, const WorkDoneProgressEnd& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressEnd& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (auto res = MatchKind(v, "end"); res != Success) {
         return res.Failure();
     }
@@ -28230,6 +29293,9 @@ bool operator!=(const SetTraceParams& lhs, const SetTraceParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] SetTraceParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("value");
         if (member != Success) {
@@ -28282,6 +29348,9 @@ bool operator!=(const LogTraceParams& lhs, const LogTraceParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LogTraceParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("message");
         if (member != Success) {
@@ -28349,6 +29418,9 @@ bool operator!=(const CancelParams& lhs, const CancelParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] CancelParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("id");
         if (member != Success) {
@@ -28401,6 +29473,9 @@ bool operator!=(const ProgressParams& lhs, const ProgressParams& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] ProgressParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("token");
         if (member != Success) {
@@ -28466,6 +29541,9 @@ bool operator!=(const WorkDoneProgressParams& lhs, const WorkDoneProgressParams&
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] WorkDoneProgressParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("workDoneToken")) {
         lsp::ProgressToken val;
         auto member = v.Get("workDoneToken");
@@ -28517,6 +29595,9 @@ bool operator!=(const PartialResultParams& lhs, const PartialResultParams& rhs) 
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PartialResultParams& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("partialResultToken")) {
         lsp::ProgressToken val;
         auto member = v.Get("partialResultToken");
@@ -28577,6 +29658,9 @@ bool operator!=(const LocationLink& lhs, const LocationLink& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] LocationLink& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("originSelectionRange")) {
         lsp::Range val;
         auto member = v.Get("originSelectionRange");
@@ -28676,6 +29760,9 @@ bool operator!=(const StaticRegistrationOptions& lhs, const StaticRegistrationOp
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] StaticRegistrationOptions& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("id")) {
         String val;
         auto member = v.Get("id");
@@ -28730,6 +29817,9 @@ bool operator!=(const InlineValueText& lhs, const InlineValueText& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueText& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -28801,6 +29891,9 @@ bool operator!=(const InlineValueVariableLookup& lhs, const InlineValueVariableL
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] InlineValueVariableLookup& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -28890,6 +29983,9 @@ bool operator!=(const InlineValueEvaluatableExpression& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] InlineValueEvaluatableExpression& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -28964,6 +30060,9 @@ bool operator!=(const RelatedFullDocumentDiagnosticReport& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] RelatedFullDocumentDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("relatedDocuments")) {
         std::unordered_map<DocumentUri, OneOf<lsp::FullDocumentDiagnosticReport,
                                               lsp::UnchangedDocumentDiagnosticReport>>
@@ -29031,6 +30130,9 @@ bool operator!=(const RelatedUnchangedDocumentDiagnosticReport& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] RelatedUnchangedDocumentDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("relatedDocuments")) {
         std::unordered_map<DocumentUri, OneOf<lsp::FullDocumentDiagnosticReport,
                                               lsp::UnchangedDocumentDiagnosticReport>>
@@ -29097,6 +30199,9 @@ bool operator!=(const PrepareRenamePlaceholder& lhs, const PrepareRenamePlacehol
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] PrepareRenamePlaceholder& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -29163,6 +30268,9 @@ bool operator!=(const PrepareRenameDefaultBehavior& lhs, const PrepareRenameDefa
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] PrepareRenameDefaultBehavior& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("defaultBehavior");
         if (member != Success) {
@@ -29222,6 +30330,9 @@ bool operator!=(const WorkspaceFullDocumentDiagnosticReport& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceFullDocumentDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -29304,6 +30415,9 @@ bool operator!=(const WorkspaceUnchangedDocumentDiagnosticReport& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] WorkspaceUnchangedDocumentDiagnosticReport& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("uri");
         if (member != Success) {
@@ -29388,6 +30502,9 @@ bool operator!=(const TextDocumentContentChangePartial& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentContentChangePartial& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("range");
         if (member != Success) {
@@ -29474,6 +30591,9 @@ bool operator!=(const TextDocumentContentChangeWholeDocument& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentContentChangeWholeDocument& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("text");
         if (member != Success) {
@@ -29526,6 +30646,9 @@ bool operator!=(const MarkedStringWithLanguage& lhs, const MarkedStringWithLangu
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] MarkedStringWithLanguage& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("language");
         if (member != Success) {
@@ -29597,6 +30720,9 @@ bool operator!=(const NotebookCellTextDocumentFilter& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookCellTextDocumentFilter& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebook");
         if (member != Success) {
@@ -29667,6 +30793,9 @@ bool operator!=(const RelativePattern& lhs, const RelativePattern& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] RelativePattern& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("baseUri");
         if (member != Success) {
@@ -29739,6 +30868,9 @@ bool operator!=(const TextDocumentFilterLanguage& lhs, const TextDocumentFilterL
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] TextDocumentFilterLanguage& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("language");
         if (member != Success) {
@@ -29830,6 +30962,9 @@ bool operator!=(const TextDocumentFilterScheme& lhs, const TextDocumentFilterSch
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentFilterScheme& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("language")) {
         String val;
         auto member = v.Get("language");
@@ -29921,6 +31056,9 @@ bool operator!=(const TextDocumentFilterPattern& lhs, const TextDocumentFilterPa
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] TextDocumentFilterPattern& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("language")) {
         String val;
         auto member = v.Get("language");
@@ -30015,6 +31153,9 @@ bool operator!=(const NotebookDocumentFilterNotebookType& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterNotebookType& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     {
         auto member = v.Get("notebookType");
         if (member != Success) {
@@ -30107,6 +31248,9 @@ bool operator!=(const NotebookDocumentFilterScheme& lhs, const NotebookDocumentF
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterScheme& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("notebookType")) {
         String val;
         auto member = v.Get("notebookType");
@@ -30201,6 +31345,9 @@ bool operator!=(const NotebookDocumentFilterPattern& lhs,
 
 Result<SuccessType> Decode([[maybe_unused]] V& v,
                            [[maybe_unused]] NotebookDocumentFilterPattern& out) {
+    if (v.Kind() != json::Kind::kObject) {
+        return Failure{"value is not object"};
+    }
     if (v.Has("notebookType")) {
         String val;
         auto member = v.Get("notebookType");
