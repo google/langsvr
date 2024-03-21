@@ -33,7 +33,9 @@
 
 #include <utility>
 
+#include "langsvr/json/types.h"
 #include "langsvr/lsp/decode.h"
+#include "langsvr/result.h"
 
 namespace langsvr::lsp {
 
@@ -119,6 +121,9 @@ bool operator!=(const {{$name}}& lhs, const {{$name}}& rhs) {
 }
 
 Result<SuccessType> Decode([[maybe_unused]] V& v, [[maybe_unused]] {{$name}}& out) {
+  if (v.Kind() != json::Kind::kObject) {
+      return Failure{"value is not object"};
+  }
 {{-   if .Kind}}
   if (auto res = MatchKind(v, "{{.Kind}}"); res != Success) {
     return res.Failure();

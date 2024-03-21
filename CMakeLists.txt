@@ -130,13 +130,15 @@ if(LANGSVR_BUILD_TESTS)
         src/buffer_reader_test.cc
         src/buffer_writer_test.cc
         src/content_stream_test.cc
+        src/json/builder_test.cc
+        src/lsp/decode_test.cc
+        src/lsp/encode_test.cc
         src/one_of_test.cc
         src/optional_test.cc
         src/result_test.cc
         src/session_test.cc
         src/span_test.cc
         src/traits_test.cc
-        src/json/builder_test.cc
         src/utils/block_allocator_test.cc
     )
 
