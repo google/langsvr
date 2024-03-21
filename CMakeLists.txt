@@ -88,6 +88,7 @@ add_library(langsvr
     include/langsvr/json/builder.h
     include/langsvr/json/types.h
     include/langsvr/json/value.h
+    include/langsvr/lsp/comparators.h
     include/langsvr/lsp/decode.h
     include/langsvr/lsp/encode.h
     include/langsvr/lsp/lsp.h
@@ -131,6 +132,7 @@ if(LANGSVR_BUILD_TESTS)
         src/buffer_writer_test.cc
         src/content_stream_test.cc
         src/json/builder_test.cc
+        src/lsp/comparators_test.cc
         src/lsp/decode_test.cc
         src/lsp/encode_test.cc
         src/one_of_test.cc
