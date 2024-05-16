@@ -71,7 +71,7 @@ struct OneOf {
     /// Copy assignment operator
     OneOf& operator=(const OneOf& other) {
         Reset();
-        auto copy = [&](auto* p) {
+        auto copy = [this](auto* p) {
             if (p) {
                 ptr = new std::decay_t<decltype(*p)>(*p);
                 return true;
