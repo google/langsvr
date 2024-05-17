@@ -73,7 +73,7 @@ struct OneOf {
         Reset();
         auto copy = [this](auto* p) {
             if (p) {
-                ptr = new std::decay_t<decltype(*p)>(*p);
+                this->ptr = new std::decay_t<decltype(*p)>(*p);
                 return true;
             }
             return false;
