@@ -75,6 +75,7 @@ Result<SuccessType> Session::Receive(std::string_view json) {
 
         std::array response_members{
             json::Builder::Member{"id", json_builder->I64(id.Get())},
+            json::Builder::Member{"jsonrpc", json_builder->String("2.0")},
             result.Get(),
         };
 
