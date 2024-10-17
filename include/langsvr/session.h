@@ -97,6 +97,7 @@ class Session {
         auto b = json::Builder::Create();
         auto id = next_request_id_++;
         std::vector<json::Builder::Member> members{
+            json::Builder::Member{"jsonrpc", b->String("2.0")},
             json::Builder::Member{"id", b->I64(id)},
             json::Builder::Member{"method", b->String(Request::kMethod)},
         };
@@ -157,6 +158,7 @@ class Session {
         using Notification = std::decay_t<T>;
         auto b = json::Builder::Create();
         std::vector<json::Builder::Member> members{
+            json::Builder::Member{"jsonrpc", b->String("2.0")},
             json::Builder::Member{"method", b->String(Notification::kMethod)},
         };
         if constexpr (Notification::kHasParams) {
